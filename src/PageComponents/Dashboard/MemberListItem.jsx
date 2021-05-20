@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiBox } from 'react-icons/fi';
 import { Flex, Avatar, Text } from '@chakra-ui/react';
-const MemberListItem = () => {
+const MemberListItem = ({ name }) => {
 	return (
 		<React.Fragment>
 			<Flex
@@ -12,8 +12,8 @@ const MemberListItem = () => {
 				_hover={{ bg: 'gray.600' }}
 			>
 				<Flex alignItems="center">
-					<Avatar name="John Doe" />
-					<Text px="5"> John Doe </Text>
+					<Avatar name={name} />
+					<Text px="5"> {name} </Text>
 				</Flex>
 				<Text px="4" color="gray.400" fontSize="sm">
 					Role

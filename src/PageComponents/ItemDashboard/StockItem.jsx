@@ -1,7 +1,7 @@
 import React from 'react';
-import { Flex, Avatar, Text } from '@chakra-ui/react';
-import { AddIcon } from '@chakra-ui/icons';
-const ActivityItem = () => {
+import { Flex, Icon, Text } from '@chakra-ui/react';
+import { BiPackage, BiTrendingUp } from 'react-icons/bi';
+const StockItem = () => {
 	return (
 		<React.Fragment>
 			<Flex
@@ -12,11 +12,10 @@ const ActivityItem = () => {
 				_hover={{ bg: 'gray.600' }}
 			>
 				<Flex alignItems="center">
-					<Avatar name="John Doe" />
-					<Text px="5"> John Doe </Text>
+					<Icon boxSize={8} as={BiPackage} />
+					<Text px="5">Expires: {new Date().toDateString()} </Text>
 				</Flex>
 				<Flex alignItems="center">
-					<AddIcon boxSize={3} color="green.600" />
 					<Text px="4" fontSize="3xl">
 						5
 					</Text>
@@ -26,4 +25,4 @@ const ActivityItem = () => {
 	);
 };
 
-export default ActivityItem;
+export default StockItem;

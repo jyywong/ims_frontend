@@ -15,11 +15,6 @@ const SearchBar = () => {
 				height="5rem"
 				alignItems="center"
 			>
-				{/* <SearchIcon boxSize={7} color="whiteAlpha.500" />
-				<Text pl="4" fontSize="xl" color="whiteAlpha.500">
-					Search
-				</Text> */}
-
 				<Flex mx="6" width="80%">
 					{/* <InputLeftElement pointerEvents="none" children={<SearchIcon boxSize={7} />} /> */}
 					<Input placeholder="Search" />

@@ -28,7 +28,12 @@ const SimpleCard = ({ colorMode, number, description, icon, iconBGcolor }) => {
 					>
 						{number}
 					</Text>
-					<Text m="2" display={{ xl: 'block', sm: 'inline' }} fontSize="sm" as="i">
+					<Text
+						m={{ xl: '0', sm: '2' }}
+						display={{ xl: 'block', sm: 'inline' }}
+						fontSize={{ xl: 'sm', md: 'xs' }}
+						as="i"
+					>
 						{description}
 					</Text>
 				</Box>

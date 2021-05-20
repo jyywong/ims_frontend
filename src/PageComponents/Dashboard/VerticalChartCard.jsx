@@ -23,7 +23,7 @@ const VerticalChartCard = ({ colorMode }) => {
 				>
 					<Text fontSize="lg"> State of the lab</Text>
 				</Flex>
-				<Box my="8" width="60%">
+				<Flex my="8" height="25%" width="60%" alignItems="center">
 					<Pie
 						data={{
 							datasets: [
@@ -36,10 +36,11 @@ const VerticalChartCard = ({ colorMode }) => {
 							]
 						}}
 						options={{
-							maintainAspectRatio: true
+							responsive: true,
+							maintainAspectRatio: false
 						}}
 					/>
-				</Box>
+				</Flex>
 				<Flex direction={{ xl: 'column', md: 'row' }} height="40%" width="full" my="4" p="4">
 					<Flex alignItems="center" p="2">
 						<Box height="10px" width="20px" bg="rgb(54, 162, 235)" border="1px" />

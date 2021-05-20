@@ -6,7 +6,12 @@ const Login = () => {
 		<React.Fragment>
 			<Button onClick={toggleColorMode}> Toggle color mode</Button>
 			<Flex minHeight="100vh" width="full" height="full" align="center" justifyContent="center">
-				<Box width="25%" padding="8" rounded="20px" bg={colorMode === 'light' ? 'gray.100' : 'gray.700'}>
+				<Box
+					width={{ lg: '25%', sm: '75%' }}
+					padding="8"
+					rounded="20px"
+					bg={colorMode === 'light' ? 'gray.100' : 'gray.700'}
+				>
 					<Box textAlign="center" mb="2">
 						<Heading> Log in </Heading>
 					</Box>

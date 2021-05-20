@@ -1,5 +1,5 @@
-import React from 'react';
-import { Grid, GridItem, Flex, Box, Text, Icon, useColorMode } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Button, Grid, GridItem, useColorMode } from '@chakra-ui/react';
 import { BiPackage } from 'react-icons/bi';
 import { FaExclamation } from 'react-icons/fa';
 import SearchBar from '../PageComponents/SearchBar';
@@ -9,8 +9,19 @@ import ListComponent from '../PageComponents/ListComponent';
 import ListItem from '../PageComponents/InventoryDash/ListItem';
 import MessageListItem from '../PageComponents/InventoryDash/MessageListItem';
 import ActivityItem from '../PageComponents/InventoryDash/ActivityItem';
+import ModalComp from '../PageComponents/ModalComp';
+import AddInvNotice from '../PageComponents/InventoryDash/AddInvNotice';
+import AddItem from '../PageComponents/InventoryDash/AddItem';
 const InventoryDashboard = () => {
+	const [ showModal, setShowModal ] = useState(false);
 	const { colorMode, toggleColorMode } = useColorMode();
+
+	const openModal = () => {
+		setShowModal(true);
+	};
+	const closeModal = () => {
+		setShowModal(false);
+	};
 	return (
 		<React.Fragment>
 			<Grid width="full" templateRows="5rem auto">
@@ -20,11 +31,8 @@ const InventoryDashboard = () => {
 				<GridItem>
 					<Grid
 						p="5"
-						border="1px"
 						width="full"
 						height="full"
-						// templateRows="0.5fr  1fr 1fr 1fr"
-						// templateColumns="1fr 1fr 1fr 1fr"
 						templateRows={{
 							xl: '0.3fr  1fr 1fr 2fr ',
 							md: '10vh 15vh 30vh 1fr 1fr',
@@ -41,18 +49,18 @@ const InventoryDashboard = () => {
 							md: `
 								'header header header'
 								'card1 card2 card3'
-								'chart chart chart'
-								'inv inv inv'
-								'members members members'
+								'items items items'
+								'notices notices notices'
+								'activity activity activity'
 								`,
 							sm: `
 								'header'
 								'card1'
 								'card2'
 								'card3'
-								'chart'
-								'inv'
-								'members'
+								'items'
+								'notices'
+								'activity'
 								`
 						}}
 						columnGap="3rem"
@@ -94,14 +102,36 @@ const InventoryDashboard = () => {
 							/>
 						</GridItem>
 						<GridItem gridArea="items">
-							<ListComponent title="Items" listitem={ListItem} />
+							<ListComponent colorMode={colorMode} title="Items" listitem={ListItem}>
+								<Button
+									id="Items"
+									bg={colorMode === 'light' ? 'green.200' : 'green.600'}
+									shadow="lg"
+									onClick={openModal}
+								>
+									Add items
+								</Button>
+							</ListComponent>
 						</GridItem>
 						<GridItem gridArea="notices">
-							<ListComponent title="Inventory information" listitem={MessageListItem} />
+							<ListComponent colorMode={colorMode} title="Inventory notices" listitem={MessageListItem}>
+								<Button
+									id="Notices"
+									bg={colorMode === 'light' ? 'green.200' : 'green.600'}
+									shadow="lg"
+									onClick={openModal}
+								>
+									Add notice
+								</Button>
+							</ListComponent>
 						</GridItem>
 						<GridItem gridArea="activity">
-							<ListComponent title="Recent Activity" listitem={ActivityItem} />
+							<ListComponent colorMode={colorMode} title="Recent Activity" listitem={ActivityItem} />
 						</GridItem>
+						<ModalComp isOpen={showModal} onClose={closeModal}>
+							{/* <AddInvNotice onClose={closeModal} /> */}
+							<AddItem onClose={closeModal} />
+						</ModalComp>
 					</Grid>
 				</GridItem>
 			</Grid>

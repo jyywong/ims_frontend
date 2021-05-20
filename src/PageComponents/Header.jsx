@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Flex, Button } from '@chakra-ui/react';
-import { EditIcon, AddIcon } from '@chakra-ui/icons';
-const Header = ({ title, description, outlineButton, fillButton }) => {
+
+const Header = ({ title, description, children }) => {
 	return (
 		<React.Fragment>
 			<Flex px="5" alignItems="center" justifyContent="space-between">
@@ -9,14 +9,7 @@ const Header = ({ title, description, outlineButton, fillButton }) => {
 					<Text fontSize="3xl">{title}</Text>
 					<Text fontSize="md">{description}</Text>
 				</Box>
-				<Box>
-					<Button mx="2" variant="outline" leftIcon={<EditIcon />}>
-						{outlineButton}
-					</Button>
-					<Button mx="2" leftIcon={<AddIcon boxSize={3} />}>
-						{fillButton}
-					</Button>
-				</Box>
+				<Box>{children}</Box>
 			</Flex>
 		</React.Fragment>
 	);

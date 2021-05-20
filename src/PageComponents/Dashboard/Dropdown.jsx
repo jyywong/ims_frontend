@@ -6,9 +6,9 @@ const Dropdown = () => {
 		<React.Fragment>
 			<Menu>
 				<MenuButton as={Button} bg="whiteAlpha.0">
-					<Flex alignItems="center">
+					<Flex alignItems="center" justifyContent="space-between">
 						<Text>John Doe</Text>
-						<Avatar size="sm" marginLeft="3" name="John Doe" />
+						<Avatar size="sm" mx="3" name="John Doe" />
 					</Flex>
 				</MenuButton>
 				<MenuList>

@@ -11,7 +11,13 @@ const SideNavBar = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
 	return (
 		<React.Fragment>
-			<Box minHeight="100vh" width="24vh" bg={colorMode === 'light' ? 'gray.200' : 'gray.600'} shadow="md">
+			<Flex
+				direction="column"
+				minHeight="100vh"
+				width={{ xl: '24vh', md: '12vh' }}
+				bg={colorMode === 'light' ? 'gray.200' : 'gray.600'}
+				shadow="md"
+			>
 				<Flex m="3">
 					<GiMoon size={40} />
 					<Text ml="2" fontSize="2xl">
@@ -43,7 +49,10 @@ const SideNavBar = () => {
 						</Text>
 					</Flex>
 				</Box>
-			</Box>
+				<Button justifySelf="flex-end" onClick={toggleColorMode}>
+					Color Mode
+				</Button>
+			</Flex>
 
 			{/* <Button onClick={toggleColorMode}> Toggle color mode</Button> */}
 		</React.Fragment>

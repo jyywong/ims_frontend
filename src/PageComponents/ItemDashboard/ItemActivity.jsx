@@ -1,6 +1,6 @@
 import React from 'react';
-import { Flex, Text, Box, Button } from '@chakra-ui/react';
-const ListComponent = ({ colorMode, title, children }) => {
+import { Flex, Text } from '@chakra-ui/react';
+const ItemActivity = ({ colorMode }) => {
 	return (
 		<React.Fragment>
 			<Flex
@@ -18,17 +18,12 @@ const ListComponent = ({ colorMode, title, children }) => {
 					borderBottom="1px"
 					borderColor={colorMode === 'light' ? 'gray.200' : 'gray.600'}
 					alignItems="center"
-					justifyContent="space-between"
 				>
-					<Text fontSize="lg">{title}</Text>
-					{children[0]}
+					<Text fontSize="lg">Recent Activity</Text>
 				</Flex>
-				<Box p="4" width="full" height="85%" overflow="auto">
-					{children[1]}
-				</Box>
 			</Flex>
 		</React.Fragment>
 	);
 };
 
-export default ListComponent;
+export default ItemActivity;
