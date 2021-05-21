@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Avatar, Text } from '@chakra-ui/react';
-const MessageListItem = () => {
+const MessageListItem = ({ username, message }) => {
 	return (
 		<React.Fragment>
 			<Flex
@@ -11,11 +11,14 @@ const MessageListItem = () => {
 				_hover={{ bg: 'gray.600' }}
 			>
 				<Flex alignItems="center">
-					<Avatar name="John Doe" />
-					<Text px="5"> John Doe </Text>
+					<Avatar size="xs" name={username} />
+					<Text fontSize="sm" px="5">
+						{' '}
+						{username}{' '}
+					</Text>
 				</Flex>
-				<Text px="4" color="gray.400" fontSize="sm">
-					Role
+				<Text px="4" my="2" color="gray.400" fontSize="sm" textAlign="right">
+					{message}
 				</Text>
 			</Flex>
 		</React.Fragment>

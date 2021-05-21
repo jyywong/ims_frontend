@@ -8,6 +8,7 @@ const AddInventoryModal = ({ onClose }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(createInventory(invName, 5));
+		onClose();
 	};
 	return (
 		<ModalContent>

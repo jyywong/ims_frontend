@@ -8,6 +8,7 @@ const AddMemberModal = ({ onClose }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(newMember(email));
+		onClose();
 	};
 	return (
 		<ModalContent>

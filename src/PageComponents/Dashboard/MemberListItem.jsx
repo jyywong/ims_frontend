@@ -1,7 +1,20 @@
-import React from 'react';
-import { FiBox } from 'react-icons/fi';
-import { Flex, Avatar, Text } from '@chakra-ui/react';
-const MemberListItem = ({ name }) => {
+import React, { useState, useEffect } from 'react';
+import { Flex, Avatar, Text, Checkbox } from '@chakra-ui/react';
+const MemberListItem = ({ id, name, removeMember, membersToRemove, setMembersToRemove }) => {
+	const [ isChecked, setIsChecked ] = useState(false);
+	useEffect(
+		() => {
+			setIsChecked(false);
+		},
+		[ removeMember ]
+	);
+	const handleChange = () => {
+		!isChecked
+			? setMembersToRemove([ ...membersToRemove, { id, name } ])
+			: setMembersToRemove(membersToRemove.filter((member) => member.id !== id));
+
+		setIsChecked(!isChecked);
+	};
 	return (
 		<React.Fragment>
 			<Flex
@@ -18,6 +31,7 @@ const MemberListItem = ({ name }) => {
 				<Text px="4" color="gray.400" fontSize="sm">
 					Role
 				</Text>
+				{removeMember && <Checkbox isChecked={isChecked} onChange={handleChange} />}
 			</Flex>
 		</React.Fragment>
 	);

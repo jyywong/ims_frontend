@@ -7,9 +7,6 @@ const LabHeaderButtons = ({ btnRef, openDrawer }) => {
 			<Button ref={btnRef} onClick={openDrawer} mx="2" variant="outline" leftIcon={<EditIcon />}>
 				<Text> Edit Lab </Text>
 			</Button>
-			<Button mx="2" leftIcon={<AddIcon boxSize={3} />}>
-				<Text> Add Inventory </Text>
-			</Button>
 		</React.Fragment>
 	);
 };

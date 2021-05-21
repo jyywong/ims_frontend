@@ -7,38 +7,21 @@ import SimpleCard from '../PageComponents/Dashboard/SimpleCard';
 import VerticalChartCard from '../PageComponents/Dashboard/VerticalChartCard';
 import SearchBar from '../PageComponents/SearchBar';
 import Header from '../PageComponents/Header';
-import ListComponent from '../PageComponents/ListComponent';
-import MemberListItem from '../PageComponents/Dashboard/MemberListItem';
-import InventoryListItem from '../PageComponents/Dashboard/InventoryListItem';
-import ModalComp from '../PageComponents/ModalComp';
-import AddMemberModal from '../PageComponents/Dashboard/AddMemberModal';
-import AddInventoryModal from '../PageComponents/Dashboard/AddInventoryModal';
 import LabHeaderButtons from '../PageComponents/Dashboard/LabHeaderButtons';
 import DrawerComp from '../PageComponents/DrawerComp';
 import EditLabForm from '../PageComponents/EditLabForm';
 import ModalContainer from '../PageComponents/Dashboard/ModalContainer';
 
 const LabDashboard = () => {
-	// const [ modalContent, setModalContent ] = useState();
-	// const [ showModal, setShowModal ] = useState(false);
 	const [ showDrawer, setShowDrawer ] = useState(false);
 	const { colorMode, toggleColorMode } = useColorMode();
-	const dispatch = useDispatch();
 	const lab = useSelector((lab) => lab);
+	const dispatch = useDispatch();
 	const btnRef = useRef();
 
 	const openDrawer = () => {
 		setShowDrawer(true);
 	};
-
-	// const openModal = (e) => {
-	// 	setModalContent(e.target.id);
-	// 	setShowModal(true);
-	// };
-
-	// const closeModal = () => {
-	// 	setShowModal(false);
-	// };
 
 	return (
 		<React.Fragment>
@@ -119,49 +102,12 @@ const LabDashboard = () => {
 						<GridItem gridArea="chart">
 							<VerticalChartCard colorMode={colorMode} />
 						</GridItem>
-						{/* Maybe I should make the list like components one component */}
 						<ModalContainer colorMode={colorMode} />
-						{/* <GridItem gridArea="members">
-							<ListComponent colorMode={colorMode} title="Members">
-								<Button
-									id="Members"
-									bg={colorMode === 'light' ? 'green.200' : 'green.600'}
-									shadow="lg"
-									onClick={openModal}
-								>
-									Add member
-								</Button>
-								{lab.members.map((member) => <MemberListItem key={member.id} name={member.name} />)}
-							</ListComponent>
-						</GridItem>
-						<GridItem gridArea="inv">
-							<ListComponent colorMode={colorMode} title="Inventories">
-								<Button
-									id="Inventory"
-									bg={colorMode === 'light' ? 'green.200' : 'green.600'}
-									shadow="lg"
-									onClick={openModal}
-								>
-									Add inventory
-								</Button>
-								{lab.inventories.map((inventory) => (
-									<InventoryListItem
-										key={inventory.id}
-										name={inventory.name}
-										itemQuantity={inventory.itemCount}
-									/>
-								))}
-							</ListComponent>
-						</GridItem>
-						<ModalComp isOpen={showModal} onClose={closeModal}>
-							{modalContent === 'Members' ? (
-								<AddMemberModal onClose={closeModal} />
-							) : (
-								<AddInventoryModal onClose={closeModal} />
-							)}
-						</ModalComp> */}
 						<DrawerComp isOpen={showDrawer} onClose={() => setShowDrawer(false)} btnRef={btnRef}>
-							<EditLabForm />
+							<Text mx="6" fontSize="2xl">
+								Edit Lab Details
+							</Text>
+							<EditLabForm onClose={() => setShowDrawer(false)} />
 						</DrawerComp>
 					</Grid>
 				</GridItem>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiBox } from 'react-icons/fi';
 import { Flex, Text, Icon } from '@chakra-ui/react';
-const ListItem = () => {
+const ListItem = ({ name }) => {
 	return (
 		<React.Fragment>
 			<Flex
@@ -13,7 +13,7 @@ const ListItem = () => {
 			>
 				<Flex alignItems="center">
 					<Icon boxSize={10} as={FiBox} />
-					<Text px="5"> Sugar </Text>
+					<Text px="5"> {name} </Text>
 				</Flex>
 				<Text px="4" color="gray.400" fontSize="sm">
 					7 in stock

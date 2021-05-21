@@ -1,15 +1,5 @@
 import React from 'react';
-import {
-	Input,
-	Button,
-	Drawer,
-	DrawerBody,
-	DrawerFooter,
-	DrawerHeader,
-	DrawerOverlay,
-	DrawerContent,
-	DrawerCloseButton
-} from '@chakra-ui/react';
+import { Drawer, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton } from '@chakra-ui/react';
 const DrawerComp = ({ title, isOpen, onClose, btnRef, children }) => {
 	return (
 		<React.Fragment>
@@ -19,14 +9,7 @@ const DrawerComp = ({ title, isOpen, onClose, btnRef, children }) => {
 					<DrawerCloseButton />
 					<DrawerHeader>{title}</DrawerHeader>
 
-					<DrawerBody>{children}</DrawerBody>
-
-					<DrawerFooter>
-						<Button variant="outline" mr={3} onClick={onClose}>
-							Cancel
-						</Button>
-						<Button colorScheme="blue">Save</Button>
-					</DrawerFooter>
+					{children}
 				</DrawerContent>
 			</Drawer>
 		</React.Fragment>

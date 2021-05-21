@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Button, Grid, GridItem, useColorMode } from '@chakra-ui/react';
 import { BiPackage } from 'react-icons/bi';
 import { FaExclamation } from 'react-icons/fa';
@@ -6,22 +7,13 @@ import SearchBar from '../PageComponents/SearchBar';
 import Header from '../PageComponents/Header';
 import SimpleCard from '../PageComponents/Dashboard/SimpleCard';
 import ListComponent from '../PageComponents/ListComponent';
-import ListItem from '../PageComponents/InventoryDash/ListItem';
-import MessageListItem from '../PageComponents/InventoryDash/MessageListItem';
 import ActivityItem from '../PageComponents/InventoryDash/ActivityItem';
-import ModalComp from '../PageComponents/ModalComp';
-import AddInvNotice from '../PageComponents/InventoryDash/AddInvNotice';
-import AddItem from '../PageComponents/InventoryDash/AddItem';
+import InventoryModalContainer from '../PageComponents/InventoryDash/InventoryModalContainer';
 const InventoryDashboard = () => {
+	const inventory = useSelector((lab) => lab.inventories.find((inv) => inv.id === 1));
 	const [ showModal, setShowModal ] = useState(false);
 	const { colorMode, toggleColorMode } = useColorMode();
 
-	const openModal = () => {
-		setShowModal(true);
-	};
-	const closeModal = () => {
-		setShowModal(false);
-	};
 	return (
 		<React.Fragment>
 			<Grid width="full" templateRows="5rem auto">
@@ -68,8 +60,8 @@ const InventoryDashboard = () => {
 					>
 						<GridItem gridArea="header">
 							<Header
-								title="Test Inventory 1"
-								description="Lorem ipsum"
+								title={inventory.name}
+								description={inventory.description}
 								outlineButton="Edit Inventory"
 								fillButton="Add new item"
 							/>
@@ -77,7 +69,7 @@ const InventoryDashboard = () => {
 						<GridItem gridArea="card1">
 							<SimpleCard
 								colorMode={colorMode}
-								number={7}
+								number={inventory.itemCount}
 								description="Total items"
 								icon={BiPackage}
 								iconBGcolor={colorMode === 'light' ? 'blue.100' : 'blue.700'}
@@ -101,37 +93,13 @@ const InventoryDashboard = () => {
 								iconBGcolor={colorMode === 'light' ? 'green.100' : 'green.700'}
 							/>
 						</GridItem>
-						<GridItem gridArea="items">
-							<ListComponent colorMode={colorMode} title="Items" listitem={ListItem}>
-								<Button
-									id="Items"
-									bg={colorMode === 'light' ? 'green.200' : 'green.600'}
-									shadow="lg"
-									onClick={openModal}
-								>
-									Add items
-								</Button>
-							</ListComponent>
-						</GridItem>
-						<GridItem gridArea="notices">
-							<ListComponent colorMode={colorMode} title="Inventory notices" listitem={MessageListItem}>
-								<Button
-									id="Notices"
-									bg={colorMode === 'light' ? 'green.200' : 'green.600'}
-									shadow="lg"
-									onClick={openModal}
-								>
-									Add notice
-								</Button>
-							</ListComponent>
-						</GridItem>
 						<GridItem gridArea="activity">
-							<ListComponent colorMode={colorMode} title="Recent Activity" listitem={ActivityItem} />
+							<ListComponent colorMode={colorMode} title="Recent Activity" listitem={ActivityItem}>
+								<React.Fragment />
+								<ActivityItem />
+							</ListComponent>
 						</GridItem>
-						<ModalComp isOpen={showModal} onClose={closeModal}>
-							{/* <AddInvNotice onClose={closeModal} /> */}
-							<AddItem onClose={closeModal} />
-						</ModalComp>
+						<InventoryModalContainer colorMode={colorMode} inventory={inventory} />
 					</Grid>
 				</GridItem>
 			</Grid>
