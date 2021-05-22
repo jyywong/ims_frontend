@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { Button, GridItem } from '@chakra-ui/react';
-import ListComponent from '../ListComponent';
-import ListItem from './ListItem';
-import MessageListItem from './MessageListItem';
+import { Flex, Button, GridItem } from '@chakra-ui/react';
+
 import ModalComp from '../ModalComp';
 import AddItem from './AddItem';
 import AddInvNotice from './AddInvNotice';
+import ItemList from './ItemList';
+import DeleteItems from './DeleteItems';
+import NoticeList from './NoticeList';
+import DeleteNotices from './DeleteNotices';
 const InventoryModalContainer = ({ colorMode, inventory }) => {
 	const [ modalContent, setModalContent ] = useState('');
 	const [ showModal, setShowModal ] = useState(false);
-
+	const [ itemsToDelete, setItemsToDelete ] = useState([]);
+	const [ noticesToDelete, setNoticesToDelete ] = useState([]);
 	const openModal = (e) => {
 		setModalContent(e.target.id);
 		setShowModal(true);
@@ -20,35 +23,33 @@ const InventoryModalContainer = ({ colorMode, inventory }) => {
 	return (
 		<React.Fragment>
 			<GridItem gridArea="items">
-				<ListComponent colorMode={colorMode} title="Items" listitem={ListItem}>
-					<Button
-						id="Items"
-						bg={colorMode === 'light' ? 'green.200' : 'green.600'}
-						shadow="lg"
-						onClick={openModal}
-					>
-						Add items
-					</Button>
-					{inventory.items.map((item) => <ListItem key={item.id} name={item.name} />)}
-				</ListComponent>
+				<ItemList
+					colorMode={colorMode}
+					openModal={openModal}
+					itemsToDelete={itemsToDelete}
+					setItemsToDelete={setItemsToDelete}
+				/>
 			</GridItem>
 			<GridItem gridArea="notices">
-				<ListComponent colorMode={colorMode} title="Inventory notices" listitem={MessageListItem}>
-					<Button
-						id="Notices"
-						bg={colorMode === 'light' ? 'green.200' : 'green.600'}
-						shadow="lg"
-						onClick={openModal}
-					>
-						Add notice
-					</Button>
-					{inventory.notices.map((notice) => (
-						<MessageListItem key={notice.id} username={notice.username} message={notice.message} />
-					))}
-				</ListComponent>
+				<NoticeList
+					colorMode={colorMode}
+					openModal={openModal}
+					noticesToDelete={noticesToDelete}
+					setNoticesToDelete={setNoticesToDelete}
+				/>
 			</GridItem>
 			<ModalComp isOpen={showModal} onClose={closeModal}>
-				{modalContent === 'Items' ? <AddItem onClose={closeModal} /> : <AddInvNotice onClose={closeModal} />}
+				{(() => {
+					if (modalContent === 'Items') {
+						return <AddItem onClose={closeModal} />;
+					} else if (modalContent === 'Notices') {
+						return <AddInvNotice onClose={closeModal} />;
+					} else if (modalContent === 'Delete Items') {
+						return <DeleteItems onClose={closeModal} itemsToDelete={itemsToDelete} />;
+					} else if (modalContent === 'Delete Notices') {
+						return <DeleteNotices onClose={closeModal} noticesToDelete={noticesToDelete} />;
+					}
+				})()}
 			</ModalComp>
 		</React.Fragment>
 	);

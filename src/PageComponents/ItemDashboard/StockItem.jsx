@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, Icon, Text } from '@chakra-ui/react';
-import { BiPackage, BiTrendingUp } from 'react-icons/bi';
-const StockItem = () => {
+import { BiPackage } from 'react-icons/bi';
+const StockItem = ({ date, quantity }) => {
 	return (
 		<React.Fragment>
 			<Flex
@@ -13,11 +13,11 @@ const StockItem = () => {
 			>
 				<Flex alignItems="center">
 					<Icon boxSize={8} as={BiPackage} />
-					<Text px="5">Expires: {new Date().toDateString()} </Text>
+					<Text px="5">Expires: {date} </Text>
 				</Flex>
 				<Flex alignItems="center">
 					<Text px="4" fontSize="3xl">
-						5
+						{quantity}
 					</Text>
 				</Flex>
 			</Flex>

@@ -1,3 +1,5 @@
+import invReducer from './InvReducer';
+
 const initialState = {
 	id: 1,
 	name: 'Test Lab 1',
@@ -29,7 +31,22 @@ const initialState = {
 				{
 					id: 1,
 					name: 'Sugar',
-					desc: 'Its sugar'
+					desc: 'Its sugar',
+					manu: 'Thermofisher',
+					notes: 'Misc notes',
+					stock: [
+						{
+							id: 1,
+							quantity: 5,
+							expiryDate: 'Some day'
+						},
+						{
+							id: 2,
+							quantity: 3,
+							expiryDate: 'Some other day'
+						}
+					],
+					orders: []
 				},
 				{
 					id: 2,
@@ -129,16 +146,37 @@ const labReducer = (state = initialState, action) => {
 		case 'ADD_ITEM':
 			return {
 				...state,
-				inventories: [
-					...state.inventories.filter((inventory) => inventory.id !== action.data.labID),
-					{
-						...state.inventories.find((inventory) => inventory.id === action.data.labID),
-						items: [
-							...state.inventories.find((inventory) => inventory.id === action.data.labID).items,
-							action.data.newItem
-						]
-					}
-				]
+				inventories: invReducer(state.inventories, action)
+			};
+		case 'DELETE_ITEMS':
+			return {
+				...state,
+				inventories: invReducer(state.inventories, action)
+			};
+		case 'ADD_INV_NOTICE':
+			return {
+				...state,
+				inventories: invReducer(state.inventories, action)
+			};
+		case 'EDIT_INV_DETAILS':
+			return {
+				...state,
+				inventories: invReducer(state.inventories, action)
+			};
+		case 'EDIT_ITEM_DETAILS':
+			return {
+				...state,
+				inventories: invReducer(state.inventories, action)
+			};
+		case 'ADD_ITEM_ORDER':
+			return {
+				...state,
+				inventories: invReducer(state.inventories, action)
+			};
+		case 'LOG_RESTOCK':
+			return {
+				...state,
+				inventories: invReducer(state.inventories, action)
 			};
 		default:
 			return state;
@@ -196,16 +234,83 @@ export const removeMember = (ids) => {
 		}
 	};
 };
-export const addItem = (labID, newItem) => {
+
+export const editInv = (invID, name, desc) => {
+	return {
+		type: 'EDIT_INV_DETAILS',
+		data: {
+			invID,
+			name,
+			desc
+		}
+	};
+};
+export const addItem = (invID, newItem) => {
 	return {
 		type: 'ADD_ITEM',
 		data: {
-			labID,
+			invID,
 			newItem: {
 				id: generateID(),
 				name: newItem.name,
 				desc: newItem.desc
 			}
+		}
+	};
+};
+export const deleteItems = (invID, itemIDs) => {
+	return {
+		type: 'DELETE_ITEMS',
+		data: {
+			invID,
+			itemIDs
+		}
+	};
+};
+export const addInvNotice = (invID, message) => {
+	return {
+		type: 'ADD_INV_NOTICE',
+		data: {
+			invID,
+			newNotice: {
+				id: generateID(),
+				user: generateID(),
+				username: 'Testuser',
+				role: 'testrole1',
+				message
+			}
+		}
+	};
+};
+export const editItem = (invID, itemID, name, manu, notes) => {
+	return {
+		type: 'EDIT_ITEM_DETAILS',
+		data: {
+			invID,
+			itemID,
+			name,
+			manu,
+			notes
+		}
+	};
+};
+export const addItemOrder = (invID, itemID, newOrder) => {
+	return {
+		type: 'ADD_ITEM_ORDER',
+		data: {
+			invID,
+			itemID,
+			newOrder
+		}
+	};
+};
+export const logRestock = (invID, itemID, newStock) => {
+	return {
+		type: 'LOG_RESTOCK',
+		data: {
+			invID,
+			itemID,
+			newStock
 		}
 	};
 };

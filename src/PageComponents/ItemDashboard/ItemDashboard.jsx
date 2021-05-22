@@ -1,29 +1,22 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Grid, GridItem, useColorMode } from '@chakra-ui/react';
 import { BiPackage } from 'react-icons/bi';
 import { FaExclamation } from 'react-icons/fa';
 import SearchBar from '../SearchBar';
-import Header from '../Header';
 import SimpleCard from '../Dashboard/SimpleCard';
 import ItemInformation from './ItemInformation';
 import ListComponent from '../ListComponent';
 import ActivityItem from '../InventoryDash/ActivityItem';
 import ItemStats from './ItemStats';
-import ItemHeaderButtons from './ItemHeaderButtons';
-import DrawerComp from '../DrawerComp';
-import EditItemForm from './EditItemForm';
-import RequestOrderForm from './RequestOrderForm';
-import RestockForm from './RestockForm';
-import StockItem from './StockItem';
+import StockList from './StockList';
+import DrawerContainer from './DrawerContainer';
 const ItemDashboard = () => {
+	const item = useSelector((state) =>
+		state.inventories.find((inv) => inv.id === 1).items.find((item) => item.id === 1)
+	);
 	const { colorMode, toggleColorMode } = useColorMode();
-	const [ showDrawer, setShowDrawer ] = useState();
-	const [ drawerContent, setDrawerContent ] = useState();
 
-	const openDrawer = (e) => {
-		setDrawerContent(e.target.id);
-		setShowDrawer(true);
-	};
 	return (
 		<React.Fragment>
 			<Grid width="full" templateRows="5rem auto">
@@ -68,16 +61,7 @@ const ItemDashboard = () => {
 						columnGap="3rem"
 						rowGap="2rem"
 					>
-						<GridItem gridArea="header">
-							<Header
-								title="Sugar"
-								description="Lorem ipsum"
-								outlineButton="Edit item"
-								fillButton="Add new stock"
-							>
-								<ItemHeaderButtons openDrawer={openDrawer} />
-							</Header>
-						</GridItem>
+						<DrawerContainer colorMode={colorMode} item={item} />
 						<GridItem gridArea="card1">
 							<SimpleCard
 								colorMode={colorMode}
@@ -99,47 +83,26 @@ const ItemDashboard = () => {
 						<GridItem gridArea="card3">
 							<SimpleCard
 								colorMode={colorMode}
-								number={0}
+								number={item.orders.length}
 								description="Orders pending"
 								icon={BiPackage}
 								iconBGcolor={colorMode === 'light' ? 'yellow.100' : 'yellow.700'}
 							/>
 						</GridItem>
 						<GridItem gridArea="cardinfo">
-							<ItemInformation colorMode={colorMode} />
+							<ItemInformation colorMode={colorMode} item={item} />
 						</GridItem>
 						<GridItem gridArea="stocks">
-							<ListComponent colorMode={colorMode} title="Stock list" listitem={StockItem} />
+							<StockList colorMode={colorMode} />
 						</GridItem>
 						<GridItem gridArea="notices">
-							<ListComponent colorMode={colorMode} title="Recent Activity" listitem={ActivityItem} />
+							<ListComponent colorMode={colorMode} title="Recent Activity" listitem={ActivityItem}>
+								<React.Fragment />
+							</ListComponent>
 						</GridItem>
 						<GridItem gridArea="stats">
 							<ItemStats colorMode={colorMode} />
 						</GridItem>
-						<DrawerComp
-							title={(() => {
-								if (drawerContent === 'Edit Item') {
-									return 'Edit this item';
-								} else if (drawerContent === 'Request Order') {
-									return 'Request an order';
-								} else if (drawerContent === 'Add restock') {
-									return 'Log a restock';
-								}
-							})()}
-							isOpen={showDrawer}
-							onClose={() => setShowDrawer(false)}
-						>
-							{(() => {
-								if (drawerContent === 'Edit Item') {
-									return <EditItemForm />;
-								} else if (drawerContent === 'Request Order') {
-									return <RequestOrderForm />;
-								} else if (drawerContent === 'Add restock') {
-									return <RestockForm />;
-								}
-							})()}
-						</DrawerComp>
 					</Grid>
 				</GridItem>
 			</Grid>

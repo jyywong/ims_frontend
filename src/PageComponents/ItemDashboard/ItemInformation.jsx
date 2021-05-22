@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Box, Text } from '@chakra-ui/react';
-const ItemInformation = ({ colorMode }) => {
+const ItemInformation = ({ colorMode, item }) => {
 	return (
 		<React.Fragment>
 			<Flex
@@ -23,13 +23,10 @@ const ItemInformation = ({ colorMode }) => {
 				</Flex>
 				<Flex px="5" py="3" width="full" direction={{ xl: 'column', md: 'row' }} alignItems="flex-start">
 					<Text m="1" textColor="gray.500" fontSize="xl">
-						Manufacturer:
+						Manufacturer: <Text textColor="whiteAlpha.900">{item.manu}</Text>
 					</Text>
 					<Text m="1" textColor="gray.500" fontSize="xl">
-						Expiry Date:
-					</Text>
-					<Text m="1" textColor="gray.500" fontSize="xl">
-						Notes:
+						Notes: <Text textColor="whiteAlpha.900">{item.notes}</Text>
 					</Text>
 				</Flex>
 			</Flex>
