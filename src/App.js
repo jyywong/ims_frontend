@@ -11,8 +11,8 @@ function App() {
 		<ChakraProvider theme={theme}>
 			<Router>
 				<Route path="/" exact component={LabPage} />
-				<Route path="/inventory" exact component={InventoryPage} />
-				<Route path="/item" exact component={ItemPage} />
+				<Route path="/inventory/:invID" exact component={InventoryPage} />
+				<Route path="/:invID/item/:itemID" exact component={ItemPage} />
 				<Route path="/login" component={Login} />
 			</Router>
 		</ChakraProvider>

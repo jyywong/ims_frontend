@@ -30,6 +30,7 @@ const initialState = {
 			items: [
 				{
 					id: 1,
+					labID: 1,
 					name: 'Sugar',
 					desc: 'Its sugar',
 					manu: 'Thermofisher',
@@ -50,11 +51,13 @@ const initialState = {
 				},
 				{
 					id: 2,
+					labID: 1,
 					name: 'Wood',
 					desc: 'Its wood'
 				},
 				{
 					id: 3,
+					labID: 1,
 					name: 'Coal',
 					desc: 'Its coal'
 				}
@@ -84,16 +87,19 @@ const initialState = {
 			items: [
 				{
 					id: 4,
+					labID: 2,
 					name: 'String',
 					desc: 'Its string'
 				},
 				{
 					id: 5,
+					labID: 2,
 					name: 'Wool',
 					desc: 'Its wool'
 				},
 				{
 					id: 6,
+					labID: 2,
 					name: 'Water',
 					desc: 'Its water'
 				}
@@ -107,16 +113,19 @@ const initialState = {
 			items: [
 				{
 					id: 7,
+					labID: 3,
 					name: 'Metal',
 					desc: 'Its metal'
 				},
 				{
 					id: 8,
+					labID: 3,
 					name: 'Plastic',
 					desc: 'Its plastic'
 				},
 				{
 					id: 9,
+					labID: 3,
 					name: 'Beef',
 					desc: 'Its beef'
 				}

@@ -10,9 +10,10 @@ const StockList = ({ colorMode }) => {
 		<React.Fragment>
 			<ListComponent colorMode={colorMode} title="Stock list">
 				<React.Fragment />
-				{item.stock.map((stock) => (
-					<StockItem key={stock.id} date={stock.expiryDate} quantity={stock.quantity} />
-				))}
+				{item.stock &&
+					item.stock.map((stock) => (
+						<StockItem key={stock.id} date={stock.expiryDate} quantity={stock.quantity} />
+					))}
 			</ListComponent>
 		</React.Fragment>
 	);

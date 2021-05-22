@@ -4,8 +4,7 @@ import { Button, Flex } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import ListComponent from '../ListComponent';
 import MessageListItem from './MessageListItem';
-const NoticeList = ({ colorMode, openModal, noticesToDelete, setNoticesToDelete }) => {
-	const inventory = useSelector((lab) => lab.inventories.find((inv) => inv.id === 1));
+const NoticeList = ({ colorMode, openModal, noticesToDelete, setNoticesToDelete, inventory }) => {
 	const [ deleteNotices, setDeleteNotices ] = useState(false);
 	const handleCancel = () => {
 		setDeleteNotices(false);
@@ -62,17 +61,18 @@ const NoticeList = ({ colorMode, openModal, noticesToDelete, setNoticesToDelete 
 					</Flex>
 				)}
 
-				{inventory.notices.map((notice) => (
-					<MessageListItem
-						key={notice.id}
-						id={notice.id}
-						username={notice.username}
-						message={notice.message}
-						deleteNotices={deleteNotices}
-						noticesToDelete={noticesToDelete}
-						setNoticesToDelete={setNoticesToDelete}
-					/>
-				))}
+				{inventory.notices &&
+					inventory.notices.map((notice) => (
+						<MessageListItem
+							key={notice.id}
+							id={notice.id}
+							username={notice.username}
+							message={notice.message}
+							deleteNotices={deleteNotices}
+							noticesToDelete={noticesToDelete}
+							setNoticesToDelete={setNoticesToDelete}
+						/>
+					))}
 			</ListComponent>
 		</React.Fragment>
 	);

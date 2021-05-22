@@ -28,6 +28,7 @@ const InventoryModalContainer = ({ colorMode, inventory }) => {
 					openModal={openModal}
 					itemsToDelete={itemsToDelete}
 					setItemsToDelete={setItemsToDelete}
+					inventory={inventory}
 				/>
 			</GridItem>
 			<GridItem gridArea="notices">
@@ -36,6 +37,7 @@ const InventoryModalContainer = ({ colorMode, inventory }) => {
 					openModal={openModal}
 					noticesToDelete={noticesToDelete}
 					setNoticesToDelete={setNoticesToDelete}
+					inventory={inventory}
 				/>
 			</GridItem>
 			<ModalComp isOpen={showModal} onClose={closeModal}>

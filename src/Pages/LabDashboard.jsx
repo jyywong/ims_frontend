@@ -5,7 +5,7 @@ import { FaExclamation } from 'react-icons/fa';
 import { BiPackage, BiTrendingUp } from 'react-icons/bi';
 import SimpleCard from '../PageComponents/Dashboard/SimpleCard';
 import VerticalChartCard from '../PageComponents/Dashboard/VerticalChartCard';
-import SearchBar from '../PageComponents/SearchBar';
+import SearchBar from '../PageComponents/Search/SearchBar';
 import Header from '../PageComponents/Header';
 import LabHeaderButtons from '../PageComponents/Dashboard/LabHeaderButtons';
 import DrawerComp from '../PageComponents/DrawerComp';

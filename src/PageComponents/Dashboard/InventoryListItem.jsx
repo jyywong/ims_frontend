@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Flex, Icon, Text, Checkbox } from '@chakra-ui/react';
 import { FiBox } from 'react-icons/fi';
 const InventoryListItem = ({
@@ -25,16 +26,18 @@ const InventoryListItem = ({
 	};
 	return (
 		<React.Fragment>
-			<Flex p="2" justifyContent="space-between" alignItems="center">
-				<Flex alignItems="center">
-					<Icon boxSize={10} as={FiBox} />
-					<Text px="5"> {name} </Text>
+			<Link to={`/inventory/${id}`}>
+				<Flex p="2" justifyContent="space-between" alignItems="center">
+					<Flex alignItems="center">
+						<Icon boxSize={10} as={FiBox} />
+						<Text px="5"> {name} </Text>
+					</Flex>
+					<Text px="4" color="gray.400" fontSize="sm">
+						{itemQuantity} items
+					</Text>
+					{deleteInventory && <Checkbox isChecked={isChecked} onChange={handleChange} />}
 				</Flex>
-				<Text px="4" color="gray.400" fontSize="sm">
-					{itemQuantity} items
-				</Text>
-				{deleteInventory && <Checkbox isChecked={isChecked} onChange={handleChange} />}
-			</Flex>
+			</Link>
 		</React.Fragment>
 	);
 };

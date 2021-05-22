@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Grid, GridItem, useColorMode } from '@chakra-ui/react';
 import { BiPackage } from 'react-icons/bi';
 import { FaExclamation } from 'react-icons/fa';
-import SearchBar from '../SearchBar';
+import SearchBar from '.././Search/SearchBar';
 import SimpleCard from '../Dashboard/SimpleCard';
 import ItemInformation from './ItemInformation';
 import ListComponent from '../ListComponent';
@@ -11,9 +11,9 @@ import ActivityItem from '../InventoryDash/ActivityItem';
 import ItemStats from './ItemStats';
 import StockList from './StockList';
 import DrawerContainer from './DrawerContainer';
-const ItemDashboard = () => {
+const ItemDashboard = ({ invID, itemID }) => {
 	const item = useSelector((state) =>
-		state.inventories.find((inv) => inv.id === 1).items.find((item) => item.id === 1)
+		state.inventories.find((inv) => inv.id === invID).items.find((item) => item.id === itemID)
 	);
 	const { colorMode, toggleColorMode } = useColorMode();
 
@@ -83,7 +83,7 @@ const ItemDashboard = () => {
 						<GridItem gridArea="card3">
 							<SimpleCard
 								colorMode={colorMode}
-								number={item.orders.length}
+								number={item.orders && item.orders.length}
 								description="Orders pending"
 								icon={BiPackage}
 								iconBGcolor={colorMode === 'light' ? 'yellow.100' : 'yellow.700'}

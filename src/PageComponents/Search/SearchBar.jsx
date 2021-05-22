@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BellIcon } from '@chakra-ui/icons';
 import { FiLogOut } from 'react-icons/fi';
-import { Flex, Divider, Text, Box, Input, InputLeftElement, Avatar, Icon, useColorMode } from '@chakra-ui/react';
-import Dropdown from './Dashboard/Dropdown';
+import { Flex, Divider, Icon, useColorMode } from '@chakra-ui/react';
+import Dropdown from '../Dashboard/Dropdown';
+import SearchComp from './SearchComp';
 const SearchBar = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
+
 	return (
 		<React.Fragment>
 			<Flex
@@ -17,7 +19,7 @@ const SearchBar = () => {
 			>
 				<Flex mx="6" width="80%">
 					{/* <InputLeftElement pointerEvents="none" children={<SearchIcon boxSize={7} />} /> */}
-					<Input placeholder="Search" />
+					<SearchComp />
 				</Flex>
 				<Dropdown />
 				<Divider mx="4" orientation="vertical" />
