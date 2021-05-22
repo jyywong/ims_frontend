@@ -15,7 +15,7 @@ import ModalContainer from '../PageComponents/Dashboard/ModalContainer';
 const LabDashboard = () => {
 	const [ showDrawer, setShowDrawer ] = useState(false);
 	const { colorMode, toggleColorMode } = useColorMode();
-	const lab = useSelector((lab) => lab);
+	const lab = useSelector((state) => state.labs.byID[1]);
 	const dispatch = useDispatch();
 	const btnRef = useRef();
 

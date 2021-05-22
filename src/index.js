@@ -8,8 +8,9 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import labReducer from './Reducers/LabReducer';
+import newLabReducer from './Reducers/NewReducer';
 
-const store = createStore(labReducer, composeWithDevTools());
+const store = createStore(newLabReducer, composeWithDevTools());
 
 ReactDOM.render(
 	<StrictMode>

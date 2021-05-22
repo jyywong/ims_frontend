@@ -1,4 +1,4 @@
-const initialState = {
+const entireState = {
 	users: {
 		byId: {
 			1: {
@@ -172,3 +172,48 @@ const initialState = {
 	},
 	auth: {}
 };
+const initialState = entireState.labs;
+const newLabReducer = (state = entireState, action) => {
+	// labs: {
+	// 	byID: {
+	// 		1: {
+	// 			id: 1,
+	// 			name: 'Test Lab 1',
+	// 			description: 'This is test lab 1',
+	// 			members: [ 1, 2 ],
+	// 			inventories: [ 1, 2 ]
+	// 		},
+	// 		2: {
+	// 			id: 2,
+	// 			name: 'Test Lab 2',
+	// 			description: 'This is test lab 2',
+	// 			members: [ 2, 3 ],
+	// 			inventories: [ 3, 4 ]
+	// 		}
+	// 	},
+	// 	allIDs: [ 1, 2 ]
+	// }
+	switch (action.type) {
+		case 'EDIT_LAB_DETAILS':
+			return {
+				...state,
+				byID: {
+					...state.byID,
+					1: { ...state.byID[action.data.id], name: action.data.name, description: action.data.desc }
+				}
+			};
+		default:
+			return state;
+	}
+};
+export const editLabDetails = (name, desc, admin) => {
+	return {
+		type: 'EDIT_LAB_DETAILS',
+		data: {
+			name,
+			desc,
+			admin
+		}
+	};
+};
+export default newLabReducer;
