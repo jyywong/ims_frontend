@@ -5,8 +5,8 @@ import { Flex, Button } from '@chakra-ui/react';
 import ListComponent from '../ListComponent';
 import MemberListItem from './MemberListItem';
 
-const MemberList = ({ colorMode, openModal, membersToRemove, setMembersToRemove }) => {
-	const members = useSelector((lab) => lab.members);
+const MemberList = ({ colorMode, openModal, membersToRemove, setMembersToRemove, lab }) => {
+	const members = useSelector((state) => lab.members.map((memberID) => state.users.byID[memberID]));
 	const [ removeMember, setRemoveMember ] = useState(false);
 	const handleCancel = () => {
 		setRemoveMember(false);

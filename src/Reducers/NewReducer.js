@@ -1,6 +1,6 @@
 const entireState = {
 	users: {
-		byId: {
+		byID: {
 			1: {
 				id: 1,
 				name: 'TestUser 1',
@@ -197,19 +197,27 @@ const newLabReducer = (state = entireState, action) => {
 		case 'EDIT_LAB_DETAILS':
 			return {
 				...state,
-				byID: {
-					...state.byID,
-					1: { ...state.byID[action.data.id], name: action.data.name, description: action.data.desc }
+				labs: {
+					...state.labs,
+					byID: {
+						...state.labs.byID,
+						[action.data.id]: {
+							...state.labs.byID[action.data.id],
+							name: action.data.name,
+							description: action.data.desc
+						}
+					}
 				}
 			};
 		default:
 			return state;
 	}
 };
-export const editLabDetails = (name, desc, admin) => {
+export const editLabDetails = (id, name, desc, admin) => {
 	return {
 		type: 'EDIT_LAB_DETAILS',
 		data: {
+			id,
 			name,
 			desc,
 			admin

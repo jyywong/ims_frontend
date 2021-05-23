@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Input, FormLabel, FormControl, DrawerBody, DrawerFooter, Button } from '@chakra-ui/react';
-import { editLabDetails } from '../Reducers/LabReducer';
+import { editLabDetails } from '../Reducers/NewReducer';
 const EditLabForm = ({ onClose }) => {
 	const [ formValues, setFormValues ] = useState({ name: '', desc: '', admin: '' });
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(editLabDetails(formValues.name, formValues.desc, formValues.admin));
+		dispatch(editLabDetails(1, formValues.name, formValues.desc, formValues.admin));
 	};
 	return (
 		<React.Fragment>

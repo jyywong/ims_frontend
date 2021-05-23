@@ -102,7 +102,7 @@ const LabDashboard = () => {
 						<GridItem gridArea="chart">
 							<VerticalChartCard colorMode={colorMode} />
 						</GridItem>
-						<ModalContainer colorMode={colorMode} />
+						<ModalContainer colorMode={colorMode} lab={lab} />
 						<DrawerComp isOpen={showDrawer} onClose={() => setShowDrawer(false)} btnRef={btnRef}>
 							<Text mx="6" fontSize="2xl">
 								Edit Lab Details

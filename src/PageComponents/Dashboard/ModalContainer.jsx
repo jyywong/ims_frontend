@@ -11,8 +11,7 @@ import DeleteInventoryModal from './DeleteInventoryModal';
 import MemberList from './MemberList';
 import RemoveMemberModal from './RemoveMemberModal';
 
-const ModalContainer = ({ colorMode }) => {
-	const lab = useSelector((lab) => lab);
+const ModalContainer = ({ colorMode, lab }) => {
 	const [ modalContent, setModalContent ] = useState('');
 	const [ showModal, setShowModal ] = useState(false);
 	const [ inventoriesToDelete, setInventoriesToDelete ] = useState([]);
@@ -33,6 +32,7 @@ const ModalContainer = ({ colorMode }) => {
 					openModal={openModal}
 					membersToRemove={membersToRemove}
 					setMembersToRemove={setMembersToRemove}
+					lab={lab}
 				/>
 			</GridItem>
 			<GridItem gridArea="inv">
@@ -41,6 +41,7 @@ const ModalContainer = ({ colorMode }) => {
 					openModal={openModal}
 					inventoriesToDelete={inventoriesToDelete}
 					setInventoriesToDelete={setInventoriesToDelete}
+					lab={lab}
 				/>
 			</GridItem>
 			<ModalComp isOpen={showModal} onClose={closeModal}>
