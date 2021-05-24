@@ -10,10 +10,10 @@ function App() {
 	return (
 		<ChakraProvider theme={theme}>
 			<Router>
-				<Route path="/" exact component={LabPage} />
+				<Route path="/lab/:labID" exact component={LabPage} />
 				<Route path="/inventory/:invID" exact component={InventoryPage} />
 				<Route path="/:invID/item/:itemID" exact component={ItemPage} />
-				<Route path="/login" component={Login} />
+				<Route path="/" component={Login} />
 			</Router>
 		</ChakraProvider>
 	);

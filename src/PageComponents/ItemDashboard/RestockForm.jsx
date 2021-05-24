@@ -14,7 +14,6 @@ import {
 	NumberIncrementStepper
 } from '@chakra-ui/react';
 import DatePicker from './DatePicker';
-import { logRestock } from '../../Reducers/LabReducer';
 const RestockForm = ({ setShowDrawer }) => {
 	const [ formValues, setFormValues ] = useState({ quantity: 0, manDate: '', expDate: '', notes: '' });
 	const dispatch = useDispatch();
@@ -23,7 +22,7 @@ const RestockForm = ({ setShowDrawer }) => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(logRestock(1, 1, formValues));
+		// dispatch(logRestock(1, 1, formValues));
 	};
 	return (
 		<React.Fragment>

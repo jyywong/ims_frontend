@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteItems } from '../../Reducers/LabReducer';
 import {
 	ModalContent,
 	ModalHeader,
@@ -12,11 +11,13 @@ import {
 	UnorderedList,
 	ListItem
 } from '@chakra-ui/react';
-const DeleteItems = ({ onClose, itemsToDelete }) => {
+import { deleteItems } from '../../ActionCreators/invActions';
+const DeleteItems = ({ onClose, itemsToDelete, setItemsToDelete }) => {
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(deleteItems(1, itemsToDelete.map((item) => item.id)));
+		setItemsToDelete([]);
 		onClose();
 	};
 	return (

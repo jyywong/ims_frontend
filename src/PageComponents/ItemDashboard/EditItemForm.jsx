@@ -14,17 +14,16 @@ import {
 	NumberDecrementStepper,
 	NumberIncrementStepper
 } from '@chakra-ui/react';
-import { editItem } from '../../Reducers/LabReducer';
-const EditItemForm = ({ setShowDrawer }) => {
+import { editItemDetails } from '../../ActionCreators/itemActions';
+const EditItemForm = ({ setShowDrawer, item }) => {
 	const dispatch = useDispatch();
-	const [ formValues, setFormValues ] = useState({ name: '', manu: '', notes: '' });
+	const [ formValues, setFormValues ] = useState({ name: '', desc: '', manu: '', notes: '' });
 	const onClose = () => {
 		setShowDrawer(false);
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(editItem(1, 1, formValues.name, formValues.manu, formValues.notes));
-		console.log(formValues);
+		dispatch(editItemDetails(item.id, formValues.name, formValues.desc, formValues.manu, formValues.notes));
 	};
 	return (
 		<React.Fragment>
@@ -40,10 +39,18 @@ const EditItemForm = ({ setShowDrawer }) => {
 						/>
 					</FormControl>
 					<FormControl my="2">
+						<FormLabel> Item Description </FormLabel>
+						<Input
+							type="text"
+							placeholder="New Item Description"
+							value={formValues.desc}
+							onChange={(e) => setFormValues({ ...formValues, desc: e.target.value })}
+						/>
+					</FormControl>
+					<FormControl my="2">
 						<FormLabel> Item Manufacturer </FormLabel>
 						<Input
 							type="text"
-							placeholder="New Lab Description"
 							value={formValues.manu}
 							onChange={(e) => setFormValues({ ...formValues, manu: e.target.value })}
 						/>

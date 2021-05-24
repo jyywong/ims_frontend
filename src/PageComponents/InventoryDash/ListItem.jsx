@@ -20,7 +20,7 @@ const ListItem = ({ id, name, inventory, deleteItems, itemsToDelete, setItemsToD
 	};
 	return (
 		<React.Fragment>
-			<Link to={`/${inventory.id}/item/${id}`}>
+			{deleteItems ? (
 				<Flex
 					p="2"
 					justifyContent="space-between"
@@ -35,9 +35,27 @@ const ListItem = ({ id, name, inventory, deleteItems, itemsToDelete, setItemsToD
 					<Text px="4" color="gray.400" fontSize="sm">
 						7 in stock
 					</Text>
-					{deleteItems && <Checkbox isChecked={isChecked} onChange={handleChange} />}
+					<Checkbox isChecked={isChecked} onChange={handleChange} />
 				</Flex>
-			</Link>
+			) : (
+				<Link to={`/${inventory.id}/item/${id}`}>
+					<Flex
+						p="2"
+						justifyContent="space-between"
+						alignItems="center"
+						borderRadius="20px"
+						_hover={{ bg: 'gray.600' }}
+					>
+						<Flex alignItems="center">
+							<Icon boxSize={10} as={FiBox} />
+							<Text px="5"> {name} </Text>
+						</Flex>
+						<Text px="4" color="gray.400" fontSize="sm">
+							7 in stock
+						</Text>
+					</Flex>
+				</Link>
+			)}
 		</React.Fragment>
 	);
 };

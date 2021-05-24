@@ -12,11 +12,10 @@ import DrawerComp from '../PageComponents/DrawerComp';
 import EditLabForm from '../PageComponents/EditLabForm';
 import ModalContainer from '../PageComponents/Dashboard/ModalContainer';
 
-const LabDashboard = () => {
+const LabDashboard = ({ labID }) => {
 	const [ showDrawer, setShowDrawer ] = useState(false);
 	const { colorMode, toggleColorMode } = useColorMode();
-	const lab = useSelector((state) => state.labs.byID[1]);
-	const dispatch = useDispatch();
+	const lab = useSelector((state) => state.labs.byID[labID]);
 	const btnRef = useRef();
 
 	const openDrawer = () => {

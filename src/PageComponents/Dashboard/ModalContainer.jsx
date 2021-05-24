@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { GridItem, Button, Flex } from '@chakra-ui/react';
-import ListComponent from '../ListComponent';
-import MemberListItem from './MemberListItem';
 import ModalComp from '../ModalComp';
 import AddMemberModal from './AddMemberModal';
 import AddInventoryModal from './AddInventoryModal';
@@ -49,11 +46,17 @@ const ModalContainer = ({ colorMode, lab }) => {
 					if (modalContent === 'Add Members') {
 						return <AddMemberModal onClose={closeModal} />;
 					} else if (modalContent === 'Add Inventory') {
-						return <AddInventoryModal onClose={closeModal} />;
+						return <AddInventoryModal onClose={closeModal} lab={lab} />;
 					} else if (modalContent === 'Delete Inventories') {
-						return <DeleteInventoryModal onClose={closeModal} inventoriesToDelete={inventoriesToDelete} />;
+						return (
+							<DeleteInventoryModal
+								onClose={closeModal}
+								lab={lab}
+								inventoriesToDelete={inventoriesToDelete}
+							/>
+						);
 					} else if (modalContent === 'Remove Members') {
-						return <RemoveMemberModal onClose={closeModal} membersToRemove={membersToRemove} />;
+						return <RemoveMemberModal onClose={closeModal} lab={lab} membersToRemove={membersToRemove} />;
 					}
 				})()}
 			</ModalComp>

@@ -2,10 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import ListComponent from '../ListComponent';
 import StockItem from './StockItem';
-const StockList = ({ colorMode }) => {
-	const item = useSelector((state) =>
-		state.inventories.find((inv) => inv.id === 1).items.find((item) => item.id === 1)
-	);
+const StockList = ({ colorMode, item }) => {
 	return (
 		<React.Fragment>
 			<ListComponent colorMode={colorMode} title="Stock list">

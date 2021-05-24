@@ -7,10 +7,22 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import labReducer from './Reducers/LabReducer';
 import newLabReducer from './Reducers/NewReducer';
+import labsReducer from './Reducers/LabsReducer';
+import invsReducer from './Reducers/InvsReducer';
+import itemsReducer from './Reducers/ItemsReducer';
+import usersReducer from './Reducers/UsersReducer';
+import noticesReducer from './Reducers/NoticesReducer';
 
-const store = createStore(newLabReducer, composeWithDevTools());
+const rootReducer = combineReducers({
+	users: usersReducer,
+	labs: labsReducer,
+	inventories: invsReducer,
+	items: itemsReducer,
+	notices: noticesReducer
+});
+
+const store = createStore(rootReducer, composeWithDevTools());
 
 ReactDOM.render(
 	<StrictMode>

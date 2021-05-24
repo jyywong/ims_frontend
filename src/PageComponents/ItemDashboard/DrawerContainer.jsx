@@ -35,7 +35,7 @@ const DrawerContainer = ({ colorMode, item }) => {
 			>
 				{(() => {
 					if (drawerContent === 'Edit Item') {
-						return <EditItemForm setShowDrawer={setShowDrawer} />;
+						return <EditItemForm setShowDrawer={setShowDrawer} item={item} />;
 					} else if (drawerContent === 'Request Order') {
 						return <RequestOrderForm setShowDrawer={setShowDrawer} />;
 					} else if (drawerContent === 'Add restock') {

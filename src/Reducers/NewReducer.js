@@ -168,7 +168,8 @@ const entireState = {
 				username: 'Testuser 3',
 				message: 'This is the other test message.'
 			}
-		}
+		},
+		allIDs: [ 1, 2, 3 ]
 	},
 	auth: {}
 };
@@ -195,6 +196,21 @@ const newLabReducer = (state = entireState, action) => {
 	// }
 	switch (action.type) {
 		case 'EDIT_LAB_DETAILS':
+			return {
+				...state,
+				labs: {
+					...state.labs,
+					byID: {
+						...state.labs.byID,
+						[action.data.id]: {
+							...state.labs.byID[action.data.id],
+							name: action.data.name,
+							description: action.data.desc
+						}
+					}
+				}
+			};
+		case 'ADD_LAB_MEMBER':
 			return {
 				...state,
 				labs: {

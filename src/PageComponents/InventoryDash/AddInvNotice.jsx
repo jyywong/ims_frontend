@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addInvNotice } from '../../Reducers/LabReducer';
 import {
 	ModalContent,
 	ModalHeader,
@@ -16,7 +15,7 @@ const AddInvNotice = ({ onClose }) => {
 	const [ formValues, setFormValues ] = useState('');
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(addInvNotice(1, formValues));
+		// dispatch(addInvNotice(1, formValues));
 	};
 	return (
 		<ModalContent>

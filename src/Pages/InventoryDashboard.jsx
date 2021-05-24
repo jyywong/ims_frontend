@@ -10,8 +10,7 @@ import ListComponent from '../PageComponents/ListComponent';
 import ActivityItem from '../PageComponents/InventoryDash/ActivityItem';
 import InventoryModalContainer from '../PageComponents/InventoryDash/InventoryModalContainer';
 const InventoryDashboard = ({ invID }) => {
-	const inventory = useSelector((lab) => lab.inventories.find((inv) => inv.id === invID));
-	const [ showModal, setShowModal ] = useState(false);
+	const inventory = useSelector((state) => state.inventories.byID[invID]);
 	const { colorMode, toggleColorMode } = useColorMode();
 
 	return (
@@ -69,7 +68,7 @@ const InventoryDashboard = ({ invID }) => {
 						<GridItem gridArea="card1">
 							<SimpleCard
 								colorMode={colorMode}
-								number={inventory.itemCount}
+								number={inventory.items.length}
 								description="Total items"
 								icon={BiPackage}
 								iconBGcolor={colorMode === 'light' ? 'blue.100' : 'blue.700'}
@@ -99,7 +98,7 @@ const InventoryDashboard = ({ invID }) => {
 								<ActivityItem />
 							</ListComponent>
 						</GridItem>
-						<InventoryModalContainer colorMode={colorMode} inventory={inventory} />
+						<InventoryModalContainer colorMode={colorMode} inventory={inventory} invID={invID} />
 					</Grid>
 				</GridItem>
 			</Grid>

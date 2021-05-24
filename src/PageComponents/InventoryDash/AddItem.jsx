@@ -17,8 +17,8 @@ import {
 	FormControl,
 	FormLabel
 } from '@chakra-ui/react';
-import { addItem } from '../../Reducers/LabReducer';
-const AddItem = ({ onClose }) => {
+import { addItem } from '../../ActionCreators/invActions';
+const AddItem = ({ onClose, invID }) => {
 	const dispatch = useDispatch();
 	const [ formValues, setFormValues ] = useState({
 		name: '',
@@ -28,11 +28,7 @@ const AddItem = ({ onClose }) => {
 	});
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const newItem = {
-			name: formValues.name,
-			desc: formValues.otherInfo
-		};
-		dispatch(addItem(1, newItem));
+		dispatch(addItem(invID, formValues.name, formValues.otherInfo, formValues.manufacturer, formValues.otherInfo));
 	};
 	return (
 		<ModalContent>

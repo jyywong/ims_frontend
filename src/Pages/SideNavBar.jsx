@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Box, Button, Flex, Divider, Text, Grid, GridItem, Icon, useColorMode, Avatar } from '@chakra-ui/react';
-
+import { useSelector } from 'react-redux';
+import { Box, Button, Flex, Divider, Text, useColorMode } from '@chakra-ui/react';
 import { GiMoon } from 'react-icons/gi';
-import { ImLab } from 'react-icons/im';
-import { BiPackage } from 'react-icons/bi';
+import SideNavBarLabLink from './SideNavBarLabLink';
 
-import LabDashboard from './LabDashboard';
-
-const SideNavBar = () => {
+const SideNavBar = ({ labID }) => {
+	const labs = useSelector((state) => state.labs.byID);
 	const { colorMode, toggleColorMode } = useColorMode();
+
 	return (
 		<React.Fragment>
 			<Flex
@@ -24,30 +23,18 @@ const SideNavBar = () => {
 						Moon MS
 					</Text>
 				</Flex>
-
 				<Box p={3} borderTop="1px">
 					<Text fontSize="md"> My Labs </Text>
 					<Divider />
-					<Flex m="2">
-						<ImLab size={16} />
-						<Text ml="2" fontSize="sm">
-							Lab test 1
-						</Text>
-					</Flex>
-					<Flex m="2">
-						<ImLab size={16} />
-						<Text ml="2" fontSize="sm">
-							Lab test 2
-						</Text>
-					</Flex>
-					<Text fontSize="md"> Orders </Text>
-					<Divider />
-					<Flex m="2">
-						<BiPackage size={20} />
-						<Text ml="2" fontSize="sm">
-							Lab test 2
-						</Text>
-					</Flex>
+					{Object.keys(labs).map((labKey) => (
+						<SideNavBarLabLink
+							key={labKey}
+							colorMode={colorMode}
+							id={labKey}
+							name={labs[labKey].name}
+							labID={labID}
+						/>
+					))}
 				</Box>
 				<Button justifySelf="flex-end" onClick={toggleColorMode}>
 					Color Mode

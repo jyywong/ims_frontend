@@ -11,13 +11,12 @@ import {
 	UnorderedList,
 	ListItem
 } from '@chakra-ui/react';
-import { removeMember } from '../../Reducers/LabReducer';
-
-const RemoveMemberModal = ({ onClose, membersToRemove }) => {
+import { removeLabMember } from '../../ActionCreators/labActions';
+const RemoveMemberModal = ({ onClose, lab, membersToRemove }) => {
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(removeMember(membersToRemove.map((member) => member.id)));
+		dispatch(removeLabMember(lab.id, membersToRemove.map((member) => member.id)));
 		onClose();
 	};
 	return (

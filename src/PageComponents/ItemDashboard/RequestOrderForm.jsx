@@ -14,7 +14,6 @@ import {
 	NumberIncrementStepper
 } from '@chakra-ui/react';
 import DatePicker from './DatePicker';
-import { addItemOrder } from '../../Reducers/LabReducer';
 const RequestOrderForm = ({ setShowDrawer }) => {
 	const dispatch = useDispatch();
 	const [ formValues, setFormValues ] = useState({ quantity: 0, date: '', notes: '' });
@@ -24,7 +23,7 @@ const RequestOrderForm = ({ setShowDrawer }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		console.log(formValues);
-		dispatch(addItemOrder(1, 1, formValues));
+		// dispatch(addItemOrder(1, 1, formValues));
 	};
 	return (
 		<React.Fragment>

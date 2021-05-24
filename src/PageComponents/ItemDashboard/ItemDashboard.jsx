@@ -12,9 +12,7 @@ import ItemStats from './ItemStats';
 import StockList from './StockList';
 import DrawerContainer from './DrawerContainer';
 const ItemDashboard = ({ invID, itemID }) => {
-	const item = useSelector((state) =>
-		state.inventories.find((inv) => inv.id === invID).items.find((item) => item.id === itemID)
-	);
+	const item = useSelector((state) => state.items.byID[itemID]);
 	const { colorMode, toggleColorMode } = useColorMode();
 
 	return (
@@ -93,7 +91,7 @@ const ItemDashboard = ({ invID, itemID }) => {
 							<ItemInformation colorMode={colorMode} item={item} />
 						</GridItem>
 						<GridItem gridArea="stocks">
-							<StockList colorMode={colorMode} />
+							<StockList colorMode={colorMode} item={item} />
 						</GridItem>
 						<GridItem gridArea="notices">
 							<ListComponent colorMode={colorMode} title="Recent Activity" listitem={ActivityItem}>
