@@ -18,6 +18,7 @@ const RemoveMemberModal = ({ onClose, lab, membersToRemove }) => {
 		e.preventDefault();
 		dispatch(removeLabMember(lab.id, membersToRemove.map((member) => member.id)));
 		onClose();
+		console.log('hello');
 	};
 	return (
 		<ModalContent>
@@ -34,7 +35,7 @@ const RemoveMemberModal = ({ onClose, lab, membersToRemove }) => {
 					<Button type="button" mx="1" onClick={onClose}>
 						Close
 					</Button>
-					<Button type="submit" colorScheme="red" mx="1">
+					<Button data-testid="Confirm remove members" type="submit" colorScheme="red" mx="1">
 						Yes
 					</Button>
 				</ModalFooter>

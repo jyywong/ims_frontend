@@ -17,6 +17,7 @@ const AddInventoryModal = ({ onClose, lab }) => {
 			<form onSubmit={handleSubmit}>
 				<ModalBody>
 					<Input
+						data-testid="Inventory name input"
 						type="text"
 						value={invName}
 						onChange={(e) => setInvName(e.target.value)}

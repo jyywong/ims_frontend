@@ -32,6 +32,7 @@ const EditItemForm = ({ setShowDrawer, item }) => {
 					<FormControl my="2">
 						<FormLabel> Item Name </FormLabel>
 						<Input
+							id="Item name"
 							type="text"
 							placeholder="New Item Name"
 							value={formValues.name}
@@ -41,6 +42,7 @@ const EditItemForm = ({ setShowDrawer, item }) => {
 					<FormControl my="2">
 						<FormLabel> Item Description </FormLabel>
 						<Input
+							id="Item desc"
 							type="text"
 							placeholder="New Item Description"
 							value={formValues.desc}
@@ -50,6 +52,7 @@ const EditItemForm = ({ setShowDrawer, item }) => {
 					<FormControl my="2">
 						<FormLabel> Item Manufacturer </FormLabel>
 						<Input
+							id="Item manu"
 							type="text"
 							value={formValues.manu}
 							onChange={(e) => setFormValues({ ...formValues, manu: e.target.value })}
@@ -58,6 +61,7 @@ const EditItemForm = ({ setShowDrawer, item }) => {
 					<FormControl my="2">
 						<FormLabel> Notes </FormLabel>
 						<Textarea
+							id="Item notes"
 							value={formValues.notes}
 							onChange={(e) => setFormValues({ ...formValues, notes: e.target.value })}
 						/>

@@ -29,6 +29,7 @@ const AddItem = ({ onClose, invID }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(addItem(invID, formValues.name, formValues.otherInfo, formValues.manufacturer, formValues.otherInfo));
+		onClose();
 	};
 	return (
 		<ModalContent>
@@ -39,6 +40,7 @@ const AddItem = ({ onClose, invID }) => {
 					<FormControl my="2">
 						<FormLabel>Item Name</FormLabel>
 						<Input
+							id="Item name"
 							type="text"
 							value={formValues.name}
 							onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
@@ -47,6 +49,7 @@ const AddItem = ({ onClose, invID }) => {
 					<FormControl my="2">
 						<FormLabel>Manufacturer</FormLabel>
 						<Input
+							id="Manu"
 							type="text"
 							value={formValues.manufacturer}
 							onChange={(e) => setFormValues({ ...formValues, manufacturer: e.target.value })}
@@ -55,6 +58,7 @@ const AddItem = ({ onClose, invID }) => {
 					<FormControl my="2">
 						<FormLabel>Unique Id</FormLabel>
 						<Input
+							id="Unique Id"
 							type="text"
 							value={formValues.uniqueID}
 							onChange={(e) => setFormValues({ ...formValues, uniqueID: e.target.value })}
@@ -63,6 +67,7 @@ const AddItem = ({ onClose, invID }) => {
 					<FormControl my="2">
 						<FormLabel>Other information</FormLabel>
 						<Input
+							id="info"
 							type="text"
 							value={formValues.otherInfo}
 							onChange={(e) => setFormValues({ ...formValues, otherInfo: e.target.value })}

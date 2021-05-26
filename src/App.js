@@ -13,7 +13,7 @@ function App() {
 				<Route path="/lab/:labID" exact component={LabPage} />
 				<Route path="/inventory/:invID" exact component={InventoryPage} />
 				<Route path="/:invID/item/:itemID" exact component={ItemPage} />
-				<Route path="/" component={Login} />
+				<Route path="/" exact component={Login} />
 			</Router>
 		</ChakraProvider>
 	);

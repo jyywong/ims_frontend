@@ -8,6 +8,7 @@ const EditLabForm = ({ onClose }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(editLabDetails(1, formValues.name, formValues.desc));
+		onClose();
 	};
 	return (
 		<React.Fragment>
@@ -16,6 +17,7 @@ const EditLabForm = ({ onClose }) => {
 					<FormControl my="2">
 						<FormLabel> Lab Name </FormLabel>
 						<Input
+							id="New Lab Name"
 							type="text"
 							value={formValues.name}
 							placeholder="New Lab Name"
@@ -25,6 +27,7 @@ const EditLabForm = ({ onClose }) => {
 					<FormControl my="2">
 						<FormLabel> Lab Description </FormLabel>
 						<Input
+							id="New Lab Description"
 							type="text"
 							value={formValues.desc}
 							placeholder="New Lab Description"

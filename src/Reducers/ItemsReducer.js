@@ -113,7 +113,7 @@ const editItem = (state, action) => {
 		[itemID]: {
 			...state[itemID],
 			name,
-			description: desc,
+			desc,
 			manu,
 			notes
 		}

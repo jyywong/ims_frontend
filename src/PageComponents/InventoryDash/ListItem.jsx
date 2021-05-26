@@ -35,7 +35,7 @@ const ListItem = ({ id, name, inventory, deleteItems, itemsToDelete, setItemsToD
 					<Text px="4" color="gray.400" fontSize="sm">
 						7 in stock
 					</Text>
-					<Checkbox data-testid="Checkbox" isChecked={isChecked} onChange={handleChange} />
+					<Checkbox data-testid={`Checkbox ${id}`} isChecked={isChecked} onChange={handleChange} />
 				</Flex>
 			) : (
 				<Link data-testid="Link" to={`/${inventory.id}/item/${id}`}>
