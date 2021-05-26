@@ -33,14 +33,17 @@ const RequestOrderForm = ({ setShowDrawer }) => {
 						<FormLabel> Number of Units Required </FormLabel>
 						<NumberInput>
 							<NumberInputField
+								data-testid="Units required"
 								value={formValues.quantity}
 								onChange={(e) => setFormValues({ ...formValues, quantity: Number(e.target.value) })}
 							/>
 							<NumberInputStepper>
 								<NumberIncrementStepper
+									data-testid="Units increment"
 									onClick={(e) => setFormValues({ ...formValues, quantity: formValues.quantity + 1 })}
 								/>
 								<NumberDecrementStepper
+									data-testid="Units decrement"
 									onClick={(e) => setFormValues({ ...formValues, quantity: formValues.quantity - 1 })}
 								/>
 							</NumberInputStepper>

@@ -35,10 +35,10 @@ const InventoryListItem = ({
 					<Text px="4" color="gray.400" fontSize="sm">
 						{itemQuantity} items
 					</Text>
-					<Checkbox isChecked={isChecked} onChange={handleChange} />
+					<Checkbox data-testid="Checkbox" isChecked={isChecked} onChange={handleChange} />
 				</Flex>
 			) : (
-				<Link to={`/inventory/${id}`}>
+				<Link data-testid="Inv Link" to={`/inventory/${id}`}>
 					<Flex p="2" justifyContent="space-between" alignItems="center">
 						<Flex alignItems="center">
 							<Icon boxSize={10} as={FiBox} />

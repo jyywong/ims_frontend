@@ -48,6 +48,7 @@ const SearchComp = () => {
 		<React.Fragment>
 			{/* TODO: Figure out how to match popover width with searchbar width */}
 			<Popover
+				data-testid="Popover"
 				returnFocusOnClose={false}
 				isOpen={openPopover}
 				onClose={() => setOpenPopover(false)}
@@ -56,7 +57,12 @@ const SearchComp = () => {
 				closeOnBlur={true}
 			>
 				<PopoverTrigger>
-					<Input placeholder="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+					<Input
+						data-testid="Input"
+						placeholder="Search"
+						value={searchValue}
+						onChange={(e) => setSearchValue(e.target.value)}
+					/>
 				</PopoverTrigger>
 				<PopoverContent width="69vw">
 					<PopoverHeader fontSize="2xl">Items</PopoverHeader>
