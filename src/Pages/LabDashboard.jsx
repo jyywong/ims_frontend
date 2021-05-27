@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { getLabList } from '../Services/LabServices';
 import { Grid, GridItem, Button, Text, useColorMode } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { FaExclamation } from 'react-icons/fa';
 import { BiPackage, BiTrendingUp } from 'react-icons/bi';
 import SimpleCard from '../PageComponents/Dashboard/SimpleCard';
@@ -17,6 +18,10 @@ const LabDashboard = ({ labID }) => {
 	const { colorMode, toggleColorMode } = useColorMode();
 	const lab = useSelector((state) => state.labs.byID[labID]);
 	const btnRef = useRef();
+
+	useEffect(() => {
+		getLabList.then((response) => console.log(response));
+	}, []);
 
 	const openDrawer = () => {
 		setShowDrawer(true);

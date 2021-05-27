@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { login } from '../Services/AuthServices';
 import { Box, Flex, Heading, Text, FormControl, FormLabel, Input, Button, useColorMode } from '@chakra-ui/react';
 const Login = () => {
+	const history = useHistory();
 	const { colorMode, toggleColorMode } = useColorMode();
+	const [ formValues, setFormValues ] = useState({ username: '', password: '' });
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		login(formValues.username, formValues.password)
+			.then((response) => {
+				console.log(response);
+				localStorage.setItem('refresh', response.data['refresh']);
+				localStorage.setItem('access', response.data['access']);
+				history.push('lab/1');
+			})
+			.catch((error) => {
+				alert(error);
+			});
+	};
 	return (
 		<React.Fragment>
 			<Button onClick={toggleColorMode}> Toggle color mode</Button>
@@ -16,14 +33,28 @@ const Login = () => {
 						<Heading> Log in </Heading>
 					</Box>
 					<Box>
-						<form>
+						<form onSubmit={handleSubmit}>
 							<FormControl my="2">
-								<FormLabel>Email Address</FormLabel>
-								<Input type="email" placeholder="Enter your email address" />
+								<FormLabel>Username</FormLabel>
+								<Input
+									type="text"
+									placeholder="Enter your username"
+									value={formValues.username}
+									onChange={(e) => {
+										setFormValues({ ...formValues, username: e.target.value });
+									}}
+								/>
 							</FormControl>
 							<FormControl my="2">
 								<FormLabel>Password</FormLabel>
-								<Input type="password" placeholder="Enter your password" />
+								<Input
+									type="password"
+									placeholder="Enter your password"
+									value={formValues.password}
+									onChange={(e) => {
+										setFormValues({ ...formValues, password: e.target.value });
+									}}
+								/>
 							</FormControl>
 							<Button
 								width="full"
