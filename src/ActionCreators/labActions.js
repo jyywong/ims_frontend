@@ -2,6 +2,16 @@ const generateID = () => {
 	return Math.floor(Math.random() * 1000000);
 };
 
+export const updateLabState = (newState, newLabIDs) => {
+	return {
+		type: 'UPDATE_LABS',
+		data: {
+			newState,
+			newLabIDs
+		}
+	};
+};
+
 export const editLabDetails = (labID, name, desc) => {
 	return {
 		type: 'EDIT_LAB_DETAILS',

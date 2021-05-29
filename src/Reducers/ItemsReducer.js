@@ -119,9 +119,15 @@ const editItem = (state, action) => {
 		}
 	};
 };
+const updateItems = (state, action) => {
+	const { data } = action;
+	return data.newState;
+};
 
 const itemsByIDReducer = (state = initialState.byID, action) => {
 	switch (action.type) {
+		case 'UPDATE_ITEMS':
+			return updateItems(state, action);
 		case 'ADD_ITEM':
 			return addItem(state, action);
 		case 'DELETE_ITEM':
@@ -134,6 +140,8 @@ const itemsByIDReducer = (state = initialState.byID, action) => {
 };
 const itemsAllIDsReducer = (state = initialState.allIDs, action) => {
 	switch (action.type) {
+		case 'UPDATE_ITEMS':
+			return action.data.newItemIDs;
 		case 'ADD_ITEM':
 			return [ ...state, action.data.newItemID ];
 		case 'DELETE_ITEM':

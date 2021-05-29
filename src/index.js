@@ -5,24 +5,26 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import newLabReducer from './Reducers/NewReducer';
+import thunk from 'redux-thunk';
 import labsReducer from './Reducers/LabsReducer';
 import invsReducer from './Reducers/InvsReducer';
 import itemsReducer from './Reducers/ItemsReducer';
 import usersReducer from './Reducers/UsersReducer';
 import noticesReducer from './Reducers/NoticesReducer';
+import authReducer from './Reducers/AuthReducer';
 
 const rootReducer = combineReducers({
 	users: usersReducer,
 	labs: labsReducer,
 	inventories: invsReducer,
 	items: itemsReducer,
-	notices: noticesReducer
+	notices: noticesReducer,
+	auth: authReducer
 });
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
 	<StrictMode>

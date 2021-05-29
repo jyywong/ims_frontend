@@ -1,6 +1,15 @@
 const generateID = () => {
 	return Math.floor(Math.random() * 1000000);
 };
+export const updateInventories = (newState, newInvIDs) => {
+	return {
+		type: 'UPDATE_INVS',
+		data: {
+			newState,
+			newInvIDs
+		}
+	};
+};
 
 export const addItem = (invID, name, desc, manu, notes) => {
 	return {

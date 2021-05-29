@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { login } from '../Services/AuthServices';
+import { getUserDetails, login } from '../Services/AuthServices';
+import jwt_decode from 'jwt-decode';
 import { Box, Flex, Heading, Text, FormControl, FormLabel, Input, Button, useColorMode } from '@chakra-ui/react';
+import { getInvList, getItemList, getLabList } from '../Services/LabServices';
+import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
+import { useDispatch } from 'react-redux';
+import { updateLabState } from '../ActionCreators/labActions';
+import { updateInventories } from '../ActionCreators/invActions';
+import { updateItems } from '../ActionCreators/itemActions';
+import { loginSuccess } from '../ActionCreators/authActions';
+import axios from 'axios';
 const Login = () => {
+	const dispatch = useDispatch();
 	const history = useHistory();
 	const { colorMode, toggleColorMode } = useColorMode();
 	const [ formValues, setFormValues ] = useState({ username: '', password: '' });
@@ -10,10 +20,24 @@ const Login = () => {
 		e.preventDefault();
 		login(formValues.username, formValues.password)
 			.then((response) => {
-				console.log(response);
 				localStorage.setItem('refresh', response.data['refresh']);
 				localStorage.setItem('access', response.data['access']);
-				history.push('lab/1');
+				getUserDetails(jwt_decode(localStorage.getItem('access')).user_id).then((response) => {
+					dispatch(loginSuccess(response.data));
+					getItemList.then((response) => {
+						const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+						dispatch(updateItems(organizedObject, newIDs));
+						getInvList.then((response) => {
+							const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+							dispatch(updateInventories(organizedObject, newIDs));
+							getLabList.then((response) => {
+								const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+								dispatch(updateLabState(organizedObject, newIDs));
+								history.push(`lab/${newIDs[0]}`);
+							});
+						});
+					});
+				});
 			})
 			.catch((error) => {
 				alert(error);

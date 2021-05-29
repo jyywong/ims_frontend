@@ -5,3 +5,5 @@ export const login = (username, password) =>
 		username,
 		password
 	});
+
+export const getUserDetails = (userID) => axios.get(`http://127.0.0.1:8000/api/user/${userID}`);

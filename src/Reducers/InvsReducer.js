@@ -83,11 +83,17 @@ const deleteItem = (state, action) => {
 		}
 	};
 };
+const updateInventories = (state, action) => {
+	const { data } = action;
+	return data.newState;
+};
 // HELPER FUNCTIONS END
 
 // REDUCERS START
 const invsByIDReducer = (state = initialState.byID, action) => {
 	switch (action.type) {
+		case 'UPDATE_INVS':
+			return updateInventories(state, action);
 		case 'ADD_INVENTORY':
 			return addInventory(state, action);
 		case 'DELETE_INVENTORY':
@@ -102,6 +108,8 @@ const invsByIDReducer = (state = initialState.byID, action) => {
 };
 const invsAllIDsReducer = (state = initialState.allIDs, action) => {
 	switch (action.type) {
+		case 'UPDATE_INVS':
+			return action.data.newInvIDs;
 		case 'ADD_INVENTORY':
 			return [ ...state, action.data.newInvID ];
 		case 'DELETE_INVENTORY':
