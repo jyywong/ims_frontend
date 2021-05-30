@@ -1,3 +1,6 @@
+import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
+import { getLabList } from '../Services/LabServices';
+
 const generateID = () => {
 	return Math.floor(Math.random() * 1000000);
 };
@@ -11,6 +14,14 @@ export const updateLabState = (newState, newLabIDs) => {
 		}
 	};
 };
+
+export async function fetchLabs(dispatch, getState) {
+	const response = await getLabList;
+	const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+	console.log(organizedObject, newIDs);
+	dispatch(updateLabState(organizedObject, newIDs));
+	return newIDs;
+}
 
 export const editLabDetails = (labID, name, desc) => {
 	return {

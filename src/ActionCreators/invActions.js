@@ -1,3 +1,5 @@
+import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
+import { getInvList } from '../Services/LabServices';
 const generateID = () => {
 	return Math.floor(Math.random() * 1000000);
 };
@@ -9,6 +11,12 @@ export const updateInventories = (newState, newInvIDs) => {
 			newInvIDs
 		}
 	};
+};
+
+export const fetchInventories = async (dispatch, getState) => {
+	const response = await getInvList;
+	const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+	dispatch(updateInventories(organizedObject, newIDs));
 };
 
 export const addItem = (invID, name, desc, manu, notes) => {

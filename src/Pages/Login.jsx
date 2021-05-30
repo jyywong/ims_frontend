@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getUserDetails, login } from '../Services/AuthServices';
-import jwt_decode from 'jwt-decode';
+import { useSelector } from 'react-redux';
 import { Box, Flex, Heading, Text, FormControl, FormLabel, Input, Button, useColorMode } from '@chakra-ui/react';
 import { getInvList, getItemList, getLabList } from '../Services/LabServices';
 import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
 import { useDispatch } from 'react-redux';
-import { updateLabState } from '../ActionCreators/labActions';
-import { updateInventories } from '../ActionCreators/invActions';
-import { updateItems } from '../ActionCreators/itemActions';
-import { loginSuccess } from '../ActionCreators/authActions';
-import axios from 'axios';
+import { fetchLabs } from '../ActionCreators/labActions';
+import { loginAttempt, loginSuccess } from '../ActionCreators/authActions';
+import { fetchInventories } from '../ActionCreators/invActions';
+import { fetchItems } from '../ActionCreators/itemActions';
 const Login = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -18,30 +17,22 @@ const Login = () => {
 	const [ formValues, setFormValues ] = useState({ username: '', password: '' });
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		login(formValues.username, formValues.password)
-			.then((response) => {
-				localStorage.setItem('refresh', response.data['refresh']);
-				localStorage.setItem('access', response.data['access']);
-				getUserDetails(jwt_decode(localStorage.getItem('access')).user_id).then((response) => {
-					dispatch(loginSuccess(response.data));
-					getItemList.then((response) => {
-						const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
-						dispatch(updateItems(organizedObject, newIDs));
-						getInvList.then((response) => {
-							const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
-							dispatch(updateInventories(organizedObject, newIDs));
-							getLabList.then((response) => {
-								const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
-								dispatch(updateLabState(organizedObject, newIDs));
-								history.push(`lab/${newIDs[0]}`);
-							});
-						});
-					});
-				});
-			})
-			.catch((error) => {
-				alert(error);
-			});
+		(async () => {
+			await dispatch(loginAttempt(formValues.username, formValues.password));
+			const labIDs = await dispatch(fetchLabs);
+			await dispatch(fetchInventories);
+			await dispatch(fetchItems);
+			history.push(`lab/${labIDs[0]}`);
+		})();
+
+		// dispatch(loginAttempt(formValues.username, formValues.password)).then(() => {
+		// 	dispatch(fetchLabs).then(() => {
+		// 		dispatch(fetchInventories).then(() => {
+		// 			dispatch(fetchItems)
+
+		// 		});
+		// 	});
+		// });
 	};
 	return (
 		<React.Fragment>
