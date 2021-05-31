@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, Input } from '@chakra-ui/react';
-import { addInventory } from '../../ActionCreators/labActions';
+import { addInventory, addNewInventory } from '../../ActionCreators/labActions';
 const AddInventoryModal = ({ onClose, lab }) => {
 	const [ invName, setInvName ] = useState('');
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(addInventory(lab.id, invName, ''));
+		dispatch(addNewInventory(lab.id, invName, 'test description', []));
 		onClose();
 	};
 	return (

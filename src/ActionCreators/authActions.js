@@ -13,8 +13,8 @@ export const loginSuccess = (user) => {
 export const loginAttempt = (username, password) => {
 	return async (dispatch, getState) => {
 		const response = await login(username, password);
-		// localStorage.setItem('refresh', response.data['refresh']);
-		// localStorage.setItem('access', response.data['access']);
+		localStorage.setItem('refresh', response.data['refresh']);
+		localStorage.setItem('access', response.data['access']);
 		const userID = jwt_decode(localStorage.getItem('access')).user_id;
 		dispatch(getUserDetailsAttempt(userID));
 	};

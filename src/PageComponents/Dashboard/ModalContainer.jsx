@@ -44,7 +44,7 @@ const ModalContainer = ({ colorMode, lab }) => {
 			<ModalComp isOpen={showModal} onClose={closeModal}>
 				{(() => {
 					if (modalContent === 'Add Members') {
-						return <AddMemberModal onClose={closeModal} />;
+						return <AddMemberModal onClose={closeModal} lab={lab} />;
 					} else if (modalContent === 'Add Inventory') {
 						return <AddInventoryModal onClose={closeModal} lab={lab} />;
 					} else if (modalContent === 'Delete Inventories') {

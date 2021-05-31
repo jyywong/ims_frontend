@@ -55,7 +55,7 @@ const addInventory = (state, action) => {
 		...state,
 		[data.labID]: {
 			...lab,
-			inventories: [ ...lab.members, data.newInvID ]
+			inventories: [ ...lab.inventories, data.newInvID ]
 		}
 	};
 };

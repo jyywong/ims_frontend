@@ -11,12 +11,14 @@ import {
 	UnorderedList,
 	ListItem
 } from '@chakra-ui/react';
-import { deleteInventory } from '../../ActionCreators/labActions';
+import { deleteInvs } from '../../Services/LabServices';
+import { deleteInventory, deleteInventoryActual } from '../../ActionCreators/labActions';
 const DeleteInventoryModal = ({ onClose, lab, inventoriesToDelete }) => {
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(deleteInventory(lab.id, inventoriesToDelete.map((inventory) => inventory.id)));
+		console.log(inventoriesToDelete.map((inv) => inv.id));
+		dispatch(deleteInventoryActual(lab.id, inventoriesToDelete.map((inv) => inv.id)));
 		onClose();
 	};
 	return (

@@ -24,15 +24,6 @@ const Login = () => {
 			await dispatch(fetchItems);
 			history.push(`lab/${labIDs[0]}`);
 		})();
-
-		// dispatch(loginAttempt(formValues.username, formValues.password)).then(() => {
-		// 	dispatch(fetchLabs).then(() => {
-		// 		dispatch(fetchInventories).then(() => {
-		// 			dispatch(fetchItems)
-
-		// 		});
-		// 	});
-		// });
 	};
 	return (
 		<React.Fragment>

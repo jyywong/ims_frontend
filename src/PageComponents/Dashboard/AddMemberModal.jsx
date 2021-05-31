@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, Input } from '@chakra-ui/react';
-const AddMemberModal = ({ onClose }) => {
+import { createNewLabInvite } from '../../Services/LabServices';
+const AddMemberModal = ({ onClose, lab }) => {
 	const [ email, setEmail ] = useState('');
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		createNewLabInvite(lab.id, email);
 		// dispatch(newMember(email));
 		onClose();
 	};
