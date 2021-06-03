@@ -1,5 +1,5 @@
 import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
-import { getInvList } from '../Services/LabServices';
+import { getInvList, createNewItemCall, deleteItemCall } from '../Services/LabServices';
 const generateID = () => {
 	return Math.floor(Math.random() * 1000000);
 };
@@ -13,24 +13,45 @@ export const updateInventories = (newState, newInvIDs) => {
 	};
 };
 
-export const fetchInventories = async (dispatch, getState) => {
+export const fetchInventoriesTC = async (dispatch, getState) => {
 	const response = await getInvList;
 	const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
 	dispatch(updateInventories(organizedObject, newIDs));
 };
 
-export const addItem = (invID, name, desc, manu, notes) => {
+export const addItem = (invID, id, name, manufacturer, notes, initialQuantity, minQuantity, notices) => {
 	return {
 		type: 'ADD_ITEM',
 		data: {
 			invID,
-			newItemID: generateID(),
+			id,
 			name,
-			desc,
-			manu,
+			manufacturer,
 			notes,
-			notices: []
+			initialQuantity,
+			minQuantity,
+			notices
 		}
+	};
+};
+
+export const addItemTC = (invID, name, manufacturer, notes, initialQuantity, minQuantity) => {
+	return async (dispatch, getState) => {
+		const response = await createNewItemCall(invID, name, manufacturer, notes, initialQuantity, minQuantity);
+		console.log(response);
+		const { data } = response;
+		dispatch(
+			addItem(
+				data.invID,
+				data.id,
+				data.name,
+				data.manufacturer,
+				data.notes,
+				data.quantity,
+				data.minQuantity,
+				data.notices
+			)
+		);
 	};
 };
 
@@ -41,5 +62,13 @@ export const deleteItems = (invID, itemIDs) => {
 			invID,
 			itemIDs
 		}
+	};
+};
+
+export const deleteItemsTC = (invID, itemIDs) => {
+	return async (dispatch, getState) => {
+		const listOfAPICalls = itemIDs.map((itemID) => deleteItemCall(itemID));
+		await Promise.all(listOfAPICalls);
+		dispatch(deleteItems(invID, itemIDs));
 	};
 };

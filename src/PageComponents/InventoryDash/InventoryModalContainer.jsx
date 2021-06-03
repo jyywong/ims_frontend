@@ -29,6 +29,7 @@ const InventoryModalContainer = ({ colorMode, inventory, invID }) => {
 					itemsToDelete={itemsToDelete}
 					setItemsToDelete={setItemsToDelete}
 					inventory={inventory}
+					invID={invID}
 				/>
 			</GridItem>
 			<GridItem gridArea="notices">
@@ -52,6 +53,7 @@ const InventoryModalContainer = ({ colorMode, inventory, invID }) => {
 								onClose={closeModal}
 								itemsToDelete={itemsToDelete}
 								setItemsToDelete={setItemsToDelete}
+								invID={invID}
 							/>
 						);
 					} else if (modalContent === 'Delete Notices') {

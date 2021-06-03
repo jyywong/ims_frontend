@@ -7,8 +7,9 @@ const AddMemberModal = ({ onClose, lab }) => {
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		createNewLabInvite(lab.id, email);
-		// dispatch(newMember(email));
+		createNewLabInvite(lab.id, email).then((response) => {
+			response && alert('Your invite has been sent successfully!');
+		});
 		onClose();
 	};
 	return (

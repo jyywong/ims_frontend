@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Input, FormLabel, FormControl, DrawerBody, DrawerFooter, Button } from '@chakra-ui/react';
-import { editLabDetails } from '../ActionCreators/labActions';
-const EditLabForm = ({ onClose }) => {
-	const [ formValues, setFormValues ] = useState({ name: '', desc: '', admin: '' });
+import { editLabDetailsTC } from '../ActionCreators/labActions';
+const EditLabForm = ({ labID, onClose }) => {
+	const lab = useSelector((state) => state.labs.byID[labID]);
+	const [ formValues, setFormValues ] = useState({ name: lab.name, desc: lab.description, admin: '' });
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(editLabDetails(1, formValues.name, formValues.desc));
+		dispatch(editLabDetailsTC(labID, formValues.name, formValues.desc));
 		onClose();
 	};
 	return (

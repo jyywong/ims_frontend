@@ -110,7 +110,7 @@ const LabDashboard = ({ labID }) => {
 							<Text mx="6" fontSize="2xl">
 								Edit Lab Details
 							</Text>
-							<EditLabForm onClose={() => setShowDrawer(false)} />
+							<EditLabForm labID={labID} onClose={() => setShowDrawer(false)} />
 						</DrawerComp>
 					</Grid>
 				</GridItem>

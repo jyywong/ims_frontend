@@ -11,12 +11,13 @@ import {
 	UnorderedList,
 	ListItem
 } from '@chakra-ui/react';
-import { deleteItems } from '../../ActionCreators/invActions';
-const DeleteItems = ({ onClose, itemsToDelete, setItemsToDelete }) => {
+import { deleteItemsTC } from '../../ActionCreators/invActions';
+
+const DeleteItems = ({ onClose, itemsToDelete, setItemsToDelete, invID }) => {
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(deleteItems(1, itemsToDelete.map((item) => item.id)));
+		dispatch(deleteItemsTC(invID, itemsToDelete.map((item) => item.id)));
 		setItemsToDelete([]);
 		onClose();
 	};

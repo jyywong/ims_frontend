@@ -68,7 +68,7 @@ const addItem = (state, action) => {
 		...state,
 		[data.invID]: {
 			...inv,
-			items: [ ...inv.items, data.newItemID ]
+			items: [ ...inv.items, data.id ]
 		}
 	};
 };

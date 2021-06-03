@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FiBox } from 'react-icons/fi';
 import { Flex, Text, Icon, Checkbox } from '@chakra-ui/react';
-const ListItem = ({ id, name, inventory, deleteItems, itemsToDelete, setItemsToDelete }) => {
+const ListItem = ({ id, name, inventory, deleteItems, itemsToDelete, setItemsToDelete, item }) => {
 	const [ isChecked, setIsChecked ] = useState(false);
-
 	useEffect(
 		() => {
 			setIsChecked(false);
@@ -51,7 +50,7 @@ const ListItem = ({ id, name, inventory, deleteItems, itemsToDelete, setItemsToD
 							<Text px="5"> {name} </Text>
 						</Flex>
 						<Text px="4" color="gray.400" fontSize="sm">
-							7 in stock
+							{item.quantity} in stock
 						</Text>
 					</Flex>
 				</Link>

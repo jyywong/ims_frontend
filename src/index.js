@@ -14,12 +14,16 @@ import itemsReducer from './Reducers/ItemsReducer';
 import usersReducer from './Reducers/UsersReducer';
 import noticesReducer from './Reducers/NoticesReducer';
 import authReducer from './Reducers/AuthReducer';
+import itemOrderReducer from './Reducers/ItemOrderReducer';
+import itemBatchReducer from './Reducers/ItemBatchReducer';
 
 const rootReducer = combineReducers({
 	users: usersReducer,
 	labs: labsReducer,
 	inventories: invsReducer,
 	items: itemsReducer,
+	itemOrders: itemOrderReducer,
+	itemBatches: itemBatchReducer,
 	notices: noticesReducer,
 	auth: authReducer
 });

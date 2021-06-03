@@ -6,10 +6,12 @@ import { Box, Flex, Heading, Text, FormControl, FormLabel, Input, Button, useCol
 import { getInvList, getItemList, getLabList } from '../Services/LabServices';
 import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
 import { useDispatch } from 'react-redux';
-import { fetchLabs } from '../ActionCreators/labActions';
-import { loginAttempt, loginSuccess } from '../ActionCreators/authActions';
-import { fetchInventories } from '../ActionCreators/invActions';
-import { fetchItems } from '../ActionCreators/itemActions';
+import { fetchLabsTC } from '../ActionCreators/labActions';
+import { loginAttemptTC, loginSuccess, updateUserListAttempt } from '../ActionCreators/authActions';
+import { fetchInventoriesTC } from '../ActionCreators/invActions';
+import { fetchItemBatches, fetchItemsTC } from '../ActionCreators/itemActions';
+import { updateUsersTC } from '../ActionCreators/userActions';
+import { updateUsersCall } from '../Services/LabServices';
 const Login = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -18,11 +20,17 @@ const Login = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		(async () => {
-			await dispatch(loginAttempt(formValues.username, formValues.password));
-			const labIDs = await dispatch(fetchLabs);
-			await dispatch(fetchInventories);
-			await dispatch(fetchItems);
-			history.push(`lab/${labIDs[0]}`);
+			try {
+				await dispatch(loginAttemptTC(formValues.username, formValues.password));
+				const labIDs = await dispatch(fetchLabsTC);
+				await dispatch(fetchInventoriesTC);
+				await dispatch(fetchItemsTC);
+				await dispatch(updateUsersTC);
+				await dispatch(fetchItemBatches);
+				history.push(`lab/${labIDs[0]}`);
+			} catch (err) {
+				alert(err);
+			}
 		})();
 	};
 	return (

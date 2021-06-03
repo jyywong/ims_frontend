@@ -59,7 +59,7 @@ const MemberList = ({ colorMode, openModal, membersToRemove, setMembersToRemove,
 					<MemberListItem
 						key={member.id}
 						id={member.id}
-						name={member.name}
+						name={member.username}
 						removeMember={removeMember}
 						membersToRemove={membersToRemove}
 						setMembersToRemove={setMembersToRemove}

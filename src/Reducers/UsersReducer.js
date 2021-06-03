@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { updateUsersCall } from '../Services/LabServices';
 
 const initialState = {
 	byID: {
@@ -21,14 +22,23 @@ const initialState = {
 	allIDs: [ 1, 2, 3 ]
 };
 
+const updateUsers = (state, action) => {
+	const { data } = action;
+	return data.newState;
+};
+
 const usersByIDReducer = (state = initialState.byID, action) => {
 	switch (action.type) {
+		case 'UPDATE_USERS':
+			return updateUsers(state, action);
 		default:
 			return state;
 	}
 };
 const usersAllIDsReducer = (state = initialState.allIDs, action) => {
 	switch (action.type) {
+		case 'UPDATE_USERS':
+			return action.data.newUserIDs;
 		default:
 			return state;
 	}

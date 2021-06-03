@@ -14,16 +14,31 @@ import {
 	NumberDecrementStepper,
 	NumberIncrementStepper
 } from '@chakra-ui/react';
-import { editItemDetails } from '../../ActionCreators/itemActions';
+import { editItemDetailsTC } from '../../ActionCreators/itemActions';
 const EditItemForm = ({ setShowDrawer, item }) => {
 	const dispatch = useDispatch();
-	const [ formValues, setFormValues ] = useState({ name: '', desc: '', manu: '', notes: '' });
+	const [ formValues, setFormValues ] = useState({
+		name: item.name,
+		manu: item.manufacturer,
+		notes: item.notes,
+		quantity: item.quantity,
+		minQuantity: item.minQuantity
+	});
 	const onClose = () => {
 		setShowDrawer(false);
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(editItemDetails(item.id, formValues.name, formValues.desc, formValues.manu, formValues.notes));
+		dispatch(
+			editItemDetailsTC(
+				item.id,
+				formValues.name,
+				formValues.manu,
+				formValues.notes,
+				formValues.quantity,
+				formValues.minQuantity
+			)
+		);
 	};
 	return (
 		<React.Fragment>
@@ -37,16 +52,6 @@ const EditItemForm = ({ setShowDrawer, item }) => {
 							placeholder="New Item Name"
 							value={formValues.name}
 							onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
-						/>
-					</FormControl>
-					<FormControl my="2">
-						<FormLabel> Item Description </FormLabel>
-						<Input
-							id="Item desc"
-							type="text"
-							placeholder="New Item Description"
-							value={formValues.desc}
-							onChange={(e) => setFormValues({ ...formValues, desc: e.target.value })}
 						/>
 					</FormControl>
 					<FormControl my="2">
@@ -68,21 +73,37 @@ const EditItemForm = ({ setShowDrawer, item }) => {
 					</FormControl>
 					<FormControl my="2">
 						<FormLabel>Current stock level</FormLabel>
-						<NumberInput>
-							<NumberInputField />
+						<NumberInput value={formValues.quantity}>
+							<NumberInputField
+								value={formValues.quantity}
+								onChange={(e) => setFormValues({ ...formValues, quantity: Number(e.target.value) })}
+							/>
 							<NumberInputStepper>
-								<NumberIncrementStepper />
-								<NumberDecrementStepper />
+								<NumberIncrementStepper
+									onClick={(e) => setFormValues({ ...formValues, quantity: formValues.quantity + 1 })}
+								/>
+								<NumberDecrementStepper
+									onClick={(e) => setFormValues({ ...formValues, quantity: formValues.quantity - 1 })}
+								/>
 							</NumberInputStepper>
 						</NumberInput>
 					</FormControl>
 					<FormControl my="2">
 						<FormLabel>Minimum stock level</FormLabel>
-						<NumberInput>
-							<NumberInputField />
+						<NumberInput value={formValues.minQuantity}>
+							<NumberInputField
+								value={formValues.minQuantity}
+								onChange={(e) => setFormValues({ ...formValues, minQuantity: Number(e.target.value) })}
+							/>
 							<NumberInputStepper>
-								<NumberIncrementStepper />
-								<NumberDecrementStepper />
+								<NumberIncrementStepper
+									onClick={(e) =>
+										setFormValues({ ...formValues, minQuantity: formValues.minQuantity + 1 })}
+								/>
+								<NumberDecrementStepper
+									onClick={(e) =>
+										setFormValues({ ...formValues, minQuantity: formValues.minQuantity - 1 })}
+								/>
 							</NumberInputStepper>
 						</NumberInput>
 					</FormControl>

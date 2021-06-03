@@ -14,7 +14,8 @@ import {
 	NumberIncrementStepper
 } from '@chakra-ui/react';
 import DatePicker from './DatePicker';
-const RestockForm = ({ setShowDrawer }) => {
+import { addItemBatchTC } from '../../ActionCreators/itemActions';
+const RestockForm = ({ setShowDrawer, item }) => {
 	const [ formValues, setFormValues ] = useState({ quantity: 0, manDate: '', expDate: '', notes: '' });
 	const dispatch = useDispatch();
 	const onClose = () => {
@@ -22,7 +23,8 @@ const RestockForm = ({ setShowDrawer }) => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// dispatch(logRestock(1, 1, formValues));
+		const apiFriendlyDate = formValues.expDate.toISOString().substring(0, 10);
+		dispatch(addItemBatchTC(item.id, apiFriendlyDate, formValues.quantity));
 	};
 	return (
 		<React.Fragment>

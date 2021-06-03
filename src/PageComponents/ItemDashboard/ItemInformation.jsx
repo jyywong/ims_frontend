@@ -23,7 +23,7 @@ const ItemInformation = ({ colorMode, item }) => {
 				</Flex>
 				<Flex px="5" py="3" width="full" direction={{ xl: 'column', md: 'row' }} alignItems="flex-start">
 					<Text m="1" textColor="gray.500" fontSize="xl">
-						Manufacturer: <Text textColor="whiteAlpha.900">{item.manu}</Text>
+						Manufacturer: <Text textColor="whiteAlpha.900">{item.manufacturer}</Text>
 					</Text>
 					<Text m="1" textColor="gray.500" fontSize="xl">
 						Notes: <Text textColor="whiteAlpha.900">{item.notes}</Text>

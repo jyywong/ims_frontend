@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { parseJSON } from 'date-fns';
 import {
 	DrawerBody,
 	DrawerFooter,
@@ -14,7 +15,9 @@ import {
 	NumberIncrementStepper
 } from '@chakra-ui/react';
 import DatePicker from './DatePicker';
-const RequestOrderForm = ({ setShowDrawer }) => {
+import { addItemOrderTC } from '../../ActionCreators/itemActions';
+const RequestOrderForm = ({ setShowDrawer, item }) => {
+	const userID = useSelector((state) => state.auth.user.id);
 	const dispatch = useDispatch();
 	const [ formValues, setFormValues ] = useState({ quantity: 0, date: '', notes: '' });
 	const onClose = () => {
@@ -22,8 +25,8 @@ const RequestOrderForm = ({ setShowDrawer }) => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(formValues);
-		// dispatch(addItemOrder(1, 1, formValues));
+		const apiFriendlyDate = formValues.date.toISOString().substring(0, 10);
+		dispatch(addItemOrderTC(item.id, userID, formValues.quantity, apiFriendlyDate, formValues.notes));
 	};
 	return (
 		<React.Fragment>
@@ -31,7 +34,7 @@ const RequestOrderForm = ({ setShowDrawer }) => {
 				<form id="Request Order Form" onSubmit={handleSubmit}>
 					<FormControl my="2">
 						<FormLabel> Number of Units Required </FormLabel>
-						<NumberInput>
+						<NumberInput value={formValues.quantity}>
 							<NumberInputField
 								data-testid="Units required"
 								value={formValues.quantity}

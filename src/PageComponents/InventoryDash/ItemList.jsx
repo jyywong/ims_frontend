@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Button, Flex } from '@chakra-ui/react';
 import ListComponent from '../ListComponent';
 import ListItem from './ListItem';
-const ItemList = ({ colorMode, openModal, itemsToDelete, setItemsToDelete, inventory }) => {
+const ItemList = ({ colorMode, openModal, itemsToDelete, setItemsToDelete, inventory, invID }) => {
 	const [ deleteItems, setDeleteItems ] = useState(false);
 	const items = useSelector((state) => inventory.items.map((item) => state.items.byID[item]));
 
@@ -67,6 +67,7 @@ const ItemList = ({ colorMode, openModal, itemsToDelete, setItemsToDelete, inven
 						deleteItems={deleteItems}
 						itemsToDelete={itemsToDelete}
 						setItemsToDelete={setItemsToDelete}
+						item={item}
 					/>
 				))}
 			</ListComponent>

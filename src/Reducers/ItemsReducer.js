@@ -80,16 +80,18 @@ const initialState = {
 
 const addItem = (state, action) => {
 	const { data } = action;
-	const { invID, newItemID, name, desc, manu, notes } = data;
+	const { invID, id, name, manufacturer, notes, initialQuantity, minQuantity, notices } = data;
 	return {
 		...state,
-		[data.newItemID]: {
-			id: newItemID,
+		[data.id]: {
+			id,
 			invID,
 			name,
-			desc,
-			manu,
-			notes
+			manufacturer,
+			notes,
+			initialQuantity,
+			minQuantity,
+			notices
 		}
 	};
 };
@@ -107,21 +109,44 @@ const deleteItem = (state, action) => {
 
 const editItem = (state, action) => {
 	const { data } = action;
-	const { itemID, name, desc, manu, notes } = data;
+	const { itemID, name, manu, notes, quantity, minQuantity } = data;
 	return {
 		...state,
 		[itemID]: {
 			...state[itemID],
 			name,
-			desc,
 			manu,
-			notes
+			notes,
+			quantity,
+			minQuantity
 		}
 	};
 };
 const updateItems = (state, action) => {
 	const { data } = action;
 	return data.newState;
+};
+
+const addItemOrder = (state, action) => {
+	const { data } = action;
+	return {
+		...state,
+		[data.item]: {
+			...state[data.item],
+			itemOrders: [ ...state[data.item].itemOrders, data.id ]
+		}
+	};
+};
+
+const addItemBatch = (state, action) => {
+	const { data } = action;
+	return {
+		...state,
+		[data.item]: {
+			...state[data.item],
+			itemBatches: [ ...state[data.item].itemBatches, data.id ]
+		}
+	};
 };
 
 const itemsByIDReducer = (state = initialState.byID, action) => {
@@ -134,6 +159,10 @@ const itemsByIDReducer = (state = initialState.byID, action) => {
 			return deleteItem(state, action);
 		case 'EDIT_ITEM':
 			return editItem(state, action);
+		case 'ADD_ITEM_ORDER':
+			return addItemOrder(state, action);
+		case 'ADD_ITEM_BATCH':
+			return addItemBatch(state, action);
 		default:
 			return state;
 	}
@@ -143,7 +172,7 @@ const itemsAllIDsReducer = (state = initialState.allIDs, action) => {
 		case 'UPDATE_ITEMS':
 			return action.data.newItemIDs;
 		case 'ADD_ITEM':
-			return [ ...state, action.data.newItemID ];
+			return [ ...state, action.data.id ];
 		case 'DELETE_ITEM':
 			return state.filter((item) => !action.data.itemIDs.includes(item));
 		default:
