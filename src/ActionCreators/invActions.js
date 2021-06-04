@@ -19,7 +19,18 @@ export const fetchInventoriesTC = async (dispatch, getState) => {
 	dispatch(updateInventories(organizedObject, newIDs));
 };
 
-export const addItem = (invID, id, name, manufacturer, notes, initialQuantity, minQuantity, notices) => {
+export const addItem = (
+	invID,
+	id,
+	name,
+	manufacturer,
+	notes,
+	initialQuantity,
+	minQuantity,
+	notices,
+	itemBatches,
+	itemOrders
+) => {
 	return {
 		type: 'ADD_ITEM',
 		data: {
@@ -30,7 +41,9 @@ export const addItem = (invID, id, name, manufacturer, notes, initialQuantity, m
 			notes,
 			initialQuantity,
 			minQuantity,
-			notices
+			notices,
+			itemBatches,
+			itemOrders
 		}
 	};
 };
@@ -49,7 +62,9 @@ export const addItemTC = (invID, name, manufacturer, notes, initialQuantity, min
 				data.notes,
 				data.quantity,
 				data.minQuantity,
-				data.notices
+				data.notices,
+				data.itemBatches,
+				data.itemOrders
 			)
 		);
 	};

@@ -15,10 +15,12 @@ import {
 	NumberDecrementStepper,
 	NumberIncrementStepper,
 	FormControl,
-	FormLabel
+	FormLabel,
+	useToast
 } from '@chakra-ui/react';
 import { addItemTC } from '../../ActionCreators/invActions';
 const AddItem = ({ onClose, invID }) => {
+	const toast = useToast();
 	const dispatch = useDispatch();
 	const [ formValues, setFormValues ] = useState({
 		name: '',
@@ -30,16 +32,35 @@ const AddItem = ({ onClose, invID }) => {
 	});
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(
-			addItemTC(
-				invID,
-				formValues.name,
-				formValues.manufacturer,
-				formValues.notes,
-				formValues.initialQuantity,
-				formValues.minQuantity
-			)
-		);
+		// TODO: bad request
+		(() => {
+			try {
+				dispatch(
+					addItemTC(
+						invID,
+						formValues.name,
+						formValues.manufacturer,
+						formValues.notes,
+						formValues.initialQuantity,
+						formValues.minQuantity
+					)
+				);
+				toast({
+					title: 'Successfully created new item',
+					description: 'Item name',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to create new item',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
+
 		onClose();
 	};
 	return (

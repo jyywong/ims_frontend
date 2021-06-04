@@ -9,16 +9,33 @@ import {
 	Button,
 	Text,
 	UnorderedList,
-	ListItem
+	ListItem,
+	useToast
 } from '@chakra-ui/react';
-import { deleteInvs } from '../../Services/LabServices';
 import { deleteInventory, deleteInventoryTC } from '../../ActionCreators/labActions';
 const DeleteInventoryModal = ({ onClose, lab, inventoriesToDelete }) => {
+	const toast = useToast();
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(inventoriesToDelete.map((inv) => inv.id));
-		dispatch(deleteInventoryTC(lab.id, inventoriesToDelete.map((inv) => inv.id)));
+		(async () => {
+			try {
+				await dispatch(deleteInventoryTC(lab.id, inventoriesToDelete.map((inv) => inv.id)));
+				toast({
+					title: 'Successfully deleted inventory',
+					description: 'Inventory name',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to delete inventory',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
 		onClose();
 	};
 	return (

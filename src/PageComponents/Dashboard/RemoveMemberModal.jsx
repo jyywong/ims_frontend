@@ -9,16 +9,35 @@ import {
 	Button,
 	Text,
 	UnorderedList,
-	ListItem
+	ListItem,
+	useToast
 } from '@chakra-ui/react';
 import { removeLabMemberTC } from '../../ActionCreators/labActions';
 const RemoveMemberModal = ({ onClose, lab, membersToRemove }) => {
+	const toast = useToast();
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(removeLabMemberTC(lab.id, membersToRemove.map((member) => member.id)));
+
+		(async () => {
+			try {
+				dispatch(removeLabMemberTC(lab.id, membersToRemove.map((member) => member.id)));
+				toast({
+					title: 'Successfully removed lab member',
+					description: 'Member name',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to remove lab member',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
 		onClose();
-		console.log('hello');
 	};
 	return (
 		<ModalContent>

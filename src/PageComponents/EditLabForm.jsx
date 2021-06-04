@@ -1,14 +1,31 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Input, FormLabel, FormControl, DrawerBody, DrawerFooter, Button } from '@chakra-ui/react';
+import { Input, FormLabel, FormControl, DrawerBody, DrawerFooter, Button, useToast } from '@chakra-ui/react';
 import { editLabDetailsTC } from '../ActionCreators/labActions';
 const EditLabForm = ({ labID, onClose }) => {
 	const lab = useSelector((state) => state.labs.byID[labID]);
 	const [ formValues, setFormValues ] = useState({ name: lab.name, desc: lab.description, admin: '' });
 	const dispatch = useDispatch();
+	const toast = useToast();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(editLabDetailsTC(labID, formValues.name, formValues.desc));
+		(async () => {
+			try {
+				await dispatch(editLabDetailsTC(labID, formValues.name, formValues.desc));
+				toast({
+					title: 'Lab successfully edited',
+					status: 'success',
+					isClosable: 'true'
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to edit lab',
+					description: error.message,
+					status: 'error',
+					isClosable: 'true'
+				});
+			}
+		})();
 		onClose();
 	};
 	return (

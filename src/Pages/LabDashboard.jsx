@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getLabList } from '../Services/LabServices';
-import { Grid, GridItem, Button, Text, useColorMode, keyframes } from '@chakra-ui/react';
+import { Flex, Grid, GridItem, Text, useColorMode } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { FaExclamation } from 'react-icons/fa';
 import { BiPackage, BiTrendingUp } from 'react-icons/bi';
@@ -13,10 +13,9 @@ import LabHeaderButtons from '../PageComponents/Dashboard/LabHeaderButtons';
 import DrawerComp from '../PageComponents/DrawerComp';
 import EditLabForm from '../PageComponents/EditLabForm';
 import ModalContainer from '../PageComponents/Dashboard/ModalContainer';
-import { updateLabState } from '../ActionCreators/labActions';
+import { loadDataOrRedirectToLogin } from '../HelperFunctions/getAllData';
 
 const LabDashboard = ({ labID }) => {
-	const dispatch = useDispatch();
 	const [ showDrawer, setShowDrawer ] = useState(false);
 	const { colorMode, toggleColorMode } = useColorMode();
 	const lab = useSelector((state) => state.labs.byID[labID]);
@@ -45,27 +44,27 @@ const LabDashboard = ({ labID }) => {
 						templateColumns={{ xl: '1fr  1fr 1fr 1fr', md: '1fr 1fr 1fr', sm: '1fr' }}
 						templateAreas={{
 							xl: `
-								'header header header header' 
-								'card1 card2 card3 chart' 
-								'members inv inv chart' 
-								'members inv inv chart' 
-								`,
+					'header header header header' 
+					'card1 card2 card3 chart' 
+					'members inv inv chart' 
+					'members inv inv chart' 
+					`,
 							md: `
-								'header header header'
-								'card1 card2 card3'
-								'chart chart chart'
-								'inv inv inv'
-								'members members members'
-								`,
+					'header header header'
+					'card1 card2 card3'
+					'chart chart chart'
+					'inv inv inv'
+					'members members members'
+					`,
 							sm: `
-								'header'
-								'card1'
-								'card2'
-								'card3'
-								'chart'
-								'inv'
-								'members'
-								`
+					'header'
+					'card1'
+					'card2'
+					'card3'
+					'chart'
+					'inv'
+					'members'
+					`
 						}}
 						columnGap="3rem"
 						rowGap="2rem"

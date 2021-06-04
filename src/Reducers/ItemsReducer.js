@@ -80,7 +80,18 @@ const initialState = {
 
 const addItem = (state, action) => {
 	const { data } = action;
-	const { invID, id, name, manufacturer, notes, initialQuantity, minQuantity, notices } = data;
+	const {
+		invID,
+		id,
+		name,
+		manufacturer,
+		notes,
+		initialQuantity,
+		minQuantity,
+		notices,
+		itemBatches,
+		itemOrders
+	} = data;
 	return {
 		...state,
 		[data.id]: {
@@ -91,7 +102,9 @@ const addItem = (state, action) => {
 			notes,
 			initialQuantity,
 			minQuantity,
-			notices
+			notices,
+			itemBatches,
+			itemOrders
 		}
 	};
 };

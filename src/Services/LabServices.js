@@ -30,7 +30,8 @@ axios.interceptors.response.use(
 		} else if (
 			error.response.status === 401 &&
 			error.response.statusText === 'Unauthorized' &&
-			error.response.data === 'Authentication credentials were not provided.'
+			(error.response.data === 'Authentication credentials were not provided.' ||
+				error.response.data.detail === 'Given token not valid for any token type')
 		) {
 			console.log('I am there');
 			const refreshToken = localStorage.getItem('refresh');
@@ -64,6 +65,9 @@ export const login = (username, password) =>
 		username,
 		password
 	});
+
+export const testIfRefreshTokenValid = () =>
+	axios.post(baseURL + 'token/refresh/', { refresh: localStorage.getItem('refresh') });
 
 export const getUserDetails = (userID) => axios.get(`http://127.0.0.1:8000/api/user/${userID}`);
 
@@ -125,7 +129,9 @@ export const createNewItemCall = (invID, name, manufacturer, notes, initialQuant
 		notes,
 		quantity: initialQuantity,
 		minQuantity,
-		notices: []
+		notices: [],
+		getItemBatches: [],
+		itemOrders: []
 	});
 };
 

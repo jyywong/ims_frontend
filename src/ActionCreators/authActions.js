@@ -20,7 +20,7 @@ export const loginAttemptTC = (username, password) => {
 			const userID = jwt_decode(localStorage.getItem('access')).user_id;
 			dispatch(getUserDetailsAttemptTC(userID));
 		} catch (err) {
-			console.log(err.message);
+			return Promise.reject(err);
 		}
 	};
 };

@@ -23,11 +23,19 @@ export const updateLabState = (newState, newLabIDs) => {
 };
 
 export async function fetchLabsTC(dispatch, getState) {
-	const response = await getLabList;
-	const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
-	console.log(organizedObject, newIDs);
-	dispatch(updateLabState(organizedObject, newIDs));
-	return newIDs;
+	try {
+		const response = await getLabList;
+		console.log('This is the response');
+		console.log(response);
+		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+		console.log(organizedObject, newIDs);
+		dispatch(updateLabState(organizedObject, newIDs));
+		return newIDs;
+	} catch (error) {
+		return Promise.reject(error);
+		console.log('error here');
+		console.log(error);
+	}
 }
 
 export const editLabDetails = (labID, name, desc) => {
@@ -43,10 +51,14 @@ export const editLabDetails = (labID, name, desc) => {
 
 export const editLabDetailsTC = (labID, name, desc) => {
 	return async (dispatch, getState) => {
-		const response = await editLabDetailsCall(labID, name, desc);
-		const { data } = response;
-		console.log(response);
-		dispatch(editLabDetails(data.id, data.name, data.description));
+		try {
+			const response = await editLabDetailsCall(labID, name, desc);
+			const { data } = response;
+			console.log(response);
+			dispatch(editLabDetails(data.id, data.name, data.description));
+		} catch (error) {
+			return Promise.reject(error);
+		}
 	};
 };
 

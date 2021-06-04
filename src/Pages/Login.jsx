@@ -2,19 +2,33 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getUserDetails, login } from '../Services/AuthServices';
 import { useSelector } from 'react-redux';
-import { Box, Flex, Heading, Text, FormControl, FormLabel, Input, Button, useColorMode } from '@chakra-ui/react';
-import { getInvList, getItemList, getLabList } from '../Services/LabServices';
-import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
+import {
+	Box,
+	Flex,
+	Heading,
+	Text,
+	FormControl,
+	FormLabel,
+	Input,
+	Button,
+	Alert,
+	AlertIcon,
+	AlertTitle,
+	AlertDescription,
+	CloseButton,
+	useColorMode
+} from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { fetchLabsTC } from '../ActionCreators/labActions';
-import { loginAttemptTC, loginSuccess, updateUserListAttempt } from '../ActionCreators/authActions';
+import { loginAttemptTC } from '../ActionCreators/authActions';
 import { fetchInventoriesTC } from '../ActionCreators/invActions';
 import { fetchItemBatches, fetchItemsTC } from '../ActionCreators/itemActions';
 import { updateUsersTC } from '../ActionCreators/userActions';
-import { updateUsersCall } from '../Services/LabServices';
 const Login = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const [ hasError, setHasError ] = useState(false);
+	const [ errorMessage, setErrorMessage ] = useState('');
 	const { colorMode, toggleColorMode } = useColorMode();
 	const [ formValues, setFormValues ] = useState({ username: '', password: '' });
 	const handleSubmit = (e) => {
@@ -22,14 +36,19 @@ const Login = () => {
 		(async () => {
 			try {
 				await dispatch(loginAttemptTC(formValues.username, formValues.password));
-				const labIDs = await dispatch(fetchLabsTC);
-				await dispatch(fetchInventoriesTC);
-				await dispatch(fetchItemsTC);
-				await dispatch(updateUsersTC);
-				await dispatch(fetchItemBatches);
+				const response = await Promise.all([
+					dispatch(fetchLabsTC),
+					dispatch(fetchInventoriesTC),
+					dispatch(fetchItemsTC),
+					dispatch(updateUsersTC),
+					dispatch(fetchItemBatches)
+				]);
+				const labIDs = response[0];
 				history.push(`lab/${labIDs[0]}`);
-			} catch (err) {
-				alert(err);
+			} catch (error) {
+				setHasError(true);
+				setErrorMessage(error.message);
+				console.log(error);
 			}
 		})();
 	};
@@ -38,7 +57,7 @@ const Login = () => {
 			<Button onClick={toggleColorMode}> Toggle color mode</Button>
 			<Flex minHeight="100vh" width="full" height="full" align="center" justifyContent="center">
 				<Box
-					width={{ lg: '25%', sm: '75%' }}
+					width={{ xl: '30%', sm: '75%' }}
 					padding="8"
 					rounded="20px"
 					bg={colorMode === 'light' ? 'gray.100' : 'gray.700'}
@@ -70,6 +89,21 @@ const Login = () => {
 									}}
 								/>
 							</FormControl>
+							{hasError && (
+								<Alert status="error" borderRadius="lg">
+									<AlertIcon />
+									<AlertTitle fontSize="10"> Login Unsuccessful! </AlertTitle>
+									<AlertDescription fontSize="10">{errorMessage}</AlertDescription>
+									<CloseButton
+										position="absolute"
+										right="8px"
+										onClick={() => {
+											setHasError(false);
+										}}
+									/>
+								</Alert>
+							)}
+
 							<Button
 								width="full"
 								type="submit"

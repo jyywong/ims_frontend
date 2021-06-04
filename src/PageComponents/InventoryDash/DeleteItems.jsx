@@ -9,15 +9,34 @@ import {
 	Button,
 	Text,
 	UnorderedList,
-	ListItem
+	ListItem,
+	useToast
 } from '@chakra-ui/react';
 import { deleteItemsTC } from '../../ActionCreators/invActions';
 
 const DeleteItems = ({ onClose, itemsToDelete, setItemsToDelete, invID }) => {
+	const toast = useToast();
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(deleteItemsTC(invID, itemsToDelete.map((item) => item.id)));
+		(async () => {
+			try {
+				await dispatch(deleteItemsTC(invID, itemsToDelete.map((item) => item.id)));
+				toast({
+					title: 'Successfully deleted items',
+					description: 'List of items',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to delete items',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
 		setItemsToDelete([]);
 		onClose();
 	};

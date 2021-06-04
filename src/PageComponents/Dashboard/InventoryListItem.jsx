@@ -4,6 +4,7 @@ import { Flex, Icon, Text, Checkbox } from '@chakra-ui/react';
 import { FiBox } from 'react-icons/fi';
 const InventoryListItem = ({
 	id,
+	inventory,
 	name,
 	itemQuantity,
 	deleteInventory,
@@ -33,7 +34,7 @@ const InventoryListItem = ({
 						<Text px="5"> {name} </Text>
 					</Flex>
 					<Text px="4" color="gray.400" fontSize="sm">
-						{itemQuantity} items
+						{inventory.items.length} items
 					</Text>
 					<Checkbox data-testid={`Checkbox ${id}`} isChecked={isChecked} onChange={handleChange} />
 				</Flex>
@@ -45,7 +46,7 @@ const InventoryListItem = ({
 							<Text px="5"> {name} </Text>
 						</Flex>
 						<Text px="4" color="gray.400" fontSize="sm">
-							{itemQuantity} items
+							{inventory.items.length} items
 						</Text>
 					</Flex>
 				</Link>

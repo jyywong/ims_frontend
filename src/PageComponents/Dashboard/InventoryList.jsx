@@ -60,6 +60,7 @@ const InventoryList = ({ colorMode, openModal, inventoriesToDelete, setInventori
 				{inventories.map((inventory) => (
 					<InventoryListItem
 						key={inventory.id}
+						inventory={inventory}
 						id={inventory.id}
 						name={inventory.name}
 						itemQuantity={inventory.itemCount}
