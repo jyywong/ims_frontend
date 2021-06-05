@@ -27,8 +27,12 @@ export const loginAttemptTC = (username, password) => {
 
 export const getUserDetailsAttemptTC = (userID) => {
 	return async (dispatch, getState) => {
-		const response = await getUserDetails(userID);
-		dispatch(loginSuccess(response.data));
-		return 'hello';
+		try {
+			const response = await getUserDetails(userID);
+			dispatch(loginSuccess(response.data));
+			return 'hello';
+		} catch (error) {
+			return Promise.reject(error);
+		}
 	};
 };

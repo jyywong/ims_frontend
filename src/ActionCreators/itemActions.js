@@ -1,6 +1,7 @@
 import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
 import {
 	createItemBatchCall,
+	updateItemBatchQuantityCall,
 	createItemOrderCall,
 	editItemDetailCall,
 	getItemBatches,
@@ -18,9 +19,13 @@ export const updateItems = (newState, newItemIDs) => {
 };
 
 export const fetchItemsTC = async (dispatch, getState) => {
-	const response = await getItemList;
-	const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
-	dispatch(updateItems(organizedObject, newIDs));
+	try {
+		const response = await getItemList;
+		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+		dispatch(updateItems(organizedObject, newIDs));
+	} catch (error) {
+		return Promise.reject(error);
+	}
 };
 
 export const updateItemBatches = (newState, newIDs) => {
@@ -34,9 +39,13 @@ export const updateItemBatches = (newState, newIDs) => {
 };
 
 export const fetchItemBatches = async (dispatch, getState) => {
-	const response = await getItemBatches;
-	const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
-	dispatch(updateItemBatches(organizedObject, newIDs));
+	try {
+		const response = await getItemBatches;
+		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+		dispatch(updateItemBatches(organizedObject, newIDs));
+	} catch (error) {
+		return Promise.reject(error);
+	}
 };
 
 export const editItemDetails = (itemID, name, manu, notes, quantity, minQuantity) => {
@@ -55,9 +64,15 @@ export const editItemDetails = (itemID, name, manu, notes, quantity, minQuantity
 
 export const editItemDetailsTC = (itemID, name, manufacturer, notes, quantity, minQuantity) => {
 	return async (dispatch, getState) => {
-		const response = await editItemDetailCall(itemID, name, manufacturer, notes, quantity, minQuantity);
-		const { data } = response;
-		dispatch(editItemDetails(data.id, data.name, data.manufacturer, data.notes, data.quantity, data.minQuantity));
+		try {
+			const response = await editItemDetailCall(itemID, name, manufacturer, notes, quantity, minQuantity);
+			const { data } = response;
+			dispatch(
+				editItemDetails(data.id, data.name, data.manufacturer, data.notes, data.quantity, data.minQuantity)
+			);
+		} catch (error) {
+			return Promise.reject(error);
+		}
 	};
 };
 
@@ -77,11 +92,22 @@ export const addItemOrder = (id, item, orderRequester, quantityRequired, dateNee
 
 export const addItemOrderTC = (item, orderRequester, quantityRequired, dateNeededBy, notes) => {
 	return async (dispatch, getState) => {
-		const response = await createItemOrderCall(item, orderRequester, quantityRequired, dateNeededBy, notes);
-		const { data } = response;
-		dispatch(
-			addItemOrder(data.id, data.item, data.orderRequester, data.quantityRequired, data.dateNeededBy, data.notes)
-		);
+		try {
+			const response = await createItemOrderCall(item, orderRequester, quantityRequired, dateNeededBy, notes);
+			const { data } = response;
+			dispatch(
+				addItemOrder(
+					data.id,
+					data.item,
+					data.orderRequester,
+					data.quantityRequired,
+					data.dateNeededBy,
+					data.notes
+				)
+			);
+		} catch (error) {
+			return Promise.reject(error);
+		}
 	};
 };
 
@@ -99,8 +125,34 @@ export const addItemBatch = (id, item, expiryDate, quantity) => {
 
 export const addItemBatchTC = (item, expiryDate, quantity) => {
 	return async (dispatch, getState) => {
-		const response = await createItemBatchCall(item, expiryDate, quantity);
-		const { data } = response;
-		dispatch(addItemBatch(data.id, data.item, data.expiryDate, data.quantity));
+		try {
+			const response = await createItemBatchCall(item, expiryDate, quantity);
+			const { data } = response;
+			dispatch(addItemBatch(data.id, data.item, data.expiryDate, data.quantity));
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	};
+};
+
+export const updateItemBatchQuantity = (batchID, quantity) => {
+	return {
+		type: 'UPDATE_ITEM_BATCH_QUANTITY',
+		data: {
+			batchID,
+			quantity
+		}
+	};
+};
+
+export const updateItemBatchQuantityTC = (batchID, newQuantity) => {
+	return async (dispatch, getState) => {
+		try {
+			const response = await updateItemBatchQuantityCall(batchID, newQuantity);
+			const { data } = response;
+			dispatch(updateItemBatchQuantity(data.id, data.quantity));
+		} catch (error) {
+			return Promise.reject(error);
+		}
 	};
 };

@@ -14,9 +14,13 @@ export const updateInventories = (newState, newInvIDs) => {
 };
 
 export const fetchInventoriesTC = async (dispatch, getState) => {
-	const response = await getInvList;
-	const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
-	dispatch(updateInventories(organizedObject, newIDs));
+	try {
+		const response = await getInvList;
+		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+		dispatch(updateInventories(organizedObject, newIDs));
+	} catch (error) {
+		return Promise.reject(error);
+	}
 };
 
 export const addItem = (
@@ -50,23 +54,27 @@ export const addItem = (
 
 export const addItemTC = (invID, name, manufacturer, notes, initialQuantity, minQuantity) => {
 	return async (dispatch, getState) => {
-		const response = await createNewItemCall(invID, name, manufacturer, notes, initialQuantity, minQuantity);
-		console.log(response);
-		const { data } = response;
-		dispatch(
-			addItem(
-				data.invID,
-				data.id,
-				data.name,
-				data.manufacturer,
-				data.notes,
-				data.quantity,
-				data.minQuantity,
-				data.notices,
-				data.itemBatches,
-				data.itemOrders
-			)
-		);
+		try {
+			const response = await createNewItemCall(invID, name, manufacturer, notes, initialQuantity, minQuantity);
+			console.log(response);
+			const { data } = response;
+			dispatch(
+				addItem(
+					data.invID,
+					data.id,
+					data.name,
+					data.manufacturer,
+					data.notes,
+					data.quantity,
+					data.minQuantity,
+					data.notices,
+					data.itemBatches,
+					data.itemOrders
+				)
+			);
+		} catch (error) {
+			return Promise.reject(error);
+		}
 	};
 };
 
@@ -82,8 +90,12 @@ export const deleteItems = (invID, itemIDs) => {
 
 export const deleteItemsTC = (invID, itemIDs) => {
 	return async (dispatch, getState) => {
-		const listOfAPICalls = itemIDs.map((itemID) => deleteItemCall(itemID));
-		await Promise.all(listOfAPICalls);
-		dispatch(deleteItems(invID, itemIDs));
+		try {
+			const listOfAPICalls = itemIDs.map((itemID) => deleteItemCall(itemID));
+			await Promise.all(listOfAPICalls);
+			dispatch(deleteItems(invID, itemIDs));
+		} catch (error) {
+			return Promise.reject(error);
+		}
 	};
 };

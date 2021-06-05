@@ -39,12 +39,26 @@ const addItemBatch = (state, action) => {
 	};
 };
 
+const updateItemBatchQuantity = (state, action) => {
+	const { data } = action;
+	const { batchID, quantity } = data;
+	return {
+		...state,
+		[batchID]: {
+			...state[batchID],
+			quantity
+		}
+	};
+};
+
 const itemBatchByIDReducer = (state = initialState.byID, action) => {
 	switch (action.type) {
 		case 'UPDATE_ITEM_BATCHES':
 			return updateItemBatches(state, action);
 		case 'ADD_ITEM_BATCH':
 			return addItemBatch(state, action);
+		case 'UPDATE_ITEM_BATCH_QUANTITY':
+			return updateItemBatchQuantity(state, action);
 		default:
 			return state;
 	}

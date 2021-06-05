@@ -12,8 +12,12 @@ const updateUsers = (newState, newUserIDs) => {
 };
 
 export const updateUsersTC = async (dispatch, getState) => {
-	const response = await updateUsersCall;
-	const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
-	console.log(organizedObject, newIDs);
-	dispatch(updateUsers(organizedObject, newIDs));
+	try {
+		const response = await updateUsersCall;
+		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+		console.log(organizedObject, newIDs);
+		dispatch(updateUsers(organizedObject, newIDs));
+	} catch (error) {
+		return Promise.reject(error);
+	}
 };

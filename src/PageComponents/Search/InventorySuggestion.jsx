@@ -7,7 +7,7 @@ const InventorySuggestion = ({ inventory, closePopover }) => {
 			<Link data-testid="Link" to={`/inventory/${inventory.id}`} onClick={closePopover}>
 				<Flex width="full" justifyContent="space-between" alignContent="flex-end">
 					<Text fontSize="lg">{inventory.name}</Text>
-					<Text colorScheme="gray">Items: {inventory.itemCount}</Text>
+					<Text colorScheme="gray">Items: {inventory.items.length}</Text>
 				</Flex>
 			</Link>
 		</React.Fragment>

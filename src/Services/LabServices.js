@@ -166,3 +166,9 @@ export const createItemBatchCall = (item, expiryDate, quantity) => {
 		quantity
 	});
 };
+
+export const updateItemBatchQuantityCall = (batchID, newQuantity) => {
+	return axios.patch(baseURL + `item_batch/${batchID}`, {
+		quantity: newQuantity
+	});
+};

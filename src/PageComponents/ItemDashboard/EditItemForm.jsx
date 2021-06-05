@@ -12,10 +12,12 @@ import {
 	NumberInputField,
 	NumberInputStepper,
 	NumberDecrementStepper,
-	NumberIncrementStepper
+	NumberIncrementStepper,
+	useToast
 } from '@chakra-ui/react';
 import { editItemDetailsTC } from '../../ActionCreators/itemActions';
 const EditItemForm = ({ setShowDrawer, item }) => {
+	const toast = useToast();
 	const dispatch = useDispatch();
 	const [ formValues, setFormValues ] = useState({
 		name: item.name,
@@ -29,16 +31,33 @@ const EditItemForm = ({ setShowDrawer, item }) => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(
-			editItemDetailsTC(
-				item.id,
-				formValues.name,
-				formValues.manu,
-				formValues.notes,
-				formValues.quantity,
-				formValues.minQuantity
-			)
-		);
+		(async () => {
+			try {
+				await dispatch(
+					editItemDetailsTC(
+						item.id,
+						formValues.name,
+						formValues.manu,
+						formValues.notes,
+						formValues.quantity,
+						formValues.minQuantity
+					)
+				);
+				toast({
+					title: 'Successfully edited item details',
+					description: 'List of changes',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to edit item details',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
 	};
 	return (
 		<React.Fragment>

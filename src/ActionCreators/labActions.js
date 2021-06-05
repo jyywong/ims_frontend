@@ -33,8 +33,6 @@ export async function fetchLabsTC(dispatch, getState) {
 		return newIDs;
 	} catch (error) {
 		return Promise.reject(error);
-		console.log('error here');
-		console.log(error);
 	}
 }
 
@@ -114,9 +112,13 @@ export const addInventory = (id, labID, name, desc) => {
 
 export const addNewInventoryTC = (labID, name, description, items) => {
 	return async (dispatch, getState) => {
-		const response = await createNewInv(labID, name, description, items);
-		const { data } = response;
-		dispatch(addInventory(data.id, data.labID, data.name, data.description));
+		try {
+			const response = await createNewInv(labID, name, description, items);
+			const { data } = response;
+			dispatch(addInventory(data.id, data.labID, data.name, data.description));
+		} catch (error) {
+			return Promise.reject(error);
+		}
 	};
 };
 
@@ -132,13 +134,16 @@ export const deleteInventory = (labID, invID) => {
 
 export const deleteInventoryTC = (labID, inventoriesToDelete) => {
 	return async (dispatch, getState) => {
-		const responseList = [];
-		for await (const inventory of inventoriesToDelete) {
-			console.log(inventory);
-			const response = await deleteInv(inventory);
-			responseList.push(response);
+		try {
+			const responseList = [];
+			for await (const inventory of inventoriesToDelete) {
+				console.log(inventory);
+				const response = await deleteInv(inventory);
+				responseList.push(response);
+			}
+			dispatch(deleteInventory(labID, inventoriesToDelete));
+		} catch (error) {
+			return Promise.reject(error);
 		}
-		// Should I put a try catch in here in case the delete is not successful?
-		dispatch(deleteInventory(labID, inventoriesToDelete));
 	};
 };

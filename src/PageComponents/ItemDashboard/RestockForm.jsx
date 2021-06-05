@@ -11,20 +11,39 @@ import {
 	NumberInputField,
 	NumberInputStepper,
 	NumberDecrementStepper,
-	NumberIncrementStepper
+	NumberIncrementStepper,
+	useToast
 } from '@chakra-ui/react';
 import DatePicker from './DatePicker';
 import { addItemBatchTC } from '../../ActionCreators/itemActions';
 const RestockForm = ({ setShowDrawer, item }) => {
 	const [ formValues, setFormValues ] = useState({ quantity: 0, manDate: '', expDate: '', notes: '' });
 	const dispatch = useDispatch();
+	const toast = useToast();
 	const onClose = () => {
 		setShowDrawer(false);
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const apiFriendlyDate = formValues.expDate.toISOString().substring(0, 10);
-		dispatch(addItemBatchTC(item.id, apiFriendlyDate, formValues.quantity));
+		(async () => {
+			try {
+				await dispatch(addItemBatchTC(item.id, apiFriendlyDate, formValues.quantity));
+				toast({
+					title: 'Successfully added a restock',
+					description: 'Restock details',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to add a restock',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
 	};
 	return (
 		<React.Fragment>

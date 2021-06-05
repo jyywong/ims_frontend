@@ -65,18 +65,27 @@ const SearchComp = () => {
 					/>
 				</PopoverTrigger>
 				<PopoverContent width="69vw">
-					<PopoverHeader fontSize="2xl">Items</PopoverHeader>
-					<PopoverBody>
-						{searchResults.items.map((item) => (
-							<ItemSuggestion key={item.id} item={item} closePopover={closePopover} />
-						))}
-					</PopoverBody>
-					<PopoverHeader fontSize="2xl">Inventories</PopoverHeader>
-					<PopoverBody>
-						{searchResults.inventories.map((inv) => (
-							<InventorySuggestion key={inv.id} inventory={inv} closePopover={closePopover} />
-						))}
-					</PopoverBody>
+					{searchResults.items.length > 0 && (
+						<React.Fragment>
+							<PopoverHeader fontSize="2xl">Items</PopoverHeader>
+							<PopoverBody>
+								{searchResults.items.map((item) => (
+									<ItemSuggestion key={item.id} item={item} closePopover={closePopover} />
+								))}
+							</PopoverBody>
+						</React.Fragment>
+					)}
+
+					{searchResults.inventories.length > 0 && (
+						<React.Fragment>
+							<PopoverHeader fontSize="2xl">Inventories</PopoverHeader>
+							<PopoverBody>
+								{searchResults.inventories.map((inv) => (
+									<InventorySuggestion key={inv.id} inventory={inv} closePopover={closePopover} />
+								))}
+							</PopoverBody>
+						</React.Fragment>
+					)}
 				</PopoverContent>
 			</Popover>
 		</React.Fragment>

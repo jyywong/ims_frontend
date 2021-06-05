@@ -12,12 +12,14 @@ import {
 	NumberInputField,
 	NumberInputStepper,
 	NumberDecrementStepper,
-	NumberIncrementStepper
+	NumberIncrementStepper,
+	useToast
 } from '@chakra-ui/react';
 import DatePicker from './DatePicker';
 import { addItemOrderTC } from '../../ActionCreators/itemActions';
 const RequestOrderForm = ({ setShowDrawer, item }) => {
 	const userID = useSelector((state) => state.auth.user.id);
+	const toast = useToast();
 	const dispatch = useDispatch();
 	const [ formValues, setFormValues ] = useState({ quantity: 0, date: '', notes: '' });
 	const onClose = () => {
@@ -26,7 +28,24 @@ const RequestOrderForm = ({ setShowDrawer, item }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const apiFriendlyDate = formValues.date.toISOString().substring(0, 10);
-		dispatch(addItemOrderTC(item.id, userID, formValues.quantity, apiFriendlyDate, formValues.notes));
+		(async () => {
+			try {
+				await dispatch(addItemOrderTC(item.id, userID, formValues.quantity, apiFriendlyDate, formValues.notes));
+				toast({
+					title: 'Successfully created an order',
+					description: 'Order details',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to create an order',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
 	};
 	return (
 		<React.Fragment>
