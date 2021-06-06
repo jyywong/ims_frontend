@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Flex, Text } from '@chakra-ui/react';
 import { Line } from 'react-chartjs-2';
-const ItemStats = ({ colorMode }) => {
+import 'chartjs-adapter-date-fns';
+import { findFinalQuantityAtEachEndOfDay, organizeListOfHistories } from '../../HelperFunctions/organizeDataForStats';
+import { getItemBatchHistory, getItemHistory } from '../../Services/LabServices';
+const ItemStats = ({ colorMode, item }) => {
+	const [ stats, setStats ] = useState([]);
 	const data = {
 		labels: [ '1', '2', '3', '4', '5', '6' ],
 		datasets: [
 			{
 				label: '# of Votes',
-				data: [ 12, 19, 3, 5, 2, 3 ],
+				data: [ ...stats ],
 				fill: false,
 				backgroundColor: 'rgb(255, 99, 132)',
 				borderColor: 'rgba(255, 99, 132, 0.2)'
@@ -17,15 +21,26 @@ const ItemStats = ({ colorMode }) => {
 	const options = {
 		responsive: true,
 		scales: {
-			yAxes: [
-				{
-					ticks: {
-						beginAtZero: true
-					}
-				}
-			]
+			x: {
+				type: 'time'
+			}
 		}
 	};
+
+	useEffect(async () => {
+		// const response = await getItemBatchHistory(item.id);
+		// const listOfHistories = response.data;
+		const response = await getItemHistory(item.id);
+		const listOfHistories = response.data;
+		const organizedState = findFinalQuantityAtEachEndOfDay(organizeListOfHistories(listOfHistories));
+		console.log(organizedState);
+		setStats([
+			...organizedState.map((history) => ({
+				x: history.date,
+				y: history.quantity
+			}))
+		]);
+	}, []);
 	return (
 		<React.Fragment>
 			<Flex

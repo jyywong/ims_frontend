@@ -101,7 +101,7 @@ const ItemDashboard = ({ invID, itemID }) => {
 							</ListComponent>
 						</GridItem>
 						<GridItem gridArea="stats">
-							<ItemStats colorMode={colorMode} />
+							<ItemStats colorMode={colorMode} item={item} />
 						</GridItem>
 					</Grid>
 				</GridItem>

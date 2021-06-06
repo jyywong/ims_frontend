@@ -172,3 +172,11 @@ export const updateItemBatchQuantityCall = (batchID, newQuantity) => {
 		quantity: newQuantity
 	});
 };
+
+export const getItemBatchHistory = (itemID) => {
+	return axios.get(baseURL + `item_batch_history/${itemID}`);
+};
+
+export const getItemHistory = (itemID) => {
+	return axios.get(baseURL + `item_history/${itemID}`);
+};
