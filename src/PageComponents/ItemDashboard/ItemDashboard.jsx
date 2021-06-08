@@ -11,6 +11,7 @@ import ActivityItem from '../InventoryDash/ActivityItem';
 import ItemStats from './ItemStats';
 import StockList from './StockList';
 import DrawerContainer from './DrawerContainer';
+import ActivityList from './ActivityList';
 const ItemDashboard = ({ invID, itemID }) => {
 	const item = useSelector((state) => state.items.byID[itemID]);
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -96,9 +97,7 @@ const ItemDashboard = ({ invID, itemID }) => {
 							<StockList colorMode={colorMode} item={item} />
 						</GridItem>
 						<GridItem gridArea="notices">
-							<ListComponent colorMode={colorMode} title="Recent Activity" listitem={ActivityItem}>
-								<React.Fragment />
-							</ListComponent>
+							<ActivityList colorMode={colorMode} item={item} />
 						</GridItem>
 						<GridItem gridArea="stats">
 							<ItemStats colorMode={colorMode} item={item} />

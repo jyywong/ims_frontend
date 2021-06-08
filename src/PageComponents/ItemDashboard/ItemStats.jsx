@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Flex, Text } from '@chakra-ui/react';
 import { Line } from 'react-chartjs-2';
+import annotationPlugin from 'chartjs-plugin-annotation';
 import 'chartjs-adapter-date-fns';
 import { findFinalQuantityAtEachEndOfDay, organizeListOfHistories } from '../../HelperFunctions/organizeDataForStats';
 import { getItemBatchHistory, getItemHistory } from '../../Services/LabServices';
 const ItemStats = ({ colorMode, item }) => {
 	const [ stats, setStats ] = useState([]);
+	const isMounted = useRef(false);
 	const data = {
-		labels: [ '1', '2', '3', '4', '5', '6' ],
 		datasets: [
 			{
 				label: '# of Votes',
@@ -21,25 +22,55 @@ const ItemStats = ({ colorMode, item }) => {
 	const options = {
 		responsive: true,
 		scales: {
+			y: {
+				min: 0
+			},
 			x: {
-				type: 'time'
+				type: 'time',
+				time: {
+					unit: 'day'
+				},
+				ticks: {
+					source: 'data'
+				}
 			}
 		}
+		// When this plugin is used, it cannot find the canvas element for some reason
+		// plugins: {
+		// 	autocolors: false,
+		// 	annotation: {
+		// 		annotations: {
+		// 			line1: {
+		// 				type: 'line',
+		// 				yMin: 60,
+		// 				yMax: 60,
+		// 				borderColor: 'rgb(255, 99, 132)',
+		// 				borderWidth: 2
+		// 			}
+		// 		}
+		// 	}
+		// }
 	};
 
-	useEffect(async () => {
-		// const response = await getItemBatchHistory(item.id);
-		// const listOfHistories = response.data;
-		const response = await getItemHistory(item.id);
-		const listOfHistories = response.data;
-		const organizedState = findFinalQuantityAtEachEndOfDay(organizeListOfHistories(listOfHistories));
-		console.log(organizedState);
-		setStats([
-			...organizedState.map((history) => ({
-				x: history.date,
-				y: history.quantity
-			}))
-		]);
+	useEffect(() => {
+		isMounted.current = true;
+		(async () => {
+			console.log('ismounted' + isMounted.current);
+			const response = await getItemHistory(item.id);
+			const listOfHistories = response.data;
+			const organizedState = findFinalQuantityAtEachEndOfDay(organizeListOfHistories(listOfHistories));
+			console.log(organizedState);
+			console.log('ismounted' + isMounted.current);
+			if (isMounted.current) {
+				setStats([
+					...organizedState.map((history) => ({
+						x: history.date,
+						y: history.quantity
+					}))
+				]);
+			}
+		})();
+		return () => (isMounted.current = false);
 	}, []);
 	return (
 		<React.Fragment>
@@ -62,7 +93,7 @@ const ItemStats = ({ colorMode, item }) => {
 					<Text fontSize="lg">Item Usage</Text>
 				</Flex>
 				<Flex p="6" width="full" height="full">
-					<Line data={data} options={options} />
+					<Line data={data} options={options} plugins={[ annotationPlugin ]} />
 				</Flex>
 			</Flex>
 		</React.Fragment>

@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+
 import { Flex, Grid, GridItem, Text, useColorMode } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { FaExclamation } from 'react-icons/fa';
@@ -14,6 +13,7 @@ import DrawerComp from '../PageComponents/DrawerComp';
 import EditLabForm from '../PageComponents/EditLabForm';
 import ModalContainer from '../PageComponents/Dashboard/ModalContainer';
 import { loadDataOrRedirectToLogin } from '../HelperFunctions/getAllData';
+import OrderRequests from '../PageComponents/Dashboard/OrderRequests';
 
 const LabDashboard = ({ labID }) => {
 	const [ showDrawer, setShowDrawer ] = useState(false);
@@ -45,7 +45,7 @@ const LabDashboard = ({ labID }) => {
 						templateAreas={{
 							xl: `
 					'header header header header' 
-					'card1 card2 card3 chart' 
+					'card1 card2 card2 chart' 
 					'members inv inv chart' 
 					'members inv inv chart' 
 					`,
@@ -77,32 +77,18 @@ const LabDashboard = ({ labID }) => {
 						<GridItem gridArea="card1">
 							<SimpleCard
 								colorMode={colorMode}
-								number={5}
-								description="Pending order requests"
-								icon={BiPackage}
-								iconBGcolor={colorMode === 'light' ? 'yellow.100' : 'yellow.700'}
-							/>
-						</GridItem>
-						<GridItem gridArea="card2">
-							<SimpleCard
-								colorMode={colorMode}
-								number={8}
-								description="Items recently refilled"
-								icon={BiTrendingUp}
-								iconBGcolor={colorMode === 'light' ? 'green.100' : 'green.700'}
-							/>
-						</GridItem>
-						<GridItem gridArea="card3">
-							<SimpleCard
-								colorMode={colorMode}
 								number={2}
 								description="Items running low"
 								icon={FaExclamation}
 								iconBGcolor={colorMode === 'light' ? 'red.100' : 'red.700'}
 							/>
 						</GridItem>
+						<GridItem gridArea="card2">
+							<OrderRequests colorMode={colorMode} lab={lab} />
+						</GridItem>
+
 						<GridItem gridArea="chart">
-							<VerticalChartCard colorMode={colorMode} />
+							<VerticalChartCard colorMode={colorMode} lab={lab} />
 						</GridItem>
 						<ModalContainer colorMode={colorMode} lab={lab} />
 						<DrawerComp isOpen={showDrawer} onClose={() => setShowDrawer(false)} btnRef={btnRef}>

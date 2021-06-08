@@ -25,10 +25,9 @@ export const updateLabState = (newState, newLabIDs) => {
 export async function fetchLabsTC(dispatch, getState) {
 	try {
 		const response = await getLabList;
-		console.log('This is the response');
+		console.log('response');
 		console.log(response);
 		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
-		console.log(organizedObject, newIDs);
 		dispatch(updateLabState(organizedObject, newIDs));
 		return newIDs;
 	} catch (error) {
