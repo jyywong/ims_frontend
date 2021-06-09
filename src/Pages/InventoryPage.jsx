@@ -22,7 +22,7 @@ const InventoryPage = ({ match: { params: { invID } } }) => {
 	) : (
 		<React.Fragment>
 			<Flex minHeight="100vh" width="full">
-				<SideNavBar />
+				<SideNavBar invID={Number(invID)} />
 				<InventoryDashboard invID={Number(invID)} />
 			</Flex>
 		</React.Fragment>

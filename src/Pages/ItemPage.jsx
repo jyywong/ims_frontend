@@ -22,7 +22,7 @@ const ItemPage = ({ match: { params: { invID, itemID } } }) => {
 	) : (
 		<React.Fragment>
 			<Flex minHeight="100vh" width="full">
-				<SideNavBar />
+				<SideNavBar itemID={Number(itemID)} />
 				<ItemDashboard itemID={Number(itemID)} invID={Number(invID)} />
 			</Flex>
 		</React.Fragment>

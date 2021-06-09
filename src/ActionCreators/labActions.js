@@ -1,6 +1,7 @@
 import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
 import {
 	createNewInv,
+	createNewLab,
 	createNewLabInvite,
 	deleteInv,
 	editLabDetailsCall,
@@ -34,6 +35,36 @@ export async function fetchLabsTC(dispatch, getState) {
 		return Promise.reject(error);
 	}
 }
+
+export const addLab = (id, name, description, members, inventories, labItems) => {
+	return {
+		type: 'ADD_LAB',
+		data: {
+			newLab: {
+				id,
+				name,
+				description,
+				members,
+				inventories,
+				labItems
+			}
+		}
+	};
+};
+
+export const addLabTC = (name, description, userID) => {
+	return async (dispatch, getState) => {
+		try {
+			const response = await createNewLab(name, description, userID);
+			const { data } = response;
+			await dispatch(addLab(data.id, data.name, data.description, data.members, data.inventories, data.labItems));
+			console.log('What youre looking for ');
+			console.log(response);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	};
+};
 
 export const editLabDetails = (labID, name, desc) => {
 	return {

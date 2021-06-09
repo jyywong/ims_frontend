@@ -1,5 +1,6 @@
 import { prettyDOM } from '@testing-library/dom';
 import { combineReducers } from 'redux';
+
 import AddInventoryModal from '../PageComponents/Dashboard/AddInventoryModal';
 import DeleteInventoryModal from '../PageComponents/Dashboard/DeleteInventoryModal';
 
@@ -21,6 +22,13 @@ const initialState = {
 		}
 	},
 	allIDs: [ 1, 2 ]
+};
+
+const addLab = (state, action) => {
+	return {
+		...state,
+		[action.data.newLab.id]: action.data.newLab
+	};
 };
 
 const addLabMember = (state, action) => {
@@ -79,6 +87,8 @@ const updateLabs = (state, action) => {
 
 const labsByIDReducer = (state = initialState.byID, action) => {
 	switch (action.type) {
+		case 'ADD_LAB':
+			return addLab(state, action);
 		case 'UPDATE_LABS':
 			return updateLabs(state, action);
 		case 'EDIT_LAB_DETAILS':
@@ -107,6 +117,8 @@ const labsAllIDsReducer = (state = initialState.allIDs, action) => {
 	switch (action.type) {
 		case 'UPDATE_LABS':
 			return action.data.newLabIDs;
+		case 'ADD_LAB':
+			return [ ...state, action.data.newLab.id ];
 		default:
 			return state;
 	}

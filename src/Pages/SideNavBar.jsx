@@ -4,8 +4,10 @@ import { Box, Button, Flex, Divider, Text, useColorMode } from '@chakra-ui/react
 import { GiMoon } from 'react-icons/gi';
 import SideNavBarLabLink from './SideNavBarLabLink';
 
-const SideNavBar = ({ labID }) => {
+const SideNavBar = ({ labID, invID, itemID }) => {
 	const labs = useSelector((state) => state.labs.byID);
+	const inventory = useSelector((state) => state.inventories.byID[invID]);
+	const item = useSelector((state) => state.items.byID[itemID]);
 	const { colorMode, toggleColorMode } = useColorMode();
 
 	return (
@@ -30,9 +32,17 @@ const SideNavBar = ({ labID }) => {
 						<SideNavBarLabLink
 							key={labKey}
 							colorMode={colorMode}
-							id={labKey}
+							id={Number(labKey)}
 							name={labs[labKey].name}
-							labID={labID}
+							labID={(() => {
+								if (labID) {
+									return Number(labID);
+								} else if (invID) {
+									return inventory.labID;
+								} else if (itemID) {
+									return item.labID;
+								}
+							})()}
 						/>
 					))}
 				</Box>

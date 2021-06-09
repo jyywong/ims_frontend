@@ -2,7 +2,7 @@ import jwt_decode from 'jwt-decode';
 import { fetchLabsTC } from '../ActionCreators/labActions';
 import { getUserDetailsAttemptTC, loginAttemptTC } from '../ActionCreators/authActions';
 import { fetchInventoriesTC } from '../ActionCreators/invActions';
-import { fetchItemBatches, fetchItemsTC } from '../ActionCreators/itemActions';
+import { fetchItemBatches, fetchItemOrders, fetchItemsTC } from '../ActionCreators/itemActions';
 import { updateUsersTC } from '../ActionCreators/userActions';
 import { getUserDetails, testIfRefreshTokenValid } from '../Services/LabServices';
 
@@ -14,7 +14,8 @@ const getAllData = async (dispatch) => {
 			dispatch(fetchInventoriesTC),
 			dispatch(fetchItemsTC),
 			dispatch(updateUsersTC),
-			dispatch(fetchItemBatches)
+			dispatch(fetchItemBatches),
+			dispatch(fetchItemOrders)
 		]);
 	} catch (error) {
 		return Promise.reject(error);

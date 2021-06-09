@@ -5,7 +5,8 @@ import {
 	createItemOrderCall,
 	editItemDetailCall,
 	getItemBatches,
-	getItemList
+	getItemList,
+	getItemOrders
 } from '../Services/LabServices';
 
 export const updateItems = (newState, newItemIDs) => {
@@ -43,6 +44,26 @@ export const fetchItemBatches = async (dispatch, getState) => {
 		const response = await getItemBatches;
 		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
 		dispatch(updateItemBatches(organizedObject, newIDs));
+	} catch (error) {
+		return Promise.reject(error);
+	}
+};
+
+export const updateItemOrders = (newState, newIDs) => {
+	return {
+		type: 'UPDATE_ITEM_ORDERS',
+		data: {
+			newState,
+			newIDs
+		}
+	};
+};
+
+export const fetchItemOrders = async (dispatch, getState) => {
+	try {
+		const response = await getItemOrders;
+		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+		dispatch(updateItemOrders(organizedObject, newIDs));
 	} catch (error) {
 		return Promise.reject(error);
 	}

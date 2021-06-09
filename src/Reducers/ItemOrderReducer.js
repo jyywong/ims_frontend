@@ -20,6 +20,11 @@ const initialState = {
 	allIDs: [ 1, 2 ]
 };
 
+const updateItemOrders = (state, action) => {
+	const { data } = action;
+	return data.newState;
+};
+
 const addItemOrder = (state, action) => {
 	const { data } = action;
 	const { id, itemID, orderRequester, quantityRequested, dateNeededBy, notes } = { data };
@@ -38,6 +43,8 @@ const addItemOrder = (state, action) => {
 
 const itemOrderByIDReducer = (state = initialState.byID, action) => {
 	switch (action.type) {
+		case 'UPDATE_ITEM_ORDERS':
+			return updateItemOrders(state, action);
 		case 'ADD_ITEM_ORDER':
 			return addItemOrder(state, action);
 		default:
@@ -47,6 +54,8 @@ const itemOrderByIDReducer = (state = initialState.byID, action) => {
 
 const itemOrderAllIDsReducer = (state = initialState.allIDs, action) => {
 	switch (action.type) {
+		case 'UPDATE_ITEM_ORDERS':
+			return action.data.newIDs;
 		case 'ADD_ITEM_ORDER':
 			return [ ...state, action.data.id ];
 		default:

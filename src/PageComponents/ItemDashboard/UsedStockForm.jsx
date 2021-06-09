@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { updateItemBatchQuantityTC } from '../../ActionCreators/itemActions';
 const UsedStockForm = ({ setShowDrawer, item }) => {
+	const toast = useToast();
 	const dispatch = useDispatch();
 	const [ formValues, setFormValues ] = useState({ batch: 0, quantity: 0 });
 	const itemBatches = useSelector((state) => item.itemBatches.map((itemBatch) => state.itemBatches.byID[itemBatch]));
@@ -27,10 +28,27 @@ const UsedStockForm = ({ setShowDrawer, item }) => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const oldBatch = itemBatches.find((itemBatch) => itemBatch.id === formValues.batch);
-		const newQuantity = oldBatch.quantity - formValues.quantity;
-		console.log(newQuantity);
-		dispatch(updateItemBatchQuantityTC(formValues.batch, newQuantity));
+		(async () => {
+			try {
+				const oldBatch = itemBatches.find((itemBatch) => itemBatch.id === formValues.batch);
+				const newQuantity = oldBatch.quantity - formValues.quantity;
+				console.log(newQuantity);
+				dispatch(updateItemBatchQuantityTC(formValues.batch, newQuantity));
+				toast({
+					title: 'Successfully logged used stock',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to log used stock',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
+
 		onClose();
 	};
 	return (

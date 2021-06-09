@@ -12,8 +12,6 @@ const OrderRequests = ({ colorMode, lab }) => {
 		}
 		return items;
 	});
-	console.log('labItems');
-	console.log(labItems);
 	const orders = useSelector((state) => {
 		const allOrders = [];
 		for (const item of labItems) {
@@ -24,7 +22,6 @@ const OrderRequests = ({ colorMode, lab }) => {
 		}
 		return allOrders;
 	});
-
 	console.log(orders);
 	return (
 		<React.Fragment>
@@ -51,7 +48,7 @@ const OrderRequests = ({ colorMode, lab }) => {
 							display={{ xl: 'block', sm: 'inline' }}
 							fontSize={{ xl: '5xl', md: '2xl', sm: '2xl' }}
 						>
-							5
+							{orders.length}
 						</Text>
 						<Text
 							m={{ xl: '0', sm: '2' }}
@@ -64,7 +61,9 @@ const OrderRequests = ({ colorMode, lab }) => {
 					</Box>
 				</Flex>
 				<Divider orientation="vertical" />
-				{<OrderRequestItem />}
+				<Flex p="3" direction="column" justifyContent="flex-start" overflow="auto" width="60%" height="full">
+					{orders.map((order) => <OrderRequestItem order={order} />)}
+				</Flex>
 			</Flex>
 		</React.Fragment>
 	);

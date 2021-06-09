@@ -81,6 +81,17 @@ export const updateUsersCall = axios.get(baseURL + 'users');
 
 export const getItemBatches = axios.get(baseURL + 'item_batches');
 
+export const getItemOrders = axios.get(baseURL + 'item_orders');
+
+export const createNewLab = (name, description, userID) => {
+	return axios.post(baseURL + 'labs', {
+		name,
+		description,
+		members: [ Number(userID) ],
+		inventories: []
+	});
+};
+
 export const createNewInv = (labID, name, description, items) => {
 	return axios.post(baseURL + 'inventories', {
 		labID,
@@ -130,7 +141,7 @@ export const createNewItemCall = (invID, name, manufacturer, notes, initialQuant
 		quantity: initialQuantity,
 		minQuantity,
 		notices: [],
-		getItemBatches: [],
+		itemBatches: [],
 		itemOrders: []
 	});
 };

@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { getUserDetails, login } from '../Services/AuthServices';
-import { useSelector } from 'react-redux';
 import {
 	Box,
 	Flex,
@@ -16,35 +13,44 @@ import {
 	AlertTitle,
 	AlertDescription,
 	CloseButton,
+	useToast,
 	useColorMode
 } from '@chakra-ui/react';
-import { useDispatch } from 'react-redux';
-import { fetchLabsTC } from '../ActionCreators/labActions';
-import { loginAttemptTC } from '../ActionCreators/authActions';
 import { GiMoon } from 'react-icons/gi';
-
-const Login = () => {
-	const dispatch = useDispatch();
-	const history = useHistory();
-	const [ hasError, setHasError ] = useState(false);
-	const [ errorMessage, setErrorMessage ] = useState('');
+import { signUp } from '../Services/AuthServices';
+const SignUp = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
-	const [ formValues, setFormValues ] = useState({ username: '', password: '' });
+	const toast = useToast();
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		(async () => {
 			try {
-				await dispatch(loginAttemptTC(formValues.username, formValues.password));
-				const response = await Promise.all([ dispatch(fetchLabsTC) ]);
-				const labIDs = response[0];
-				history.push(`lab/${labIDs[0]}`);
+				const response = await signUp(
+					formValues.username,
+					formValues.email,
+					formValues.password,
+					formValues.password2
+				);
+				toast({
+					title: 'Successfully created a new account',
+					description: 'Now signing you in!',
+					status: 'success',
+					isClosable: true
+				});
+				// await dispatch(loginAttemptTC(formValues.username, formValues.password));
 			} catch (error) {
-				setHasError(true);
-				setErrorMessage(error.message);
-				console.log(error);
+				toast({
+					title: 'Unable to create a new account',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
 			}
 		})();
+		setFormValues(emptyForm);
 	};
+	const emptyForm = { username: '', email: '', password: '', password2: '' };
+	const [ formValues, setFormValues ] = useState(emptyForm);
 	return (
 		<React.Fragment>
 			<Button onClick={toggleColorMode}> Toggle color mode</Button>
@@ -57,7 +63,7 @@ const Login = () => {
 				>
 					<Flex direction="column" alignItems="center" justifyContent="center" mb="2">
 						<GiMoon size={60} />
-						<Heading p="5"> Log In </Heading>
+						<Heading p="5"> Sign Up </Heading>
 					</Flex>
 					<Box>
 						<form onSubmit={handleSubmit}>
@@ -73,6 +79,17 @@ const Login = () => {
 								/>
 							</FormControl>
 							<FormControl my="2">
+								<FormLabel>Email</FormLabel>
+								<Input
+									type="email"
+									placeholder="Enter your username"
+									value={formValues.email}
+									onChange={(e) => {
+										setFormValues({ ...formValues, email: e.target.value });
+									}}
+								/>
+							</FormControl>
+							<FormControl my="2">
 								<FormLabel>Password</FormLabel>
 								<Input
 									type="password"
@@ -83,18 +100,23 @@ const Login = () => {
 									}}
 								/>
 							</FormControl>
-							{hasError && (
+							<FormControl my="2">
+								<FormLabel>Confirm your password</FormLabel>
+								<Input
+									type="password"
+									placeholder="Enter your password again"
+									value={formValues.password2}
+									onChange={(e) => {
+										setFormValues({ ...formValues, password2: e.target.value });
+									}}
+								/>
+							</FormControl>
+							{false && (
 								<Alert status="error" borderRadius="lg">
 									<AlertIcon />
 									<AlertTitle fontSize="10"> Login Unsuccessful! </AlertTitle>
-									<AlertDescription fontSize="10">{errorMessage}</AlertDescription>
-									<CloseButton
-										position="absolute"
-										right="8px"
-										onClick={() => {
-											setHasError(false);
-										}}
-									/>
+									<AlertDescription fontSize="10" />
+									<CloseButton position="absolute" right="8px" />
 								</Alert>
 							)}
 
@@ -107,10 +129,10 @@ const Login = () => {
 								_hover={{ boxShadow: 'lg' }}
 								_active={{ boxShadow: 'sm' }}
 							>
-								Log In
+								Sign Up
 							</Button>
 							<Text textAlign="center" mt={3}>
-								Need an account? Sign up!
+								Already have an account? Log in!
 							</Text>
 						</form>
 					</Box>
@@ -120,4 +142,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default SignUp;

@@ -29,8 +29,8 @@ const ItemDashboard = ({ invID, itemID }) => {
 						height="full"
 						templateRows={{
 							xl: '0.3fr  0.8fr 1fr 2fr',
-							md: '10vh 15vh 30vh 1fr 1fr',
-							sm: '10vh 10vh 10vh 10vh 10vh 50vh 40vh 40vh'
+							md: '10vh 15vh 30vh 15vh 1fr',
+							sm: '10vh 10vh 10vh 10vh 10vh 10vh 40vh 40vh'
 						}}
 						templateColumns={{ xl: '1fr  1fr 1fr 1fr', md: '1fr 1fr 1fr', sm: '1fr' }}
 						templateAreas={{

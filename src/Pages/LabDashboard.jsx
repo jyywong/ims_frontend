@@ -14,6 +14,7 @@ import EditLabForm from '../PageComponents/EditLabForm';
 import ModalContainer from '../PageComponents/Dashboard/ModalContainer';
 import { loadDataOrRedirectToLogin } from '../HelperFunctions/getAllData';
 import OrderRequests from '../PageComponents/Dashboard/OrderRequests';
+import NoLabsPage from './NoLabsPage';
 
 const LabDashboard = ({ labID }) => {
 	const [ showDrawer, setShowDrawer ] = useState(false);
@@ -25,7 +26,7 @@ const LabDashboard = ({ labID }) => {
 		setShowDrawer(true);
 	};
 
-	return (
+	return lab ? (
 		<React.Fragment>
 			<Grid width="full" templateRows="5rem auto">
 				<GridItem>
@@ -51,7 +52,7 @@ const LabDashboard = ({ labID }) => {
 					`,
 							md: `
 					'header header header'
-					'card1 card2 card3'
+					'card1 card2 card2'
 					'chart chart chart'
 					'inv inv inv'
 					'members members members'
@@ -60,7 +61,7 @@ const LabDashboard = ({ labID }) => {
 					'header'
 					'card1'
 					'card2'
-					'card3'
+					'card2'
 					'chart'
 					'inv'
 					'members'
@@ -101,6 +102,8 @@ const LabDashboard = ({ labID }) => {
 				</GridItem>
 			</Grid>
 		</React.Fragment>
+	) : (
+		<NoLabsPage />
 	);
 };
 
