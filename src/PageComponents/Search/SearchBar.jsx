@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { BellIcon } from '@chakra-ui/icons';
 import { FiLogOut } from 'react-icons/fi';
 import { Flex, Divider, Icon, useColorMode } from '@chakra-ui/react';
 import Dropdown from '../Dashboard/Dropdown';
 import SearchComp from './SearchComp';
 const SearchBar = () => {
+	const history = useHistory();
 	const { colorMode, toggleColorMode } = useColorMode();
+	const handleSignOut = () => {
+		localStorage.removeItem('access');
+		localStorage.removeItem('refresh');
 
+		history.push('/');
+	};
 	return (
 		<React.Fragment>
 			<Flex
@@ -24,7 +31,7 @@ const SearchBar = () => {
 				<Dropdown />
 				<Divider mx="4" orientation="vertical" />
 				<BellIcon boxSize={6} />
-				<Icon mx="7" boxSize={6} as={FiLogOut} />
+				<Icon mx="7" boxSize={6} as={FiLogOut} onClick={handleSignOut} />
 			</Flex>
 		</React.Fragment>
 	);

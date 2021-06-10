@@ -16,6 +16,7 @@ import noticesReducer from './Reducers/NoticesReducer';
 import authReducer from './Reducers/AuthReducer';
 import itemOrderReducer from './Reducers/ItemOrderReducer';
 import itemBatchReducer from './Reducers/ItemBatchReducer';
+import labInvitesReducer from './Reducers/LabInvitesReducer';
 
 const rootReducer = combineReducers({
 	users: usersReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
 	itemOrders: itemOrderReducer,
 	itemBatches: itemBatchReducer,
 	notices: noticesReducer,
+	labInvites: labInvitesReducer,
 	auth: authReducer
 });
 

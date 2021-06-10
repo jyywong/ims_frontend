@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, Input } from '@chakra-ui/react';
 import { createNewLabInvite } from '../../Services/LabServices';
+import { fetchLabsTC } from '../../ActionCreators/labActions';
 const AddMemberModal = ({ onClose, lab }) => {
 	const [ email, setEmail ] = useState('');
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		createNewLabInvite(lab.id, email).then((response) => {
-			response && alert('Your invite has been sent successfully!');
-		});
+		(async () => {
+			try {
+				const response = await createNewLabInvite(lab.id, email);
+				console.log(response);
+			} catch (error) {
+				console.log(error.message);
+			}
+		})();
+
 		onClose();
 	};
 	return (

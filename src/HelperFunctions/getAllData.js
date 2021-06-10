@@ -1,5 +1,5 @@
 import jwt_decode from 'jwt-decode';
-import { fetchLabsTC } from '../ActionCreators/labActions';
+import { fetchLabInvitesTC, fetchLabsTC } from '../ActionCreators/labActions';
 import { getUserDetailsAttemptTC, loginAttemptTC } from '../ActionCreators/authActions';
 import { fetchInventoriesTC } from '../ActionCreators/invActions';
 import { fetchItemBatches, fetchItemOrders, fetchItemsTC } from '../ActionCreators/itemActions';
@@ -15,7 +15,8 @@ const getAllData = async (dispatch) => {
 			dispatch(fetchItemsTC),
 			dispatch(updateUsersTC),
 			dispatch(fetchItemBatches),
-			dispatch(fetchItemOrders)
+			dispatch(fetchItemOrders),
+			dispatch(fetchLabInvitesTC)
 		]);
 	} catch (error) {
 		return Promise.reject(error);

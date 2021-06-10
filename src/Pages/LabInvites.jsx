@@ -1,10 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Text, Flex, useColorMode, Divider } from '@chakra-ui/react';
 import SideNavBar from './SideNavBar';
 import LabInviteItem from '../PageComponents/LabInvites/LabInviteItem';
 const LabInvites = () => {
 	const { colorMode, toggleColorMode } = useColorMode();
-
+	const invites = useSelector((state) => state.labInvites.byID);
+	console.log(Object.values(invites));
 	return (
 		<React.Fragment>
 			<Flex minHeight="100vh" width="full">
@@ -22,7 +24,7 @@ const LabInvites = () => {
 							<Text fontSize="3xl">My Lab Invites</Text>
 						</Flex>
 						<Divider />
-						<LabInviteItem />
+						{Object.values(invites).map((invite) => <LabInviteItem key={invite.id} invite={invite} />)}
 					</Flex>
 				</Flex>
 			</Flex>

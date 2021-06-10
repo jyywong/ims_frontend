@@ -1,4 +1,5 @@
 import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
+import { getLabInvites } from '../Services/LabServices';
 import {
 	createNewInv,
 	createNewLab,
@@ -26,8 +27,6 @@ export const updateLabState = (newState, newLabIDs) => {
 export async function fetchLabsTC(dispatch, getState) {
 	try {
 		const response = await getLabList;
-		console.log('response');
-		console.log(response);
 		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
 		dispatch(updateLabState(organizedObject, newIDs));
 		return newIDs;
@@ -35,6 +34,26 @@ export async function fetchLabsTC(dispatch, getState) {
 		return Promise.reject(error);
 	}
 }
+
+export const updateLabInvites = (newState, newIDs) => {
+	return {
+		type: 'UPDATE_LAB_INVITES',
+		data: {
+			newState,
+			newIDs
+		}
+	};
+};
+
+export const fetchLabInvitesTC = async (dispatch, getState) => {
+	try {
+		const response = await getLabInvites;
+		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
+		await dispatch(updateLabInvites(organizedObject, newIDs));
+	} catch (error) {
+		return Promise.reject(error);
+	}
+};
 
 export const addLab = (id, name, description, members, inventories, labItems) => {
 	return {

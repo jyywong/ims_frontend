@@ -83,6 +83,8 @@ export const getItemBatches = axios.get(baseURL + 'item_batches');
 
 export const getItemOrders = axios.get(baseURL + 'item_orders');
 
+export const getLabInvites = axios.get(baseURL + 'lab_invites');
+
 export const createNewLab = (name, description, userID) => {
 	return axios.post(baseURL + 'labs', {
 		name,
@@ -190,4 +192,10 @@ export const getItemBatchHistory = (itemID) => {
 
 export const getItemHistory = (itemID) => {
 	return axios.get(baseURL + `item_history/${itemID}`);
+};
+
+export const acceptLabInvite = (inviteID) => {
+	return axios.patch(baseURL + `lab_invite/${inviteID}`, {
+		status: 'Accepted'
+	});
 };

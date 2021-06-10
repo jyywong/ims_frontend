@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 import { getUserDetails, login } from '../Services/AuthServices';
 import { useSelector } from 'react-redux';
 import {
@@ -22,6 +23,7 @@ import { useDispatch } from 'react-redux';
 import { fetchLabsTC } from '../ActionCreators/labActions';
 import { loginAttemptTC } from '../ActionCreators/authActions';
 import { GiMoon } from 'react-icons/gi';
+import { testIfRefreshTokenValid } from '../Services/LabServices';
 
 const Login = () => {
 	const dispatch = useDispatch();
@@ -30,11 +32,26 @@ const Login = () => {
 	const [ errorMessage, setErrorMessage ] = useState('');
 	const { colorMode, toggleColorMode } = useColorMode();
 	const [ formValues, setFormValues ] = useState({ username: '', password: '' });
+
+	useEffect(() => {
+		// (async () => {
+		// 	if (localStorage.getItem('refresh')) {
+		// 		try{
+		// 			const response = await testIfRefreshTokenValid();
+		// 		}catch(error){
+		// 			console.log(error)
+		// 		}
+		// 	}
+		// })();
+	}, []);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		(async () => {
 			try {
 				await dispatch(loginAttemptTC(formValues.username, formValues.password));
+				console.log('jwt');
+				console.log(jwt_decode(localStorage.getItem('access')).user_id);
 				const response = await Promise.all([ dispatch(fetchLabsTC) ]);
 				const labIDs = response[0];
 				history.push(`lab/${labIDs[0]}`);

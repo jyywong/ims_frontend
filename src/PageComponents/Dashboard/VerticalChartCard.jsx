@@ -50,14 +50,14 @@ const VerticalChartCard = ({ colorMode, lab }) => {
 						<Box height="10px" width="20px" bg="rgb(54, 162, 235)" border="1px" />
 						<Text px="4"> Items that are full</Text>
 						<Text justifySelf="right">
-							{(numberOfLowOrFineItems.fine / lab.labItems.length).toFixed(2) * 100}%
+							{(numberOfLowOrFineItems.fine / lab.labItems.length * 100).toFixed(2)}%
 						</Text>
 					</Flex>
 					<Flex alignItems="center" p="2">
 						<Box height="10px" width="20px" bg="rgb(255, 99, 132)" border="1px" />
 						<Text px="4"> Items that are low</Text>
 						<Text justifySelf="right">
-							{(numberOfLowOrFineItems.low / lab.labItems.length).toFixed(2) * 100}%
+							{(numberOfLowOrFineItems.low / lab.labItems.length * 100).toFixed(2)}%
 						</Text>
 					</Flex>
 				</Flex>

@@ -1,7 +1,22 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { FcInvite } from 'react-icons/fc';
 import { Flex, Button, Text, Icon } from '@chakra-ui/react';
-const LabInviteItem = () => {
+import { acceptLabInvite } from '../../Services/LabServices';
+import { fetchLabsTC } from '../../ActionCreators/labActions';
+const LabInviteItem = ({ invite }) => {
+	const dispatch = useDispatch();
+	const handleAccept = () => {
+		(async () => {
+			try {
+				const response = await acceptLabInvite(invite.id);
+				console.log(response);
+				await dispatch(fetchLabsTC);
+			} catch (error) {
+				console.log(error.message);
+			}
+		})();
+	};
 	return (
 		<React.Fragment>
 			<Flex
@@ -14,15 +29,23 @@ const LabInviteItem = () => {
 			>
 				<Flex alignItems="center">
 					<Icon m="5" boxSize="10" as={FcInvite} />
-					<Text> Someone has invited you to join: A lab</Text>s
+					<Text> You have been invited to join: {invite.lab}</Text>
 				</Flex>
 				<Flex>
-					<Button m="5" colorScheme="green">
-						Accept
-					</Button>
-					<Button m="5" justifySelf="right" colorScheme="red">
-						Decline
-					</Button>
+					{invite.status === 'Pending' ? (
+						<React.Fragment>
+							<Button m="5" colorScheme="green" onClick={handleAccept}>
+								Accept
+							</Button>
+							<Button m="5" justifySelf="right" colorScheme="red">
+								Decline
+							</Button>
+						</React.Fragment>
+					) : (
+						<Text m="4" color="green" fontSize="2xl">
+							Accepted
+						</Text>
+					)}
 				</Flex>
 			</Flex>
 		</React.Fragment>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box, Button, Flex, Divider, Text, useColorMode } from '@chakra-ui/react';
 import { GiMoon } from 'react-icons/gi';
@@ -45,6 +46,10 @@ const SideNavBar = ({ labID, invID, itemID }) => {
 							})()}
 						/>
 					))}
+					<Divider />
+					<Link to={'/invites'}>
+						<Text fontSize="md"> My Invites </Text>
+					</Link>
 				</Box>
 				<Button justifySelf="flex-end" onClick={toggleColorMode}>
 					Color Mode
