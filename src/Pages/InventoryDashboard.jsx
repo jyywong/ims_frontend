@@ -10,11 +10,7 @@ import InventoryModalContainer from '../PageComponents/InventoryDash/InventoryMo
 import InvBreadCrumb from '../PageComponents/InventoryDash/InvBreadCrumb';
 import InventoryActivityList from '../PageComponents/InventoryDash/InventoryActivityList';
 const InventoryDashboard = ({ invID }) => {
-<<<<<<< HEAD
-	const inventory = useSelector((lab) => lab.inventories.find((inv) => inv.id === invID));
-=======
 	const inventory = useSelector((state) => state.inventories.byID[invID]);
->>>>>>> 28dc643e34930052ecd908522afa8395f095d414
 	const { colorMode, toggleColorMode } = useColorMode();
 
 	return (

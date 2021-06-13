@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import React from 'react';
-=======
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
->>>>>>> 28dc643e34930052ecd908522afa8395f095d414
 import { BellIcon } from '@chakra-ui/icons';
 import { FiLogOut } from 'react-icons/fi';
 import { Flex, Divider, Icon, Tooltip, useColorMode } from '@chakra-ui/react';

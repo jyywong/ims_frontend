@@ -1,9 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
-=======
 import { useSelector } from 'react-redux';
 import { ChevronDownIcon } from '@chakra-ui/icons';
->>>>>>> 28dc643e34930052ecd908522afa8395f095d414
 import { Flex, Avatar, Text, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 const Dropdown = () => {
 	const user = useSelector((state) => {

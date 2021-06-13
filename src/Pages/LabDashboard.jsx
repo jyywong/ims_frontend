@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import React, { useState, useRef } from 'react';
-import { Grid, GridItem, Text, useColorMode } from '@chakra-ui/react';
-=======
 import React, { useState, useRef, useEffect } from 'react';
 
 import { Flex, Grid, GridItem, Text, useColorMode } from '@chakra-ui/react';
->>>>>>> 28dc643e34930052ecd908522afa8395f095d414
 import { useSelector } from 'react-redux';
 import { FaExclamation } from 'react-icons/fa';
 import { BiPackage, BiTrendingUp } from 'react-icons/bi';
@@ -24,11 +19,7 @@ import NoLabsPage from './NoLabsPage';
 const LabDashboard = ({ labID }) => {
 	const [ showDrawer, setShowDrawer ] = useState(false);
 	const { colorMode, toggleColorMode } = useColorMode();
-<<<<<<< HEAD
-	const lab = useSelector((lab) => lab);
-=======
 	const lab = useSelector((state) => state.labs.byID[labID]);
->>>>>>> 28dc643e34930052ecd908522afa8395f095d414
 	const btnRef = useRef();
 
 	const openDrawer = () => {
