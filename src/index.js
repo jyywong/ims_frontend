@@ -5,11 +5,38 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import labReducer from './Reducers/LabReducer';
+import thunk from 'redux-thunk';
+import labsReducer from './Reducers/LabsReducer';
+import invsReducer from './Reducers/InvsReducer';
+import itemsReducer from './Reducers/ItemsReducer';
+import usersReducer from './Reducers/UsersReducer';
+import noticesReducer from './Reducers/NoticesReducer';
+import authReducer from './Reducers/AuthReducer';
+import itemOrderReducer from './Reducers/ItemOrderReducer';
+import itemBatchReducer from './Reducers/ItemBatchReducer';
+import labInvitesReducer from './Reducers/LabInvitesReducer';
 
-const store = createStore(labReducer, composeWithDevTools());
+const appReducer = combineReducers({
+	users: usersReducer,
+	labs: labsReducer,
+	inventories: invsReducer,
+	items: itemsReducer,
+	itemOrders: itemOrderReducer,
+	itemBatches: itemBatchReducer,
+	notices: noticesReducer,
+	labInvites: labInvitesReducer,
+	auth: authReducer
+});
+
+const rootReducer = (state, action) => {
+	if (action.type === 'USER_LOG_OUT') {
+		state = undefined;
+	}
+	return appReducer(state, action);
+};
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
 	<StrictMode>

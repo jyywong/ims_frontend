@@ -9,15 +9,34 @@ import {
 	Button,
 	Text,
 	UnorderedList,
-	ListItem
+	ListItem,
+	useToast
 } from '@chakra-ui/react';
-import { removeMember } from '../../Reducers/LabReducer';
-
-const RemoveMemberModal = ({ onClose, membersToRemove }) => {
+import { removeLabMemberTC } from '../../ActionCreators/labActions';
+const RemoveMemberModal = ({ onClose, lab, membersToRemove }) => {
+	const toast = useToast();
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(removeMember(membersToRemove.map((member) => member.id)));
+
+		(async () => {
+			try {
+				dispatch(removeLabMemberTC(lab.id, membersToRemove.map((member) => member.id)));
+				toast({
+					title: 'Successfully removed lab member',
+					description: 'Member name',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to remove lab member',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
 		onClose();
 	};
 	return (
@@ -35,7 +54,7 @@ const RemoveMemberModal = ({ onClose, membersToRemove }) => {
 					<Button type="button" mx="1" onClick={onClose}>
 						Close
 					</Button>
-					<Button type="submit" colorScheme="red" mx="1">
+					<Button data-testid="Confirm remove members" type="submit" colorScheme="red" mx="1">
 						Yes
 					</Button>
 				</ModalFooter>

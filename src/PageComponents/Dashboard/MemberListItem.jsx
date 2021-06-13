@@ -31,7 +31,14 @@ const MemberListItem = ({ id, name, removeMember, membersToRemove, setMembersToR
 				<Text px="4" color="gray.400" fontSize="sm">
 					Role
 				</Text>
-				{removeMember && <Checkbox isChecked={isChecked} onChange={handleChange} />}
+				{removeMember && (
+					<Checkbox
+						data-testid={`Checkbox ${id}`}
+						value={isChecked}
+						isChecked={isChecked}
+						onChange={handleChange}
+					/>
+				)}
 			</Flex>
 		</React.Fragment>
 	);

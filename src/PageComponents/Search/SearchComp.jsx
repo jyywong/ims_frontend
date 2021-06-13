@@ -8,15 +8,29 @@ const SearchComp = () => {
 	const [ searchValue, setSearchValue ] = useState('');
 	const [ openPopover, setOpenPopover ] = useState(false);
 	const [ searchResults, setSearchResults ] = useState({ labs: [], inventories: [], items: [] });
+	const searchInventoriesByName = (state) => {
+		const result = [];
+		for (const [ key, value ] of Object.entries(state.inventories.byID)) {
+			if (value.name.toLowerCase().includes(searchValue.toLowerCase())) {
+				result.push(value);
+			}
+		}
+		return result;
+	};
+	const searchItemsByName = (state) => {
+		const result = [];
+		for (const [ key, value ] of Object.entries(state.items.byID)) {
+			if (value.name.toLowerCase().includes(searchValue.toLowerCase())) {
+				result.push(value);
+			}
+		}
+		return result;
+	};
 	const stateQuery = useSelector((state) => {
 		return {
 			labs: [],
-			inventories: state.inventories.filter((inv) => inv.name.toLowerCase().includes(searchValue.toLowerCase())),
-			items: [
-				...state.inventories.map((inv) =>
-					inv.items.filter((item) => item.name.toLowerCase().includes(searchValue.toLowerCase()))
-				)
-			]
+			inventories: searchInventoriesByName(state),
+			items: searchItemsByName(state)
 		};
 	});
 	const closePopover = () => {
@@ -26,7 +40,7 @@ const SearchComp = () => {
 	useEffect(
 		() => {
 			searchValue ? setOpenPopover(true) : setOpenPopover(false);
-			setSearchResults({ ...searchResults, inventories: stateQuery.inventories, items: stateQuery.items.flat() });
+			setSearchResults({ ...searchResults, inventories: stateQuery.inventories, items: stateQuery.items });
 		},
 		[ searchValue ]
 	);
@@ -34,6 +48,7 @@ const SearchComp = () => {
 		<React.Fragment>
 			{/* TODO: Figure out how to match popover width with searchbar width */}
 			<Popover
+				data-testid="Popover"
 				returnFocusOnClose={false}
 				isOpen={openPopover}
 				onClose={() => setOpenPopover(false)}
@@ -42,19 +57,35 @@ const SearchComp = () => {
 				closeOnBlur={true}
 			>
 				<PopoverTrigger>
-					<Input placeholder="Search" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+					<Input
+						data-testid="Input"
+						placeholder="Search"
+						value={searchValue}
+						onChange={(e) => setSearchValue(e.target.value)}
+					/>
 				</PopoverTrigger>
 				<PopoverContent width="69vw">
-					<PopoverHeader fontSize="2xl">Items</PopoverHeader>
-					<PopoverBody>
-						{searchResults.items.map((item) => <ItemSuggestion item={item} closePopover={closePopover} />)}
-					</PopoverBody>
-					<PopoverHeader fontSize="2xl">Inventories</PopoverHeader>
-					<PopoverBody>
-						{searchResults.inventories.map((inv) => (
-							<InventorySuggestion inventory={inv} closePopover={closePopover} />
-						))}
-					</PopoverBody>
+					{searchResults.items.length > 0 && (
+						<React.Fragment>
+							<PopoverHeader fontSize="2xl">Items</PopoverHeader>
+							<PopoverBody>
+								{searchResults.items.map((item) => (
+									<ItemSuggestion key={item.id} item={item} closePopover={closePopover} />
+								))}
+							</PopoverBody>
+						</React.Fragment>
+					)}
+
+					{searchResults.inventories.length > 0 && (
+						<React.Fragment>
+							<PopoverHeader fontSize="2xl">Inventories</PopoverHeader>
+							<PopoverBody>
+								{searchResults.inventories.map((inv) => (
+									<InventorySuggestion key={inv.id} inventory={inv} closePopover={closePopover} />
+								))}
+							</PopoverBody>
+						</React.Fragment>
+					)}
 				</PopoverContent>
 			</Popover>
 		</React.Fragment>

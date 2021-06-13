@@ -2,17 +2,16 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import ListComponent from '../ListComponent';
 import StockItem from './StockItem';
-const StockList = ({ colorMode }) => {
-	const item = useSelector((state) =>
-		state.inventories.find((inv) => inv.id === 1).items.find((item) => item.id === 1)
-	);
+const StockList = ({ colorMode, item }) => {
+	const itemBatches = useSelector((state) => item.itemBatches.map((itemBatch) => state.itemBatches.byID[itemBatch]));
+	console.log(itemBatches);
 	return (
 		<React.Fragment>
 			<ListComponent colorMode={colorMode} title="Stock list">
 				<React.Fragment />
-				{item.stock &&
-					item.stock.map((stock) => (
-						<StockItem key={stock.id} date={stock.expiryDate} quantity={stock.quantity} />
+				{itemBatches &&
+					itemBatches.map((itemBatch) => (
+						<StockItem key={itemBatch.id} date={itemBatch.expiryDate} quantity={itemBatch.quantity} />
 					))}
 			</ListComponent>
 		</React.Fragment>

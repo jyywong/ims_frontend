@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Text } from '@chakra-ui/react';
-import { EditIcon, AddIcon } from '@chakra-ui/icons';
+import { EditIcon, AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { GoNote } from 'react-icons/go';
 const ItemHeaderButtons = ({ openDrawer }) => {
 	return (
@@ -13,8 +13,11 @@ const ItemHeaderButtons = ({ openDrawer }) => {
 			<Button id="Request Order" onClick={openDrawer} mx="2" variant="outline" leftIcon={<GoNote size={20} />}>
 				<Text pointerEvents="none"> Request an order </Text>
 			</Button>
-			<Button id="Add restock" onClick={openDrawer} mx="2" leftIcon={<AddIcon boxSize={3} />}>
+			<Button id="Add restock" onClick={openDrawer} mx="2" variant="outline" leftIcon={<AddIcon boxSize={3} />}>
 				<Text pointerEvents="none"> Add a restock </Text>
+			</Button>
+			<Button id="Used stock" onClick={openDrawer} mx="2" leftIcon={<MinusIcon boxSize={3} />}>
+				<Text pointerEvents="none"> Log used stocks</Text>
 			</Button>
 		</React.Fragment>
 	);
