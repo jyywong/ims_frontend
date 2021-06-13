@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-const baseURL = 'http://127.0.0.1:8000/api/';
+const baseURL = 'https://nameless-chamber-50852.herokuapp.com/api/';
 axios.interceptors.request.use((request) => {
 	if (localStorage.getItem('access')) {
 		request.headers.Authorization = `Bearer ${localStorage.getItem('access')}`;
@@ -74,7 +74,7 @@ export const isRefreshTokenValid = () => {
 };
 
 export const login = (username, password) =>
-	axios.post(baseURL + 'token', {
+	axios.post(baseURL + 'token/', {
 		username,
 		password
 	});

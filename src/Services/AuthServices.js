@@ -1,15 +1,15 @@
 import axios from 'axios';
-const baseURL = 'http://127.0.0.1:8000/api/';
+const baseURL = 'https://nameless-chamber-50852.herokuapp.com/api/';
 export const login = (username, password) =>
 	axios.post(baseURL + 'token/', {
 		username,
 		password
 	});
 
-export const getUserDetails = (userID) => axios.get(`http://127.0.0.1:8000/api/user/${userID}`);
+export const getUserDetails = (userID) => axios.get(baseURL + `user/${userID}/`);
 
 export const signUp = (username, email, password, password2) =>
-	axios.post(baseURL + 'register/', {
+	axios.post(baseURL + 'register', {
 		username,
 		email,
 		password,
