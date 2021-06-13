@@ -1,6 +1,5 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-import { useHistory } from 'react-router-dom';
 
 const baseURL = 'http://127.0.0.1:8000/api/';
 axios.interceptors.request.use((request) => {
@@ -75,7 +74,7 @@ export const isRefreshTokenValid = () => {
 };
 
 export const login = (username, password) =>
-	axios.post('http://127.0.0.1:8000/api/token/', {
+	axios.post(baseURL + 'token', {
 		username,
 		password
 	});
@@ -83,7 +82,7 @@ export const login = (username, password) =>
 export const testIfRefreshTokenValid = () =>
 	axios.post(baseURL + 'token/refresh/', { refresh: localStorage.getItem('refresh') });
 
-export const getUserDetails = (userID) => axios.get(`http://127.0.0.1:8000/api/user/${userID}`);
+export const getUserDetails = (userID) => axios.get(baseURL + `user/${userID}`);
 
 export const getLabList = () => axios.get(baseURL + 'labs');
 
