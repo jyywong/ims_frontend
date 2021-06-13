@@ -3,7 +3,7 @@ import { useColorMode } from '@chakra-ui/react';
 
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import 'D:/Javascript/ims_frontend/src/PageComponents/ItemDashboard/datepicker.css';
+import './datepicker.css';
 
 const DatePicker = (
 	{ selectedDate, onChange, isClearable = false, showPopperArrow = false, ...props },
