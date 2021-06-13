@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Text, Input, Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverBody } from '@chakra-ui/react';
+import { Input, Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverBody } from '@chakra-ui/react';
 import ItemSuggestion from './ItemSuggestion';
 import InventorySuggestion from './InventorySuggestion';
 

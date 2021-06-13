@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { Button, Grid, GridItem, useColorMode } from '@chakra-ui/react';
+import { Grid, GridItem, useColorMode } from '@chakra-ui/react';
 import { BiPackage } from 'react-icons/bi';
 import { FaExclamation } from 'react-icons/fa';
 import SearchBar from '../PageComponents/Search/SearchBar';
@@ -11,7 +11,6 @@ import ActivityItem from '../PageComponents/InventoryDash/ActivityItem';
 import InventoryModalContainer from '../PageComponents/InventoryDash/InventoryModalContainer';
 const InventoryDashboard = ({ invID }) => {
 	const inventory = useSelector((lab) => lab.inventories.find((inv) => inv.id === invID));
-	const [ showModal, setShowModal ] = useState(false);
 	const { colorMode, toggleColorMode } = useColorMode();
 
 	return (

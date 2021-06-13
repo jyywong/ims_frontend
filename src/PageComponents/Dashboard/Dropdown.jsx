@@ -1,5 +1,4 @@
 import React from 'react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Flex, Avatar, Text, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 const Dropdown = () => {
 	return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Text, Box, Button } from '@chakra-ui/react';
+import { Flex, Text, Box } from '@chakra-ui/react';
 const ListComponent = ({ colorMode, title, children }) => {
 	return (
 		<React.Fragment>

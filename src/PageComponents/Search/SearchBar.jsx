@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BellIcon } from '@chakra-ui/icons';
 import { FiLogOut } from 'react-icons/fi';
 import { Flex, Divider, Icon, useColorMode } from '@chakra-ui/react';
@@ -15,7 +15,6 @@ const SearchBar = () => {
 				bg={colorMode === 'light' ? 'gray.300' : 'gray.700'}
 				width="full"
 				height="5rem"
-				alignItems="center"
 			>
 				<Flex mx="6" width="80%">
 					{/* <InputLeftElement pointerEvents="none" children={<SearchIcon boxSize={7} />} /> */}

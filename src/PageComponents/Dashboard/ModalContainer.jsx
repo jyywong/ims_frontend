@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { GridItem, Button, Flex } from '@chakra-ui/react';
-import ListComponent from '../ListComponent';
-import MemberListItem from './MemberListItem';
+import { GridItem } from '@chakra-ui/react';
 import ModalComp from '../ModalComp';
 import AddMemberModal from './AddMemberModal';
 import AddInventoryModal from './AddInventoryModal';
@@ -12,7 +10,6 @@ import MemberList from './MemberList';
 import RemoveMemberModal from './RemoveMemberModal';
 
 const ModalContainer = ({ colorMode }) => {
-	const lab = useSelector((lab) => lab);
 	const [ modalContent, setModalContent ] = useState('');
 	const [ showModal, setShowModal ] = useState(false);
 	const [ inventoriesToDelete, setInventoriesToDelete ] = useState([]);

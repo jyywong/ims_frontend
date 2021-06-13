@@ -1,14 +1,11 @@
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 import { useColorMode } from '@chakra-ui/react';
 
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'D:/Javascript/ims_frontend/src/PageComponents/ItemDashboard/datepicker.css';
 
-const DatePicker = (
-	{ selectedDate, onChange, isClearable = false, showPopperArrow = false, ...props },
-	HTMLAttributes
-) => {
+const DatePicker = ({ selectedDate, onChange, isClearable = false, showPopperArrow = false, ...props }) => {
 	const isLight = useColorMode().colorMode === 'light';
 	return (
 		// if you don't want to use chakra's colors or you just wwant to use the original ones,

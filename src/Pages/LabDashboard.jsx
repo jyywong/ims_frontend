@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { Grid, GridItem, Button, Text, useColorMode } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Grid, GridItem, Text, useColorMode } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 import { FaExclamation } from 'react-icons/fa';
 import { BiPackage, BiTrendingUp } from 'react-icons/bi';
 import SimpleCard from '../PageComponents/Dashboard/SimpleCard';
@@ -16,7 +16,6 @@ const LabDashboard = () => {
 	const [ showDrawer, setShowDrawer ] = useState(false);
 	const { colorMode, toggleColorMode } = useColorMode();
 	const lab = useSelector((lab) => lab);
-	const dispatch = useDispatch();
 	const btnRef = useRef();
 
 	const openDrawer = () => {

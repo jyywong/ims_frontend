@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, Button, GridItem } from '@chakra-ui/react';
+import { GridItem } from '@chakra-ui/react';
 
 import ModalComp from '../ModalComp';
 import AddItem from './AddItem';

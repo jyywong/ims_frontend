@@ -1,18 +1,5 @@
 import React from 'react';
-import {
-	Modal,
-	ModalOverlay,
-	ModalContent,
-	ModalHeader,
-	ModalFooter,
-	ModalBody,
-	ModalCloseButton,
-	Flex,
-	Box,
-	Text,
-	Button,
-	Input
-} from '@chakra-ui/react';
+import { Modal, ModalOverlay } from '@chakra-ui/react';
 const ModalComp = ({ isOpen, onClose, children }) => {
 	return (
 		<React.Fragment>

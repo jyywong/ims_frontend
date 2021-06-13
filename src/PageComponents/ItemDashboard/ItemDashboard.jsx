@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Grid, GridItem, useColorMode } from '@chakra-ui/react';
 import { BiPackage } from 'react-icons/bi';
