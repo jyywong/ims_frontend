@@ -5,11 +5,14 @@ const Header = ({ title, description, children }) => {
 	return (
 		<React.Fragment>
 			<Flex px="5" alignItems="center" justifyContent="space-between">
-				<Box>
-					<Text fontSize="3xl">{title}</Text>
-					<Text fontSize="md">{description}</Text>
-				</Box>
-				<Box>{children}</Box>
+				<Flex direction="column">
+					<Box>
+						{children[1]}
+						<Text fontSize="3xl">{title}</Text>
+						<Text fontSize="md">{description}</Text>
+					</Box>
+				</Flex>
+				<Box>{children[0]}</Box>
 			</Flex>
 		</React.Fragment>
 	);

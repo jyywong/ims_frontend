@@ -46,7 +46,7 @@ const NoticeList = ({ colorMode, openModal, noticesToDelete, setNoticesToDelete,
 							shadow="lg"
 							onClick={openModal}
 						>
-							<AddIcon />
+							<AddIcon data-testid="Add Icon" />
 						</Button>
 						<Button
 							mx="2"
@@ -55,7 +55,7 @@ const NoticeList = ({ colorMode, openModal, noticesToDelete, setNoticesToDelete,
 							shadow="lg"
 							onClick={() => setDeleteNotices(true)}
 						>
-							<MinusIcon />
+							<MinusIcon data-testid="Minus Icon" />
 						</Button>
 					</Flex>
 				)}

@@ -1,12 +1,26 @@
+<<<<<<< HEAD
 import React from 'react';
+=======
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+>>>>>>> 28dc643e34930052ecd908522afa8395f095d414
 import { BellIcon } from '@chakra-ui/icons';
 import { FiLogOut } from 'react-icons/fi';
-import { Flex, Divider, Icon, useColorMode } from '@chakra-ui/react';
+import { Flex, Divider, Icon, Tooltip, useColorMode } from '@chakra-ui/react';
 import Dropdown from '../Dashboard/Dropdown';
 import SearchComp from './SearchComp';
+import { signOut } from '../../ActionCreators/authActions';
 const SearchBar = () => {
+	const history = useHistory();
+	const dispatch = useDispatch();
 	const { colorMode, toggleColorMode } = useColorMode();
-
+	const handleSignOut = () => {
+		localStorage.removeItem('access');
+		localStorage.removeItem('refresh');
+		dispatch(signOut());
+		history.push('/');
+	};
 	return (
 		<React.Fragment>
 			<Flex
@@ -22,8 +36,20 @@ const SearchBar = () => {
 				</Flex>
 				<Dropdown />
 				<Divider mx="4" orientation="vertical" />
-				<BellIcon boxSize={6} />
-				<Icon mx="7" boxSize={6} as={FiLogOut} />
+				<Tooltip label="Log out" borderRadius="20px">
+					<span>
+						<Icon
+							p="2"
+							mx="7"
+							borderRadius="10px"
+							boxSize={10}
+							as={FiLogOut}
+							onClick={handleSignOut}
+							_hover={{ bg: 'gray.600' }}
+							cursor="pointer"
+						/>
+					</span>
+				</Tooltip>
 			</Flex>
 		</React.Fragment>
 	);

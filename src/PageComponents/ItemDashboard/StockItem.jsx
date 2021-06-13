@@ -5,6 +5,7 @@ const StockItem = ({ date, quantity }) => {
 	return (
 		<React.Fragment>
 			<Flex
+				id="Stock item"
 				p="2"
 				borderRadius="20px"
 				justifyContent="space-between"

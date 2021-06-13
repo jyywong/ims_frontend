@@ -5,8 +5,8 @@ import { Flex, Button } from '@chakra-ui/react';
 import ListComponent from '../ListComponent';
 import MemberListItem from './MemberListItem';
 
-const MemberList = ({ colorMode, openModal, membersToRemove, setMembersToRemove }) => {
-	const members = useSelector((lab) => lab.members);
+const MemberList = ({ colorMode, openModal, membersToRemove, setMembersToRemove, lab }) => {
+	const members = useSelector((state) => lab.members.map((memberID) => state.users.byID[memberID]));
 	const [ removeMember, setRemoveMember ] = useState(false);
 	const handleCancel = () => {
 		setRemoveMember(false);
@@ -22,6 +22,7 @@ const MemberList = ({ colorMode, openModal, membersToRemove, setMembersToRemove 
 						</Button>
 						<Button
 							mx="2"
+							data-testid="Remove Selected Members"
 							id="Remove Members"
 							bg={colorMode === 'light' ? 'red.200' : 'red.600'}
 							shadow="lg"
@@ -34,6 +35,7 @@ const MemberList = ({ colorMode, openModal, membersToRemove, setMembersToRemove 
 					<Flex>
 						<Button
 							id="Add Members"
+							data-testid="Add member"
 							bg={colorMode === 'light' ? 'green.200' : 'green.600'}
 							shadow="lg"
 							onClick={openModal}
@@ -43,6 +45,7 @@ const MemberList = ({ colorMode, openModal, membersToRemove, setMembersToRemove 
 						<Button
 							mx="2"
 							id="Inventory"
+							data-testid="Remove member"
 							bg={colorMode === 'light' ? 'red.200' : 'red.600'}
 							shadow="lg"
 							onClick={() => setRemoveMember(true)}
@@ -56,7 +59,7 @@ const MemberList = ({ colorMode, openModal, membersToRemove, setMembersToRemove 
 					<MemberListItem
 						key={member.id}
 						id={member.id}
-						name={member.name}
+						name={member.username}
 						removeMember={removeMember}
 						membersToRemove={membersToRemove}
 						setMembersToRemove={setMembersToRemove}

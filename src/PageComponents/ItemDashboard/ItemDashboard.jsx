@@ -11,10 +11,9 @@ import ActivityItem from '../InventoryDash/ActivityItem';
 import ItemStats from './ItemStats';
 import StockList from './StockList';
 import DrawerContainer from './DrawerContainer';
+import ActivityList from './ActivityList';
 const ItemDashboard = ({ invID, itemID }) => {
-	const item = useSelector((state) =>
-		state.inventories.find((inv) => inv.id === invID).items.find((item) => item.id === itemID)
-	);
+	const item = useSelector((state) => state.items.byID[itemID]);
 	const { colorMode, toggleColorMode } = useColorMode();
 
 	return (
@@ -28,10 +27,11 @@ const ItemDashboard = ({ invID, itemID }) => {
 						p="5"
 						width="full"
 						height="full"
+						maxHeight="full"
 						templateRows={{
-							xl: '0.3fr  0.8fr 1fr 2fr',
-							md: '10vh 15vh 30vh 1fr 1fr',
-							sm: '10vh 10vh 10vh 10vh 50vh 40vh 40vh'
+							xl: '7vh 15vh 28vh 28vh',
+							md: '10vh 15vh 30vh 15vh 1fr',
+							sm: '10vh 10vh 10vh 10vh 10vh 10vh 40vh 40vh'
 						}}
 						templateColumns={{ xl: '1fr  1fr 1fr 1fr', md: '1fr 1fr 1fr', sm: '1fr' }}
 						templateAreas={{
@@ -44,6 +44,7 @@ const ItemDashboard = ({ invID, itemID }) => {
 							md: `
 								'header header header'
 								'cardinfo cardinfo cardinfo'
+								'stocks stocks stocks'
 								'card1 card2 card3'
 								'notices notices notices'
 								'stats stats stats'
@@ -51,6 +52,7 @@ const ItemDashboard = ({ invID, itemID }) => {
 							sm: `
 								'header'
 								'cardinfo'
+								'stocks'
 								'card1'
 								'card2'
 								'card3'
@@ -65,7 +67,7 @@ const ItemDashboard = ({ invID, itemID }) => {
 						<GridItem gridArea="card1">
 							<SimpleCard
 								colorMode={colorMode}
-								number={20}
+								number={item.quantity}
 								description="Total stock"
 								icon={BiPackage}
 								iconBGcolor={colorMode === 'light' ? 'blue.100' : 'blue.700'}
@@ -74,7 +76,7 @@ const ItemDashboard = ({ invID, itemID }) => {
 						<GridItem gridArea="card2">
 							<SimpleCard
 								colorMode={colorMode}
-								number={5}
+								number={item.minQuantity}
 								description="Minimum"
 								icon={FaExclamation}
 								iconBGcolor={colorMode === 'light' ? 'red.100' : 'red.700'}
@@ -82,8 +84,9 @@ const ItemDashboard = ({ invID, itemID }) => {
 						</GridItem>
 						<GridItem gridArea="card3">
 							<SimpleCard
+								numID="Orders pending"
 								colorMode={colorMode}
-								number={item.orders && item.orders.length}
+								number={item.itemOrders && item.itemOrders.length}
 								description="Orders pending"
 								icon={BiPackage}
 								iconBGcolor={colorMode === 'light' ? 'yellow.100' : 'yellow.700'}
@@ -93,15 +96,13 @@ const ItemDashboard = ({ invID, itemID }) => {
 							<ItemInformation colorMode={colorMode} item={item} />
 						</GridItem>
 						<GridItem gridArea="stocks">
-							<StockList colorMode={colorMode} />
+							<StockList colorMode={colorMode} item={item} />
 						</GridItem>
 						<GridItem gridArea="notices">
-							<ListComponent colorMode={colorMode} title="Recent Activity" listitem={ActivityItem}>
-								<React.Fragment />
-							</ListComponent>
+							<ActivityList colorMode={colorMode} item={item} />
 						</GridItem>
 						<GridItem gridArea="stats">
-							<ItemStats colorMode={colorMode} />
+							<ItemStats colorMode={colorMode} item={item} />
 						</GridItem>
 					</Grid>
 				</GridItem>

@@ -11,19 +11,39 @@ import {
 	NumberInputField,
 	NumberInputStepper,
 	NumberDecrementStepper,
-	NumberIncrementStepper
+	NumberIncrementStepper,
+	useToast
 } from '@chakra-ui/react';
 import DatePicker from './DatePicker';
-import { logRestock } from '../../Reducers/LabReducer';
-const RestockForm = ({ setShowDrawer }) => {
+import { addItemBatchTC } from '../../ActionCreators/itemActions';
+const RestockForm = ({ setShowDrawer, item }) => {
 	const [ formValues, setFormValues ] = useState({ quantity: 0, manDate: '', expDate: '', notes: '' });
 	const dispatch = useDispatch();
+	const toast = useToast();
 	const onClose = () => {
 		setShowDrawer(false);
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(logRestock(1, 1, formValues));
+		const apiFriendlyDate = formValues.expDate.toISOString().substring(0, 10);
+		(async () => {
+			try {
+				await dispatch(addItemBatchTC(item.id, apiFriendlyDate, formValues.quantity));
+				toast({
+					title: 'Successfully added a restock',
+					description: 'Restock details',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to add a restock',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
 	};
 	return (
 		<React.Fragment>
@@ -31,7 +51,7 @@ const RestockForm = ({ setShowDrawer }) => {
 				<form id="Restock Form" onSubmit={handleSubmit}>
 					<FormControl my="2">
 						<FormLabel>Number of units</FormLabel>
-						<NumberInput>
+						<NumberInput id="Units">
 							<NumberInputField
 								value={formValues.quantity}
 								onChange={(e) => setFormValues({ ...formValues, quantity: Number(e.target.value) })}
@@ -49,6 +69,7 @@ const RestockForm = ({ setShowDrawer }) => {
 					<FormControl my="2">
 						<FormLabel> Manufacturing Date </FormLabel>
 						<DatePicker
+							id="Manufacturing date"
 							selected={formValues.manDate}
 							onChange={(date) => setFormValues({ ...formValues, manDate: date })}
 						/>
@@ -56,6 +77,7 @@ const RestockForm = ({ setShowDrawer }) => {
 					<FormControl my="2">
 						<FormLabel> Expiry Date </FormLabel>
 						<DatePicker
+							id="Expiry date"
 							selected={formValues.expDate}
 							onChange={(date) => setFormValues({ ...formValues, expDate: date })}
 						/>
@@ -63,6 +85,7 @@ const RestockForm = ({ setShowDrawer }) => {
 					<FormControl my="2">
 						<FormLabel> Additional notes </FormLabel>
 						<Textarea
+							id="Notes"
 							values={formValues.notes}
 							onChange={(e) => setFormValues({ ...formValues, notes: e.target.value })}
 						/>

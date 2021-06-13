@@ -33,7 +33,7 @@ const MessageListItem = ({ id, username, message, deleteNotices, noticesToDelete
 				<Text px="4" my="2" color="gray.400" fontSize="sm" textAlign="right">
 					{message}
 				</Text>
-				{deleteNotices && <Checkbox value={isChecked} onChange={handleChange} />}
+				{deleteNotices && <Checkbox data-testid="Checkbox" value={isChecked} onChange={handleChange} />}
 			</Flex>
 		</React.Fragment>
 	);

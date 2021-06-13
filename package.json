@@ -4,14 +4,19 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^1.0.13",
-    "@chakra-ui/react": "^1.6.1",
+    "@chakra-ui/react": "^1.6.3",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.8.3",
-    "chart.js": "^3.2.1",
-    "framer-motion": "^4.1.16",
+    "axios": "^0.21.1",
+    "chart.js": "^3.3.0",
+    "chartjs-adapter-date-fns": "^1.1.0-beta.1",
+    "chartjs-plugin-annotation": "^1.0.2",
+    "date-fns": "^2.22.1",
+    "framer-motion": "^4.1.17",
+    "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-chartjs-2": "^3.0.3",
     "react-datepicker": "^3.8.0",
@@ -21,13 +26,16 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "redux-toolkit": "^1.1.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^7.4.0",
     "redux-devtools-extension": "^2.13.9"
   }
 }

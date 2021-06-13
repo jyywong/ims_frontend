@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, Icon, Box, Text } from '@chakra-ui/react';
 
-const SimpleCard = ({ colorMode, number, description, icon, iconBGcolor }) => {
+const SimpleCard = ({ colorMode, number, description, icon, iconBGcolor, numID }) => {
 	return (
 		<React.Fragment>
 			<Flex
@@ -22,6 +22,7 @@ const SimpleCard = ({ colorMode, number, description, icon, iconBGcolor }) => {
 				/>
 				<Box>
 					<Text
+						id={numID}
 						mr={{ md: '2', sm: '5' }}
 						display={{ xl: 'block', sm: 'inline' }}
 						fontSize={{ xl: '5xl', md: '2xl', sm: '2xl' }}

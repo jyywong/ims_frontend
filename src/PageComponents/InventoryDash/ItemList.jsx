@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Button, Flex } from '@chakra-ui/react';
 import ListComponent from '../ListComponent';
 import ListItem from './ListItem';
-const ItemList = ({ colorMode, openModal, itemsToDelete, setItemsToDelete, inventory }) => {
+const ItemList = ({ colorMode, openModal, itemsToDelete, setItemsToDelete, inventory, invID }) => {
 	const [ deleteItems, setDeleteItems ] = useState(false);
+	const items = useSelector((state) => inventory.items.map((item) => state.items.byID[item]));
 
 	const handleCancel = () => {
 		setDeleteItems(false);
@@ -56,7 +57,7 @@ const ItemList = ({ colorMode, openModal, itemsToDelete, setItemsToDelete, inven
 					</Flex>
 				)}
 
-				{inventory.items.map((item) => (
+				{items.map((item) => (
 					<ListItem
 						key={item.id}
 						id={item.id}
@@ -65,6 +66,7 @@ const ItemList = ({ colorMode, openModal, itemsToDelete, setItemsToDelete, inven
 						deleteItems={deleteItems}
 						itemsToDelete={itemsToDelete}
 						setItemsToDelete={setItemsToDelete}
+						item={item}
 					/>
 				))}
 			</ListComponent>

@@ -12,19 +12,52 @@ import {
 	NumberInputField,
 	NumberInputStepper,
 	NumberDecrementStepper,
-	NumberIncrementStepper
+	NumberIncrementStepper,
+	useToast
 } from '@chakra-ui/react';
-import { editItem } from '../../Reducers/LabReducer';
-const EditItemForm = ({ setShowDrawer }) => {
+import { editItemDetailsTC } from '../../ActionCreators/itemActions';
+const EditItemForm = ({ setShowDrawer, item }) => {
+	const toast = useToast();
 	const dispatch = useDispatch();
-	const [ formValues, setFormValues ] = useState({ name: '', manu: '', notes: '' });
+	const [ formValues, setFormValues ] = useState({
+		name: item.name,
+		manu: item.manufacturer,
+		notes: item.notes,
+		quantity: item.quantity,
+		minQuantity: item.minQuantity
+	});
 	const onClose = () => {
 		setShowDrawer(false);
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(editItem(1, 1, formValues.name, formValues.manu, formValues.notes));
-		console.log(formValues);
+		(async () => {
+			try {
+				await dispatch(
+					editItemDetailsTC(
+						item.id,
+						formValues.name,
+						formValues.manu,
+						formValues.notes,
+						formValues.quantity,
+						formValues.minQuantity
+					)
+				);
+				toast({
+					title: 'Successfully edited item details',
+					description: 'List of changes',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to edit item details',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
 	};
 	return (
 		<React.Fragment>
@@ -33,6 +66,7 @@ const EditItemForm = ({ setShowDrawer }) => {
 					<FormControl my="2">
 						<FormLabel> Item Name </FormLabel>
 						<Input
+							id="Item name"
 							type="text"
 							placeholder="New Item Name"
 							value={formValues.name}
@@ -42,8 +76,8 @@ const EditItemForm = ({ setShowDrawer }) => {
 					<FormControl my="2">
 						<FormLabel> Item Manufacturer </FormLabel>
 						<Input
+							id="Item manu"
 							type="text"
-							placeholder="New Lab Description"
 							value={formValues.manu}
 							onChange={(e) => setFormValues({ ...formValues, manu: e.target.value })}
 						/>
@@ -51,27 +85,44 @@ const EditItemForm = ({ setShowDrawer }) => {
 					<FormControl my="2">
 						<FormLabel> Notes </FormLabel>
 						<Textarea
+							id="Item notes"
 							value={formValues.notes}
 							onChange={(e) => setFormValues({ ...formValues, notes: e.target.value })}
 						/>
 					</FormControl>
 					<FormControl my="2">
 						<FormLabel>Current stock level</FormLabel>
-						<NumberInput>
-							<NumberInputField />
+						<NumberInput value={formValues.quantity}>
+							<NumberInputField
+								value={formValues.quantity}
+								onChange={(e) => setFormValues({ ...formValues, quantity: Number(e.target.value) })}
+							/>
 							<NumberInputStepper>
-								<NumberIncrementStepper />
-								<NumberDecrementStepper />
+								<NumberIncrementStepper
+									onClick={(e) => setFormValues({ ...formValues, quantity: formValues.quantity + 1 })}
+								/>
+								<NumberDecrementStepper
+									onClick={(e) => setFormValues({ ...formValues, quantity: formValues.quantity - 1 })}
+								/>
 							</NumberInputStepper>
 						</NumberInput>
 					</FormControl>
 					<FormControl my="2">
 						<FormLabel>Minimum stock level</FormLabel>
-						<NumberInput>
-							<NumberInputField />
+						<NumberInput id="Min quantity" value={formValues.minQuantity}>
+							<NumberInputField
+								value={formValues.minQuantity}
+								onChange={(e) => setFormValues({ ...formValues, minQuantity: Number(e.target.value) })}
+							/>
 							<NumberInputStepper>
-								<NumberIncrementStepper />
-								<NumberDecrementStepper />
+								<NumberIncrementStepper
+									onClick={(e) =>
+										setFormValues({ ...formValues, minQuantity: formValues.minQuantity + 1 })}
+								/>
+								<NumberDecrementStepper
+									onClick={(e) =>
+										setFormValues({ ...formValues, minQuantity: formValues.minQuantity - 1 })}
+								/>
 							</NumberInputStepper>
 						</NumberInput>
 					</FormControl>

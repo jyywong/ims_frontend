@@ -1,13 +1,40 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createInventory } from '../../Reducers/LabReducer';
-import { ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, Input } from '@chakra-ui/react';
-const AddInventoryModal = ({ onClose }) => {
+import {
+	ModalContent,
+	ModalHeader,
+	ModalCloseButton,
+	ModalBody,
+	ModalFooter,
+	Button,
+	Input,
+	useToast
+} from '@chakra-ui/react';
+import { addInventory, addNewInventoryTC } from '../../ActionCreators/labActions';
+const AddInventoryModal = ({ onClose, lab }) => {
 	const [ invName, setInvName ] = useState('');
+	const toast = useToast();
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(createInventory(invName, 5));
+		(async () => {
+			try {
+				await dispatch(addNewInventoryTC(lab.id, invName, 'test description', []));
+				toast({
+					title: 'Successfully added new inventory',
+					description: 'Inventory name',
+					status: 'success',
+					isClosable: true
+				});
+			} catch (error) {
+				toast({
+					title: 'Unable to add new inventory',
+					description: error.message,
+					status: 'error',
+					isClosable: true
+				});
+			}
+		})();
 		onClose();
 	};
 	return (
@@ -17,6 +44,7 @@ const AddInventoryModal = ({ onClose }) => {
 			<form onSubmit={handleSubmit}>
 				<ModalBody>
 					<Input
+						data-testid="Inventory name input"
 						type="text"
 						value={invName}
 						onChange={(e) => setInvName(e.target.value)}

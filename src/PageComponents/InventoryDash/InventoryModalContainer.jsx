@@ -8,7 +8,7 @@ import ItemList from './ItemList';
 import DeleteItems from './DeleteItems';
 import NoticeList from './NoticeList';
 import DeleteNotices from './DeleteNotices';
-const InventoryModalContainer = ({ colorMode, inventory }) => {
+const InventoryModalContainer = ({ colorMode, inventory, invID }) => {
 	const [ modalContent, setModalContent ] = useState('');
 	const [ showModal, setShowModal ] = useState(false);
 	const [ itemsToDelete, setItemsToDelete ] = useState([]);
@@ -29,6 +29,7 @@ const InventoryModalContainer = ({ colorMode, inventory }) => {
 					itemsToDelete={itemsToDelete}
 					setItemsToDelete={setItemsToDelete}
 					inventory={inventory}
+					invID={invID}
 				/>
 			</GridItem>
 			<GridItem gridArea="notices">
@@ -43,11 +44,18 @@ const InventoryModalContainer = ({ colorMode, inventory }) => {
 			<ModalComp isOpen={showModal} onClose={closeModal}>
 				{(() => {
 					if (modalContent === 'Items') {
-						return <AddItem onClose={closeModal} />;
+						return <AddItem onClose={closeModal} invID={invID} />;
 					} else if (modalContent === 'Notices') {
 						return <AddInvNotice onClose={closeModal} />;
 					} else if (modalContent === 'Delete Items') {
-						return <DeleteItems onClose={closeModal} itemsToDelete={itemsToDelete} />;
+						return (
+							<DeleteItems
+								onClose={closeModal}
+								itemsToDelete={itemsToDelete}
+								setItemsToDelete={setItemsToDelete}
+								invID={invID}
+							/>
+						);
 					} else if (modalContent === 'Delete Notices') {
 						return <DeleteNotices onClose={closeModal} noticesToDelete={noticesToDelete} />;
 					}
