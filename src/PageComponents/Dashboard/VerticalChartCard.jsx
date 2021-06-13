@@ -1,12 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Flex, Box, Text } from '@chakra-ui/react';
 import { Pie } from 'react-chartjs-2';
 import { getNumberOfItemsThatAreLowOrFine } from '../../HelperFunctions/organizeDataForStats';
 
 const VerticalChartCard = ({ colorMode, lab }) => {
-	console.log(getNumberOfItemsThatAreLowOrFine(lab.labItems));
-	const numberOfLowOrFineItems = getNumberOfItemsThatAreLowOrFine(lab.labItems);
+	const numberOfLowOrFineItems = { low: 0, fine: 0 };
+	useSelector((state) => {
+		lab.labItems.map((itemID) => {
+			const item = state.items.byID[itemID];
+			if (item.quantity > item.minQuantity) {
+				numberOfLowOrFineItems.fine += 1;
+			} else {
+				numberOfLowOrFineItems.low += 1;
+			}
+		});
+	});
+
 	return (
 		<React.Fragment>
 			<Flex

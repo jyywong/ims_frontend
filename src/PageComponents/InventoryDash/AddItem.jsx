@@ -99,7 +99,7 @@ const AddItem = ({ onClose, invID }) => {
 					<Flex>
 						<FormControl mr="2">
 							<FormLabel>Initial stock amount</FormLabel>
-							<NumberInput>
+							<NumberInput id="Initial amount">
 								<NumberInputField
 									value={formValues.initialQuantity}
 									onChange={(e) =>
@@ -125,7 +125,7 @@ const AddItem = ({ onClose, invID }) => {
 						</FormControl>
 						<FormControl ml="2">
 							<FormLabel>Minimum stock level</FormLabel>
-							<NumberInput>
+							<NumberInput id="Minimum amount">
 								<NumberInputField
 									value={formValues.minQuantity}
 									onChange={(e) =>

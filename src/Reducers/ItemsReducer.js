@@ -122,13 +122,13 @@ const deleteItem = (state, action) => {
 
 const editItem = (state, action) => {
 	const { data } = action;
-	const { itemID, name, manu, notes, quantity, minQuantity } = data;
+	const { itemID, name, manufacturer, notes, quantity, minQuantity } = data;
 	return {
 		...state,
 		[itemID]: {
 			...state[itemID],
 			name,
-			manu,
+			manufacturer,
 			notes,
 			quantity,
 			minQuantity

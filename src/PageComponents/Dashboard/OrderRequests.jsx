@@ -15,14 +15,12 @@ const OrderRequests = ({ colorMode, lab }) => {
 	const orders = useSelector((state) => {
 		const allOrders = [];
 		for (const item of labItems) {
-			console.log(item);
 			for (const order of item.itemOrders) {
 				allOrders.push(state.itemOrders.byID[order]);
 			}
 		}
 		return allOrders;
 	});
-	console.log(orders);
 	return (
 		<React.Fragment>
 			<Flex
@@ -62,7 +60,7 @@ const OrderRequests = ({ colorMode, lab }) => {
 				</Flex>
 				<Divider orientation="vertical" />
 				<Flex p="3" direction="column" justifyContent="flex-start" overflow="auto" width="60%" height="full">
-					{orders.map((order) => <OrderRequestItem order={order} />)}
+					{orders.map((order) => <OrderRequestItem key={order.id} order={order} />)}
 				</Flex>
 			</Flex>
 		</React.Fragment>

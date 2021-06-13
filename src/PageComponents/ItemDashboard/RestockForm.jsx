@@ -51,7 +51,7 @@ const RestockForm = ({ setShowDrawer, item }) => {
 				<form id="Restock Form" onSubmit={handleSubmit}>
 					<FormControl my="2">
 						<FormLabel>Number of units</FormLabel>
-						<NumberInput>
+						<NumberInput id="Units">
 							<NumberInputField
 								value={formValues.quantity}
 								onChange={(e) => setFormValues({ ...formValues, quantity: Number(e.target.value) })}
@@ -69,6 +69,7 @@ const RestockForm = ({ setShowDrawer, item }) => {
 					<FormControl my="2">
 						<FormLabel> Manufacturing Date </FormLabel>
 						<DatePicker
+							id="Manufacturing date"
 							selected={formValues.manDate}
 							onChange={(date) => setFormValues({ ...formValues, manDate: date })}
 						/>
@@ -76,6 +77,7 @@ const RestockForm = ({ setShowDrawer, item }) => {
 					<FormControl my="2">
 						<FormLabel> Expiry Date </FormLabel>
 						<DatePicker
+							id="Expiry date"
 							selected={formValues.expDate}
 							onChange={(date) => setFormValues({ ...formValues, expDate: date })}
 						/>
@@ -83,6 +85,7 @@ const RestockForm = ({ setShowDrawer, item }) => {
 					<FormControl my="2">
 						<FormLabel> Additional notes </FormLabel>
 						<Textarea
+							id="Notes"
 							values={formValues.notes}
 							onChange={(e) => setFormValues({ ...formValues, notes: e.target.value })}
 						/>

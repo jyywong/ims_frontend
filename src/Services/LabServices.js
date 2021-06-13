@@ -60,6 +60,20 @@ axios.interceptors.response.use(
 	}
 );
 
+export const isRefreshTokenValid = () => {
+	const refreshToken = localStorage.getItem('refresh');
+	if (refreshToken) {
+		const now = Math.ceil(Date.now() / 1000);
+		if (jwt_decode(refreshToken).exp > now) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+};
+
 export const login = (username, password) =>
 	axios.post('http://127.0.0.1:8000/api/token/', {
 		username,
@@ -71,19 +85,19 @@ export const testIfRefreshTokenValid = () =>
 
 export const getUserDetails = (userID) => axios.get(`http://127.0.0.1:8000/api/user/${userID}`);
 
-export const getLabList = axios.get(baseURL + 'labs');
+export const getLabList = () => axios.get(baseURL + 'labs');
 
-export const getInvList = axios.get(baseURL + 'inventories');
+export const getInvList = () => axios.get(baseURL + 'inventories');
 
-export const getItemList = axios.get(baseURL + 'items');
+export const getItemList = () => axios.get(baseURL + 'items');
 
-export const updateUsersCall = axios.get(baseURL + 'users');
+export const updateUsersCall = () => axios.get(baseURL + 'users');
 
-export const getItemBatches = axios.get(baseURL + 'item_batches');
+export const getItemBatches = () => axios.get(baseURL + 'item_batches');
 
-export const getItemOrders = axios.get(baseURL + 'item_orders');
+export const getItemOrders = () => axios.get(baseURL + 'item_orders');
 
-export const getLabInvites = axios.get(baseURL + 'lab_invites');
+export const getLabInvites = () => axios.get(baseURL + 'lab_invites');
 
 export const createNewLab = (name, description, userID) => {
 	return axios.post(baseURL + 'labs', {

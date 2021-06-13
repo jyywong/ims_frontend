@@ -53,7 +53,7 @@ const RequestOrderForm = ({ setShowDrawer, item }) => {
 				<form id="Request Order Form" onSubmit={handleSubmit}>
 					<FormControl my="2">
 						<FormLabel> Number of Units Required </FormLabel>
-						<NumberInput value={formValues.quantity}>
+						<NumberInput id="Units required" value={formValues.quantity}>
 							<NumberInputField
 								data-testid="Units required"
 								value={formValues.quantity}
@@ -74,6 +74,7 @@ const RequestOrderForm = ({ setShowDrawer, item }) => {
 					<FormControl my="2">
 						<FormLabel> Date needed by </FormLabel>
 						<DatePicker
+							id="datepicker"
 							selected={formValues.date}
 							onChange={(date) => setFormValues({ ...formValues, date: date })}
 						/>
@@ -81,6 +82,7 @@ const RequestOrderForm = ({ setShowDrawer, item }) => {
 					<FormControl my="2">
 						<FormLabel> Additional notes </FormLabel>
 						<Textarea
+							id="notes"
 							value={formValues.notes}
 							onChange={(e) => setFormValues({ ...formValues, notes: e.target.value })}
 						/>

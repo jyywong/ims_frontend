@@ -31,13 +31,10 @@ export const findFinalQuantityAtEachEndOfDay = (listOfHistories) => {
 };
 
 export const parseHistoryChangeReason = (history) => {
-	console.log('parsing');
 	const reason = history.history_change_reason;
-	console.log(reason);
 	const reasonActionRE = /^\w+/;
 	const reasonAmountRE = /\d+/;
 	if (reason) {
-		console.log(reason.match(reasonActionRE)[0]);
 		reason.match(reasonAmountRE);
 		return [ reason.match(reasonActionRE)[0], reason.match(reasonAmountRE) ];
 	} else {

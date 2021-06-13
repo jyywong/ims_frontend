@@ -21,7 +21,7 @@ export const updateItems = (newState, newItemIDs) => {
 
 export const fetchItemsTC = async (dispatch, getState) => {
 	try {
-		const response = await getItemList;
+		const response = await getItemList();
 		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
 		dispatch(updateItems(organizedObject, newIDs));
 	} catch (error) {
@@ -41,7 +41,7 @@ export const updateItemBatches = (newState, newIDs) => {
 
 export const fetchItemBatches = async (dispatch, getState) => {
 	try {
-		const response = await getItemBatches;
+		const response = await getItemBatches();
 		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
 		dispatch(updateItemBatches(organizedObject, newIDs));
 	} catch (error) {
@@ -61,7 +61,7 @@ export const updateItemOrders = (newState, newIDs) => {
 
 export const fetchItemOrders = async (dispatch, getState) => {
 	try {
-		const response = await getItemOrders;
+		const response = await getItemOrders();
 		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
 		dispatch(updateItemOrders(organizedObject, newIDs));
 	} catch (error) {
@@ -69,13 +69,13 @@ export const fetchItemOrders = async (dispatch, getState) => {
 	}
 };
 
-export const editItemDetails = (itemID, name, manu, notes, quantity, minQuantity) => {
+export const editItemDetails = (itemID, name, manufacturer, notes, quantity, minQuantity) => {
 	return {
 		type: 'EDIT_ITEM',
 		data: {
 			itemID,
 			name,
-			manu,
+			manufacturer,
 			notes,
 			quantity,
 			minQuantity

@@ -27,8 +27,9 @@ const ItemDashboard = ({ invID, itemID }) => {
 						p="5"
 						width="full"
 						height="full"
+						maxHeight="full"
 						templateRows={{
-							xl: '0.3fr  0.8fr 1fr 2fr',
+							xl: '7vh 15vh 28vh 28vh',
 							md: '10vh 15vh 30vh 15vh 1fr',
 							sm: '10vh 10vh 10vh 10vh 10vh 10vh 40vh 40vh'
 						}}
@@ -83,6 +84,7 @@ const ItemDashboard = ({ invID, itemID }) => {
 						</GridItem>
 						<GridItem gridArea="card3">
 							<SimpleCard
+								numID="Orders pending"
 								colorMode={colorMode}
 								number={item.itemOrders && item.itemOrders.length}
 								description="Orders pending"

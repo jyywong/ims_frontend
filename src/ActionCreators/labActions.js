@@ -1,4 +1,5 @@
 import { changeObjectIdToDatabaseId } from '../HelperFunctions/organizeAPIResponses';
+import axios from 'axios';
 import { getLabInvites } from '../Services/LabServices';
 import {
 	createNewInv,
@@ -24,16 +25,16 @@ export const updateLabState = (newState, newLabIDs) => {
 	};
 };
 
-export async function fetchLabsTC(dispatch, getState) {
+export const fetchLabsTC = async (dispatch, getState) => {
 	try {
-		const response = await getLabList;
+		const response = await getLabList();
 		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
 		dispatch(updateLabState(organizedObject, newIDs));
 		return newIDs;
 	} catch (error) {
 		return Promise.reject(error);
 	}
-}
+};
 
 export const updateLabInvites = (newState, newIDs) => {
 	return {
@@ -47,7 +48,7 @@ export const updateLabInvites = (newState, newIDs) => {
 
 export const fetchLabInvitesTC = async (dispatch, getState) => {
 	try {
-		const response = await getLabInvites;
+		const response = await getLabInvites();
 		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
 		await dispatch(updateLabInvites(organizedObject, newIDs));
 	} catch (error) {

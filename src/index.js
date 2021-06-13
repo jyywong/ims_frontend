@@ -18,7 +18,7 @@ import itemOrderReducer from './Reducers/ItemOrderReducer';
 import itemBatchReducer from './Reducers/ItemBatchReducer';
 import labInvitesReducer from './Reducers/LabInvitesReducer';
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
 	users: usersReducer,
 	labs: labsReducer,
 	inventories: invsReducer,
@@ -30,6 +30,12 @@ const rootReducer = combineReducers({
 	auth: authReducer
 });
 
+const rootReducer = (state, action) => {
+	if (action.type === 'USER_LOG_OUT') {
+		state = undefined;
+	}
+	return appReducer(state, action);
+};
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(

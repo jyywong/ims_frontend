@@ -9,12 +9,13 @@ describe('<EditItemForm/>', () => {
 		const editItemFormComp = render(
 			<MemoryRouter>
 				<Drawer isOpen={true}>
-					<EditItemForm />
+					<EditItemForm
+						item={{ name: 'test', manu: 'test', notes: 'testnotes', quantity: 1, minQuantity: 2 }}
+					/>
 				</Drawer>
 			</MemoryRouter>
 		);
 		editItemFormComp.getByText('Item Name');
-		editItemFormComp.getByText('Item Description');
 		editItemFormComp.getByText('Item Manufacturer');
 		editItemFormComp.getByText('Notes');
 		editItemFormComp.getByText('Current stock level');
@@ -25,7 +26,11 @@ describe('<EditItemForm/>', () => {
 		const editItemFormComp = render(
 			<MemoryRouter>
 				<Drawer isOpen={true}>
-					<EditItemForm setShowDrawer={() => {}} onClose={onClose} />
+					<EditItemForm
+						item={{ name: 'test', manu: 'test', notes: 'testnotes', quantity: 1, minQuantity: 2 }}
+						setShowDrawer={() => {}}
+						onClose={onClose}
+					/>
 				</Drawer>
 			</MemoryRouter>
 		);

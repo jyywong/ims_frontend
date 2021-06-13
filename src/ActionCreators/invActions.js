@@ -15,7 +15,7 @@ export const updateInventories = (newState, newInvIDs) => {
 
 export const fetchInventoriesTC = async (dispatch, getState) => {
 	try {
-		const response = await getInvList;
+		const response = await getInvList();
 		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
 		dispatch(updateInventories(organizedObject, newIDs));
 	} catch (error) {

@@ -9,7 +9,7 @@ describe('<ItemInformation/>', () => {
 	it('Renders successfully with correct notes and manu through props', () => {
 		const itemInformationComp = render(
 			<MemoryRouter>
-				<ItemInformation item={{ manu: 'Test manu', notes: 'Test notes' }} />
+				<ItemInformation item={{ manufacturer: 'Test manu', notes: 'Test notes' }} />
 			</MemoryRouter>
 		);
 		itemInformationComp.getByText('Test manu');

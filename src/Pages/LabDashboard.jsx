@@ -38,7 +38,7 @@ const LabDashboard = ({ labID }) => {
 						width="full"
 						height="full"
 						templateRows={{
-							xl: '0.3fr  1fr 1fr 1fr',
+							xl: '9.5vh 22vh 22vh 22vh',
 							md: '10vh 15vh 30vh 1fr 1fr',
 							sm: '10vh 10vh 10vh 10vh 50vh 40vh 40vh'
 						}}
@@ -73,6 +73,7 @@ const LabDashboard = ({ labID }) => {
 						<GridItem gridArea="header" alignSelf="center">
 							<Header title={lab.name} description={lab.description}>
 								<LabHeaderButtons btnRef={btnRef} openDrawer={openDrawer} />
+								<React.Fragment />
 							</Header>
 						</GridItem>
 						<GridItem gridArea="card1">

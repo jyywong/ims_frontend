@@ -109,7 +109,7 @@ const EditItemForm = ({ setShowDrawer, item }) => {
 					</FormControl>
 					<FormControl my="2">
 						<FormLabel>Minimum stock level</FormLabel>
-						<NumberInput value={formValues.minQuantity}>
+						<NumberInput id="Min quantity" value={formValues.minQuantity}>
 							<NumberInputField
 								value={formValues.minQuantity}
 								onChange={(e) => setFormValues({ ...formValues, minQuantity: Number(e.target.value) })}

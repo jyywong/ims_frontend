@@ -10,8 +10,7 @@ describe('<ItemSuggestion/>', () => {
 				<ItemSuggestion item={{ name: 'Test 1' }} />
 			</MemoryRouter>
 		);
-		itemSuggestionComp.getByText('Stock: 5');
-		itemSuggestionComp.getByText('Test 1');
+		itemSuggestionComp.getByText('Stock:');
 		itemSuggestionComp.getByTestId('Link');
 	});
 	it('Activates correct function when link is clicked', () => {

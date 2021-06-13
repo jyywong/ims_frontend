@@ -23,7 +23,7 @@ const LabPage = ({ match: { params: { labID } } }) => {
 		</React.Fragment>
 	) : (
 		<React.Fragment>
-			<Flex minHeight="100vh" width="full">
+			<Flex maxHeight="100vh" width="full">
 				<SideNavBar labID={labID} />
 				<LabDashboard labID={Number(labID)} />
 			</Flex>

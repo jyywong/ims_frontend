@@ -15,8 +15,9 @@ describe('<AddItem/>', () => {
 		);
 		addItemComp.getByText('Item Name');
 		addItemComp.getByText('Manufacturer');
-		addItemComp.getByText('Unique Id');
-		addItemComp.getByText('Other information');
+		addItemComp.getByText('Notes');
+		addItemComp.getByText('Initial stock amount');
+		addItemComp.getByText('Minimum stock level');
 	});
 	it('Triggers correct function when modal is closed', () => {
 		const onClose = jest.fn();

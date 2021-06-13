@@ -1,6 +1,12 @@
 import jwt_decode from 'jwt-decode';
 import { login, getUserDetails } from '../Services/LabServices';
 
+export const signOut = () => {
+	return {
+		type: 'USER_LOG_OUT'
+	};
+};
+
 export const loginSuccess = (user) => {
 	return {
 		type: 'LOGIN_SUCCESS',

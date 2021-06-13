@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
 	Box,
 	Flex,
@@ -132,7 +133,7 @@ const SignUp = () => {
 								Sign Up
 							</Button>
 							<Text textAlign="center" mt={3}>
-								Already have an account? Log in!
+								Already have an account? <Link to="/">Log in!</Link>
 							</Text>
 						</form>
 					</Box>

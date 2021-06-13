@@ -11,7 +11,7 @@ const ItemStats = ({ colorMode, item }) => {
 	const data = {
 		datasets: [
 			{
-				label: '# of Votes',
+				label: '# of total stocks',
 				data: [ ...stats ],
 				fill: false,
 				backgroundColor: 'rgb(255, 99, 132)',
@@ -20,6 +20,7 @@ const ItemStats = ({ colorMode, item }) => {
 		]
 	};
 	const options = {
+		maintainAspectRatio: false,
 		responsive: true,
 		scales: {
 			y: {
@@ -92,7 +93,7 @@ const ItemStats = ({ colorMode, item }) => {
 				>
 					<Text fontSize="lg">Item Usage</Text>
 				</Flex>
-				<Flex p="6" width="full" height="full">
+				<Flex p="6" position="relative" width="full" height="full">
 					<Line data={data} options={options} plugins={[ annotationPlugin ]} />
 				</Flex>
 			</Flex>

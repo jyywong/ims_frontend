@@ -65,7 +65,9 @@ const UsedStockForm = ({ setShowDrawer, item }) => {
 							placeholder="Item Batches"
 						>
 							{itemBatches.map((itemBatch) => (
-								<option value={itemBatch.id}>{itemBatch.expiryDate}</option>
+								<option key={itemBatch.id} value={itemBatch.id}>
+									{itemBatch.expiryDate}
+								</option>
 							))}
 						</Select>
 					</FormControl>

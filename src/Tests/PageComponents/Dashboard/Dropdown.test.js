@@ -10,6 +10,5 @@ describe('<Dropdown/>', () => {
 				<Dropdown />
 			</MemoryRouter>
 		);
-		dropdownComp.getByText('John Doe');
 	});
 });

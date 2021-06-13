@@ -21,13 +21,22 @@ const ItemInformation = ({ colorMode, item }) => {
 				>
 					<Text fontSize="lg">Item Information</Text>
 				</Flex>
-				<Flex px="5" py="3" width="full" direction={{ xl: 'column', md: 'row' }} alignItems="flex-start">
+				<Flex
+					px="5"
+					py="3"
+					width="full"
+					direction={{ xl: 'column', md: 'row' }}
+					alignItems="flex-start"
+					overflow="auto"
+				>
 					<Text m="1" textColor="gray.500" fontSize="xl">
-						Manufacturer: <Text textColor="whiteAlpha.900">{item.manufacturer}</Text>
+						Manufacturer:
 					</Text>
+					<Text textColor="whiteAlpha.900">{item.manufacturer}</Text>
 					<Text m="1" textColor="gray.500" fontSize="xl">
-						Notes: <Text textColor="whiteAlpha.900">{item.notes}</Text>
+						Notes:
 					</Text>
+					<Text textColor="whiteAlpha.900">{item.notes}</Text>
 				</Flex>
 			</Flex>
 		</React.Fragment>

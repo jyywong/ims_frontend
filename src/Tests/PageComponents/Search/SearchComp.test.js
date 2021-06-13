@@ -21,10 +21,10 @@ describe('<SearchComp/>', () => {
 		);
 		const input = searchComp.getByTestId('Input');
 		fireEvent.change(input, {
-			target: { value: 'Testing' }
+			target: { value: 'Sugar' }
 		});
 		searchComp.getByText('Items');
-		searchComp.getByText('Inventories');
-		expect(searchComp.getByTestId('Input')).toHaveValue('Testing');
+
+		expect(searchComp.getByTestId('Input')).toHaveValue('Sugar');
 	});
 });

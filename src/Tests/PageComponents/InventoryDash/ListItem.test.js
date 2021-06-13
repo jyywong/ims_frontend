@@ -7,15 +7,15 @@ describe('<ListItem/>', () => {
 	it('Renders successfully', () => {
 		const listItemComp = render(
 			<MemoryRouter>
-				<ListItem inventory={{ id: 1 }} id={1} />
+				<ListItem inventory={{ id: 1 }} id={1} item={{ quantity: 1 }} />
 			</MemoryRouter>
 		);
-		listItemComp.getByText('7 in stock');
+		listItemComp.getByText(/\d in stock/);
 	});
 	it('Displays correct name through props', () => {
 		const listItemComp = render(
 			<MemoryRouter>
-				<ListItem inventory={{ id: 1 }} id={1} name="Test1" />
+				<ListItem inventory={{ id: 1 }} id={1} item={{ quantity: 1 }} name="Test1" />
 			</MemoryRouter>
 		);
 		listItemComp.getByText('Test1');
@@ -23,15 +23,15 @@ describe('<ListItem/>', () => {
 	it('Shows checkbox when deleteItems is true', () => {
 		const listItemComp = render(
 			<MemoryRouter>
-				<ListItem inventory={{ id: 1 }} id={1} name="Test1" deleteItems={true} />
+				<ListItem inventory={{ id: 1 }} id={1} item={{ quantity: 1 }} name="Test1" deleteItems={true} />
 			</MemoryRouter>
 		);
-		listItemComp.getByTestId('Checkbox');
+		listItemComp.getByTestId('Checkbox 1');
 	});
 	it('Does not show checkbox when deleteItems is false', () => {
 		const listItemComp = render(
 			<MemoryRouter>
-				<ListItem inventory={{ id: 1 }} id={1} name="Test1" deleteItems={false} />
+				<ListItem inventory={{ id: 1 }} id={1} item={{ quantity: 1 }} name="Test1" deleteItems={false} />
 			</MemoryRouter>
 		);
 		expect(listItemComp.queryByTestId('Checkbox')).not.toBeInTheDocument;
@@ -39,7 +39,7 @@ describe('<ListItem/>', () => {
 	it('Does not have link when deleteItems is true', () => {
 		const listItemComp = render(
 			<MemoryRouter>
-				<ListItem inventory={{ id: 1 }} id={1} name="Test1" deleteItems={true} />
+				<ListItem inventory={{ id: 1 }} id={1} item={{ quantity: 1 }} name="Test1" deleteItems={true} />
 			</MemoryRouter>
 		);
 		expect(listItemComp.queryByTestId('Link')).not.toBeInTheDocument;
@@ -47,7 +47,7 @@ describe('<ListItem/>', () => {
 	it('Does have link when deleteItems is false', () => {
 		const listItemComp = render(
 			<MemoryRouter>
-				<ListItem inventory={{ id: 1 }} id={1} name="Test1" deleteItems={false} />
+				<ListItem inventory={{ id: 1 }} id={1} item={{ quantity: 1 }} name="Test1" deleteItems={false} />
 			</MemoryRouter>
 		);
 		listItemComp.getByTestId('Link');
@@ -66,7 +66,7 @@ describe('<ListItem/>', () => {
 				/>
 			</MemoryRouter>
 		);
-		const checkBox = listItemComp.getByTestId('Checkbox');
+		const checkBox = listItemComp.getByTestId('Checkbox 1');
 		fireEvent.click(checkBox);
 		expect(setItemsToDelete).toBeCalled;
 	});

@@ -7,6 +7,7 @@ import RequestOrderForm from './RequestOrderForm';
 import RestockForm from './RestockForm';
 import ItemHeaderButtons from './ItemHeaderButtons';
 import UsedStockForm from './UsedStockForm';
+import ItemBreadCrumb from './ItemBreadCrumb';
 const DrawerContainer = ({ colorMode, item }) => {
 	const [ showDrawer, setShowDrawer ] = useState();
 	const [ drawerContent, setDrawerContent ] = useState();
@@ -19,6 +20,7 @@ const DrawerContainer = ({ colorMode, item }) => {
 			<GridItem gridArea="header">
 				<Header title={item.name} description={item.desc} outlineButton="Edit item" fillButton="Add new stock">
 					<ItemHeaderButtons openDrawer={openDrawer} />
+					<ItemBreadCrumb item={item} />
 				</Header>
 			</GridItem>
 			<DrawerComp

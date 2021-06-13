@@ -13,7 +13,7 @@ const updateUsers = (newState, newUserIDs) => {
 
 export const updateUsersTC = async (dispatch, getState) => {
 	try {
-		const response = await updateUsersCall;
+		const response = await updateUsersCall();
 		const [ organizedObject, newIDs ] = changeObjectIdToDatabaseId(response);
 		console.log(organizedObject, newIDs);
 		dispatch(updateUsers(organizedObject, newIDs));

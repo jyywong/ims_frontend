@@ -1,13 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { parseJSON } from 'date-fns';
+import { parseJSON, formatDistanceToNow } from 'date-fns';
 import { Flex, Avatar, Text } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { parseHistoryChangeReason } from '../../HelperFunctions/organizeDataForStats';
-const ItemActivityItem = ({ item }) => {
+const InventoryActivityItem = ({ item }) => {
 	const user = useSelector((state) => state.users.byID[item.history_user_id]);
 	const [ action, amount ] = parseHistoryChangeReason(item);
-
 	return (
 		<React.Fragment>
 			<Flex
@@ -19,9 +18,12 @@ const ItemActivityItem = ({ item }) => {
 			>
 				<Flex alignItems="center">
 					<Avatar name={user && user.username} />
-					<Text px="5" fontSize="xx-small">
-						{parseJSON(item.history_date).toUTCString()}
-					</Text>
+					<Flex direction="column">
+						<Text px="5">{item.name}</Text>
+						<Text px="5" fontSize="xx-small">
+							{formatDistanceToNow(parseJSON(item.history_date), { addSuffix: true })}
+						</Text>
+					</Flex>
 				</Flex>
 				<Flex alignItems="center">
 					{action !== null &&
@@ -40,4 +42,4 @@ const ItemActivityItem = ({ item }) => {
 	);
 };
 
-export default ItemActivityItem;
+export default InventoryActivityItem;

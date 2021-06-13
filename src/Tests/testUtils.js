@@ -8,13 +8,15 @@ import invsReducer from '../Reducers/InvsReducer';
 import itemsReducer from '../Reducers/ItemsReducer';
 import usersReducer from '../Reducers/UsersReducer';
 import noticesReducer from '../Reducers/NoticesReducer';
+import authReducer from '../Reducers/AuthReducer';
 
 const rootReducer = combineReducers({
 	users: usersReducer,
 	labs: labsReducer,
 	inventories: invsReducer,
 	items: itemsReducer,
-	notices: noticesReducer
+	notices: noticesReducer,
+	auth: authReducer
 });
 
 function render(ui, { initialState, store = createStore(rootReducer, initialState), ...renderOptions } = {}) {
@@ -198,7 +200,14 @@ export const testState = {
 			},
 			allIDs: [ 1, 2, 3 ]
 		},
-		auth: {}
+		auth: {
+			loggedIn: false,
+			user: {
+				id: '',
+				username: '',
+				labs: []
+			}
+		}
 	}
 };
 
