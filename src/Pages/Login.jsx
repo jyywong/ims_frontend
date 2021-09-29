@@ -14,6 +14,7 @@ import {
 	AlertIcon,
 	AlertTitle,
 	AlertDescription,
+	CircularProgress,
 	CloseButton,
 	useColorMode
 } from '@chakra-ui/react';
@@ -25,6 +26,7 @@ import { GiMoon } from 'react-icons/gi';
 const Login = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const [ isLoading, setIsLoading ] = useState(false);
 	const [ hasError, setHasError ] = useState(false);
 	const [ errorMessage, setErrorMessage ] = useState('');
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -34,6 +36,7 @@ const Login = () => {
 		e.preventDefault();
 		(async () => {
 			try {
+				setIsLoading(true);
 				await dispatch(loginAttemptTC(formValues.username, formValues.password));
 				const response = await dispatch(fetchLabsTC);
 				const lastlabID = response[response.length - 1];
@@ -55,10 +58,16 @@ const Login = () => {
 					rounded="20px"
 					bg={colorMode === 'light' ? 'gray.100' : 'gray.700'}
 				>
-					<Flex direction="column" alignItems="center" justifyContent="center" mb="2">
-						<GiMoon size={60} />
-						<Heading p="5"> Log In </Heading>
-					</Flex>
+					{isLoading ? (
+						<Flex alignItems="center" justifyContent="center">
+							<CircularProgress isIndeterminate />
+						</Flex>
+					) : (
+						<Flex direction="column" alignItems="center" justifyContent="center" mb="2">
+							<GiMoon size={60} />
+							<Heading p="5"> Log In </Heading>
+						</Flex>
+					)}
 					<Box>
 						<form onSubmit={handleSubmit}>
 							<FormControl my="2">
@@ -111,6 +120,9 @@ const Login = () => {
 							</Button>
 							<Text textAlign="center" mt={3}>
 								Need an account? <Link to="/signup">Sign up!</Link>
+							</Text>
+							<Text textAlign="center" mt={1.5}>
+								Demo Username: demo | Demo Password: demopassword
 							</Text>
 						</form>
 					</Box>
